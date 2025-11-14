@@ -32,3 +32,12 @@ cache/
 # Central Node
 Central_Node_Model/central_node_ros.py
 
+# Left Knee Node
+Left_Knee_Distributed/5Kfolds
+Left_Knee_Distributed/har
+Left_Knee_Distributed/har_probs_listener_ros.py
+Left_Knee_Distributed/left_knee_node.py
+Left_Knee_Distributed/pub.py
+Left_Knee_Distributed/sub.py
+Left_Knee_Distributed/sub_probs.py
+Left_Knee_Distributed/sub_probs.py.save
