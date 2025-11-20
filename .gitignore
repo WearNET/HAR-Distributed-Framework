@@ -59,7 +59,10 @@ Left_Hand_Distributed/.left_hand_node_ros.py.swn
 Left_Hand_Distributed/.left_hand_node_ros.py.swo
 
 # Right Hand Model
-
 Right_Hand_Distributed/.metawear
 Right_Hand_Distributed/cnn_lstm_1.onnx
 Right_Hand_Distributed/har_probs_listener.py
+
+# Chest Model
+Chest_Distributed/.metawear
+Chest_Distributed/har_probs_listener.py
