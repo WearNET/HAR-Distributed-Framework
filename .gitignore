@@ -42,3 +42,11 @@ Left_Knee_Distributed/sub.py
 Left_Knee_Distributed/sub_probs.py
 Left_Knee_Distributed/sub_probs.py.save
 Left_Knee_Distributed/.metawear
+
+# Right Knee Model
+Right_Knee_Distributed/5Kfolds
+Right_Knee_Distributed/har
+Right_Knee_Distributed/har_probs_listener.py
+Right_Knee_Distributed/right_knee_node.py
+Right_Knee_Distributed/.metawear
+
