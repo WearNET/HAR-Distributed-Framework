@@ -50,3 +50,10 @@ Right_Knee_Distributed/har_probs_listener.py
 Right_Knee_Distributed/right_knee_node.py
 Right_Knee_Distributed/.metawear
 
+# Left Hand Model
+Left_Hand_Distributed/5Kfolds
+Left_Hand_Distributed/cnn_lstm_1.onnx
+Left_Hand_Distributed/har_probs_listener.py
+Left_Hand_Distributed/.metawear
+Left_Hand_Distributed/.left_hand_node_ros.py.swn
+Left_Hand_Distributed/.left_hand_node_ros.py.swo
