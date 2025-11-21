@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # left_knee_node_ros.py — Local node (l_knee) con ACC+GYRO → probs → ROS
+# left_knee_node_ros.py — Local node (l_knee) con QUAT → GUI → ROS
 
 import os
 import sys
@@ -15,8 +16,9 @@ import torch.nn as nn
 import joblib
 
 import rospy
-from har_msgs.msg import Probs  # Mensaje ROS equivalente al Probs de LCM
+from har_msgs.msg import Probs
 from std_msgs.msg import Header
+from sensor_msgs.msg import Imu 
 
 # ===================== PARÁMETROS (EDITA AQUÍ) =====================
 SENSOR_ID   = "l_knee"
@@ -27,7 +29,8 @@ K_CLASSES   = 6                                         # Número de clases
 WINDOW_SIZE = 50                                        # 50 muestras (~1s a 50Hz)
 TARGET_HZ   = 50                                        # Frecuencia de inferencia/publicación
 CONNECT_RETRIES = 8
-TOPIC_PROBS = "har/probs/left_knee"                               # Topic ROS para publicar
+TOPIC_PROBS = "har/probs/left_knee"                     # Topic ROS para publicar
+TOPIC_QUAT  = "har/imu_left_knee"                       # Topic ROS para publicar quaternion
 # ===================================================================
 
 # ---------- SDK MetaWear ----------
@@ -80,6 +83,7 @@ class LKneeNode:
         # ROS init
         rospy.init_node("left_knee_node", anonymous=False)
         self.pub = rospy.Publisher(TOPIC_PROBS, Probs, queue_size=10)
+        self.pub_quat = rospy.Publisher(TOPIC_QUAT, Imu, queue_size=10)
 
         self.sensor_id = SENSOR_ID
         self.mac = MAC_ADDR
@@ -124,6 +128,9 @@ class LKneeNode:
         self.sig_cgyr = None
         self.cb_cacc = None
         self.cb_cgyr = None
+        self.sig_quat = None
+        self.cb_quat = None
+        self._quat_toggle = False  # para submuestreo 100Hz -> ~50Hz
 
         # Sincronización parcial por timestamp (ms→ns)
         self._partial = {}
@@ -150,15 +157,19 @@ class LKneeNode:
 
         self.sig_cacc = libmetawear.mbl_mw_sensor_fusion_get_data_signal(self.dev.board, SensorFusionData.CORRECTED_ACC)
         self.sig_cgyr = libmetawear.mbl_mw_sensor_fusion_get_data_signal(self.dev.board, SensorFusionData.CORRECTED_GYRO)
+        self.sig_quat = libmetawear.mbl_mw_sensor_fusion_get_data_signal(self.dev.board, SensorFusionData.QUATERNION)
         self.cb_cacc = FnVoid_VoidP_Data(self._cb_cacc)
         self.cb_cgyr = FnVoid_VoidP_Data(self._cb_cgyr)
+        self.cb_quat = FnVoid_VoidP_Data(self._cb_quat)
         libmetawear.mbl_mw_datasignal_subscribe(self.sig_cacc, None, self.cb_cacc)
         libmetawear.mbl_mw_datasignal_subscribe(self.sig_cgyr, None, self.cb_cgyr)
+        libmetawear.mbl_mw_datasignal_subscribe(self.sig_quat, None, self.cb_quat)
 
         libmetawear.mbl_mw_sensor_fusion_enable_data(self.dev.board, SensorFusionData.CORRECTED_ACC)
         libmetawear.mbl_mw_sensor_fusion_enable_data(self.dev.board, SensorFusionData.CORRECTED_GYRO)
+        libmetawear.mbl_mw_sensor_fusion_enable_data(self.dev.board, SensorFusionData.QUATERNION)
         libmetawear.mbl_mw_sensor_fusion_start(self.dev.board)
-        rospy.loginfo(f"[{self.sensor_id}] Sensor Fusion (ACC+GYRO) iniciado.")
+        rospy.loginfo(f"[{self.sensor_id}] Sensor Fusion (ACC+GYRO+QUAT) iniciado.")
 
     def disconnect(self):
         try:
@@ -167,6 +178,8 @@ class LKneeNode:
                 libmetawear.mbl_mw_datasignal_unsubscribe(self.sig_cacc)
             if self.sig_cgyr:
                 libmetawear.mbl_mw_datasignal_unsubscribe(self.sig_cgyr)
+            if self.sig_quat:
+                libmetawear.mbl_mw_datasignal_unsubscribe(self.sig_quat)
         finally:
             self.dev.disconnect()
             rospy.loginfo(f"[{self.sensor_id}] Desconectado.")
@@ -185,6 +198,29 @@ class LKneeNode:
         p = self._partial.setdefault(ts_ns, {'acc': None, 'gyr': None})
         p['gyr'] = [g.x, g.y, g.z]
         self._try_flush_sample(ts_ns)
+
+    def _cb_quat(self, ctx: c_void_p, data: c_void_p):
+        # Submuestreo 1 de cada 2 muestras
+        self._quat_toggle = not self._quat_toggle
+        if not self._quat_toggle:
+            return
+
+        q = parse_value(data)
+        msg = Imu()
+        msg.header = Header()
+        msg.header.stamp = rospy.Time.now()
+        msg.header.frame_id = self.sensor_id
+
+        msg.orientation.w = float(q.w)
+        msg.orientation.x = float(q.x)
+        msg.orientation.y = float(q.y)
+        msg.orientation.z = float(q.z)
+        msg.orientation_covariance[0] = -1.0
+
+        msg.angular_velocity_covariance[0] = -1.0
+        msg.linear_acceleration_covariance[0] = -1.0
+
+        self.pub_quat.publish(msg)
 
     def _try_flush_sample(self, ts_ns: int):
         pack = self._partial.get(ts_ns)
