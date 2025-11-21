@@ -1,4 +1,5 @@
 # right_hand_node_ros.py — Local node (r_hand) con ACC+GYRO → probs → ROS1
+# right_hand_node_ros.py — Local node (r_hand) con QUAT → GUI → ROS
 
 import os
 import sys
@@ -15,6 +16,7 @@ import joblib
 import rospy
 from har_msgs.msg import Probs  # generado en har_msgs/msg/Probs.msg
 from std_msgs.msg import Header
+from sensor_msgs.msg import Imu
 
 # ===================== PARÁMETROS (EDITA AQUÍ) =====================
 SENSOR_ID   = "r_hand"
@@ -25,6 +27,8 @@ K_CLASSES   = 6                                         # Número de clases
 WINDOW_SIZE = 50                                        # 50 muestras (~1s a 50Hz)
 TARGET_HZ   = 50                                        # Frecuencia de inferencia/publicación
 CONNECT_RETRIES = 8
+TOPIC_PROBS = "har/probs/right_hand"                     # Topic ROS para publicar
+TOPIC_QUAT  = "har/imu_right_hand"                       # Topic ROS para publicar quaternion
 # ===================================================================
 
 # ---------- SDK MetaWear ----------
@@ -84,7 +88,8 @@ class RHandNode:
         self.buffer = deque(maxlen=self.window_size)
 
         # ROS Publisher
-        self.pub = rospy.Publisher("har/probs/right_hand", Probs, queue_size=10)
+        self.pub = rospy.Publisher(TOPIC_PROBS, Probs, queue_size=10)
+        self.pub_quat = rospy.Publisher(TOPIC_QUAT, Imu, queue_size=10)
         self.seq = 0
 
         # Modelo (input_dim=6 para acc+gyro)
@@ -117,6 +122,9 @@ class RHandNode:
         self.sig_cgyr = None
         self.cb_cacc = None
         self.cb_cgyr = None
+        self.sig_quat = None
+        self.cb_quat = None
+        self._quat_toggle = False  # para submuestreo 100Hz -> ~50Hz
 
         # Diccionario temporal para unir acc+gyro por timestamp
         self._partial = {}
@@ -147,21 +155,25 @@ class RHandNode:
         # Señales corregidas
         self.sig_cacc = libmetawear.mbl_mw_sensor_fusion_get_data_signal(self.dev.board, SensorFusionData.CORRECTED_ACC)
         self.sig_cgyr = libmetawear.mbl_mw_sensor_fusion_get_data_signal(self.dev.board, SensorFusionData.CORRECTED_GYRO)
+        self.sig_quat = libmetawear.mbl_mw_sensor_fusion_get_data_signal(self.dev.board, SensorFusionData.QUATERNION)
 
-        if not self.sig_cacc or not self.sig_cgyr:
+        if not self.sig_cacc or not self.sig_cgyr or not self.sig_quat:
             raise RuntimeError("No se pudieron obtener las señales de ACC/GYRO.")
 
         # Callbacks
         self.cb_cacc = FnVoid_VoidP_Data(self._cb_cacc)
         self.cb_cgyr = FnVoid_VoidP_Data(self._cb_cgyr)
+        self.cb_quat = FnVoid_VoidP_Data(self._cb_quat)
         libmetawear.mbl_mw_datasignal_subscribe(self.sig_cacc, None, self.cb_cacc)
         libmetawear.mbl_mw_datasignal_subscribe(self.sig_cgyr, None, self.cb_cgyr)
+        libmetawear.mbl_mw_datasignal_subscribe(self.sig_quat, None, self.cb_quat)
 
         # Habilitar y arrancar (dos streams)
         libmetawear.mbl_mw_sensor_fusion_enable_data(self.dev.board, SensorFusionData.CORRECTED_ACC)
         libmetawear.mbl_mw_sensor_fusion_enable_data(self.dev.board, SensorFusionData.CORRECTED_GYRO)
+        libmetawear.mbl_mw_sensor_fusion_enable_data(self.dev.board, SensorFusionData.QUATERNION)
         libmetawear.mbl_mw_sensor_fusion_start(self.dev.board)
-        rospy.loginfo(f"[{self.sensor_id}] Sensor Fusion (ACC+GYRO) iniciado a ~50Hz.")
+        rospy.loginfo(f"[{self.sensor_id}] Sensor Fusion (ACC+GYRO+QUAT) iniciado a ~50Hz.")
 
     def disconnect(self):
         try:
@@ -170,6 +182,8 @@ class RHandNode:
                 libmetawear.mbl_mw_datasignal_unsubscribe(self.sig_cacc)
             if self.sig_cgyr:
                 libmetawear.mbl_mw_datasignal_unsubscribe(self.sig_cgyr)
+            if self.sig_quat:
+                libmetawear.mbl_mw_datasignal_unsubscribe(self.sig_quat)
         finally:
             self.dev.disconnect()
             rospy.loginfo(f"[{self.sensor_id}] Desconectado.")
@@ -195,15 +209,35 @@ class RHandNode:
         except Exception:
             pass
 
+    def _cb_quat(self, ctx: c_void_p, data: c_void_p):
+        # Submuestreo 1 de cada 2 muestras
+        self._quat_toggle = not self._quat_toggle
+        if not self._quat_toggle:
+            return
+
+        q = parse_value(data)
+        msg = Imu()
+        msg.header = Header()
+        msg.header.stamp = rospy.Time.now()
+        msg.header.frame_id = self.sensor_id
+
+        msg.orientation.w = float(q.w)
+        msg.orientation.x = float(q.x)
+        msg.orientation.y = float(q.y)
+        msg.orientation.z = float(q.z)
+        msg.orientation_covariance[0] = -1.0
+
+        msg.angular_velocity_covariance[0] = -1.0
+        msg.linear_acceleration_covariance[0] = -1.0
+
+        self.pub_quat.publish(msg)
+
     def _try_flush_sample(self, ts_ns: int):
         pack = self._partial.get(ts_ns)
         if pack and pack['acc'] is not None and pack['gyr'] is not None:
-            sample = pack['acc'] + pack['gyr']     # [ax,ay,az,gx,gy,gz]
+            sample = pack['acc'] + pack['gyr']
             self.buffer.append((ts_ns, sample))
-            # limpieza de ese timestamp
             self._partial.pop(ts_ns, None)
-
-        # limpia entradas muy viejas (>50ms)
         old_keys = [k for k in list(self._partial.keys()) if ts_ns - k > int(5e7)]
         for k in old_keys:
             self._partial.pop(k, None)
@@ -236,8 +270,6 @@ class RHandNode:
                         probs = torch.softmax(logits, dim=-1).cpu().numpy().ravel()
 
                     self._publish_probs(t0_ns, probs)
-
-                # Mantén ~TARGET_HZ
                 dt = time.time() - t0
                 sleep_left = max(0.0, self.period - dt)
                 if sleep_left > 0:
@@ -262,7 +294,7 @@ class RHandNode:
 
 # ------------------ main ------------------
 if __name__ == "__main__":
-    rospy.init_node("r_hand_node", anonymous=False)
+    rospy.init_node("right_hand_node", anonymous=False)
     node = RHandNode()
     try:
         node.connect_and_config()
