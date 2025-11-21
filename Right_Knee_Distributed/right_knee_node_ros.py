@@ -1,4 +1,4 @@
-# right_knee_node_ros.py — Local node (r_knee) con QUATERNION → probs → ROS1
+# right_knee_node_ros.py — Local node (r_knee) con QUATERNION → probs → ROS1 and GUI
 
 import os
 import sys
@@ -15,6 +15,7 @@ import joblib
 import rospy
 from har_msgs.msg import Probs  # generado en har_msgs/msg/Probs.msg
 from std_msgs.msg import Header
+from sensor_msgs.msg import Imu 
 
 # ===================== PARÁMETROS (EDITA AQUÍ) =====================
 SENSOR_ID   = "r_knee"
@@ -25,6 +26,8 @@ K_CLASSES   = 6                                         # Número de clases
 WINDOW_SIZE = 50                                        # 50 muestras (~1s a 50Hz)
 TARGET_HZ   = 50                                        # Frecuencia de inferencia/publicación
 CONNECT_RETRIES = 8
+TOPIC_PROBS = "har/probs/right_knee"                     # Topic ROS para publicar
+TOPIC_QUAT  = "har/imu_right_knee"                       # Topic ROS para publicar quaternion
 # ===================================================================
 
 # ---------- SDK MetaWear ----------
@@ -84,7 +87,8 @@ class RKneeNode:
         self.buffer = deque(maxlen=self.window_size)
 
         # ROS Publisher
-        self.pub = rospy.Publisher("har/probs/right_knee", Probs, queue_size=10)
+        self.pub = rospy.Publisher(TOPIC_PROBS, Probs, queue_size=10)
+        self.pub_quat = rospy.Publisher(TOPIC_QUAT, Imu, queue_size=10)
         self.seq = 0
 
         # Modelo
@@ -174,6 +178,23 @@ class RKneeNode:
                 sample = [q.w, q.x, q.y, q.z]  # 4 features
                 self.buffer.append((ts_ns, sample))
                 self.last_keep_ns = ts_ns
+
+                msg_imu = Imu()
+                msg_imu.header = Header()
+                msg_imu.header.stamp = rospy.Time.now()
+                msg_imu.header.frame_id = self.sensor_id
+
+                msg_imu.orientation.w = float(q.w)
+                msg_imu.orientation.x = float(q.x)
+                msg_imu.orientation.y = float(q.y)
+                msg_imu.orientation.z = float(q.z)
+                msg_imu.orientation_covariance[0] = -1.0 
+                
+                msg_imu.angular_velocity_covariance[0] = -1.0
+                msg_imu.linear_acceleration_covariance[0] = -1.0
+
+                self.pub_quat.publish(msg_imu)
+
         except Exception:
             pass
 
@@ -206,7 +227,6 @@ class RKneeNode:
 
                     self._publish_probs(t0_ns, probs)
 
-                # Mantén ~TARGET_HZ (no bloquea callbacks BLE)
                 dt = time.time() - t0
                 sleep_left = max(0.0, self.period - dt)
                 if sleep_left > 0:
@@ -231,8 +251,7 @@ class RKneeNode:
 
 # ------------------ main ------------------
 if __name__ == "__main__":
-    # IMPORTANTE: inicia el nodo ROS antes de crear publicaciones
-    rospy.init_node("l_knee_node", anonymous=False)
+    rospy.init_node("right_knee_node", anonymous=False)
     node = RKneeNode()
     try:
         node.connect_and_config()
