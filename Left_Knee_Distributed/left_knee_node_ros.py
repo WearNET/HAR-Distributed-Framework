@@ -17,7 +17,7 @@ import joblib
 
 import rospy
 from har_msgs.msg import Probs
-from std_msgs.msg import Header
+from std_msgs.msg import Header, Empty
 from sensor_msgs.msg import Imu 
 
 # ===================== PARÁMETROS (EDITA AQUÍ) =====================
@@ -96,6 +96,16 @@ class LKneeNode:
 
         # Secuencia
         self.seq = 0
+
+        # --- START TOPICS SAME TIME ---
+        self.started = False              
+        self.t0_experiment_ns = None
+        self.start_sub = rospy.Subscriber(
+            "/har/start",
+            Empty,
+            self._start_cb,
+            queue_size=1
+        )
 
         # Modelo
         self.model = CNN_LSTM_Sensor(input_dim=6, output_dim=self.K)
@@ -184,6 +194,14 @@ class LKneeNode:
             self.dev.disconnect()
             rospy.loginfo(f"[{self.sensor_id}] Desconectado.")
 
+    # ---------- Callback de inicio (/har/start) ----------
+    def _start_cb(self, msg: Empty):
+        self.started = True
+        self.t0_experiment_ns = rospy.Time.now().to_nsec()
+        self.seq = 0
+        self.buffer.clear()
+        rospy.loginfo(f"[{self.sensor_id}] START recibido -> t0_experiment_ns={self.t0_experiment_ns}")
+
     # ---------- Callbacks ----------
     def _cb_cacc(self, ctx: c_void_p, data: c_void_p):
         a = parse_value(data)
@@ -235,8 +253,13 @@ class LKneeNode:
     # ---------- Loop: ventana → inferencia → publicar ----------
     def run(self):
         rospy.loginfo(f"[{self.sensor_id}] Ejecutando… Ctrl+C para salir.")
+        rate = rospy.Rate(TARGET_HZ)
         try:
             while not rospy.is_shutdown():
+                if not self.started:
+                    rate.sleep()
+                    continue
+
                 t0 = time.time()
                 if len(self.buffer) >= self.window_size:
                     window = list(self.buffer)[-self.window_size:]
