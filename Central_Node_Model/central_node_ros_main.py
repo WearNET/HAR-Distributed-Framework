@@ -21,7 +21,7 @@ TOPIC_R_HAND     = "/har/probs/right_hand"
 TOPIC_L_HAND     = "/har/probs/left_hand"
 TOPIC_R_KNEE     = "/har/probs/right_knee"
 
-SYNC_SLOP_SEC = 0.1
+SYNC_SLOP_SEC = 0.05
 QUEUE_SIZE    = 10
 
 # ============ MODELO CENTRAL =============
