@@ -9,7 +9,7 @@ HAR Distributed System for the Classification of a Finite Set of Human Activitie
   title="Distributed Computing Wearable System Overview" 
   />
 
-1. **[Central Node Model](Central_Node_Model)**  
+## 1. **[Central Node Model](Central_Node_Model)**  
 This node is responsible for executing the central neural network that combines all the probabilities from each of the sensors used as input for the MLP and generates the overall classification of the activity performed. It also has the script responsible for communicating with the GUI.
 
 2. **[Chest Distributed](Chest_Distributed)**  
