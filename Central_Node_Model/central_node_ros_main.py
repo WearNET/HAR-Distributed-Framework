@@ -10,7 +10,7 @@ import torch.nn as nn
 import numpy as np
 
 from har_msgs.msg import Probs
-from std_msgs.msg import Header
+from std_msgs.msg import Header, Bool
 import message_filters
 
 # ================= CONFIGURACIÓN =================
@@ -23,6 +23,7 @@ TOPIC_L_KNEE     = "/har/probs/left_knee"
 TOPIC_R_HAND     = "/har/probs/right_hand"
 TOPIC_L_HAND     = "/har/probs/left_hand"
 TOPIC_R_KNEE     = "/har/probs/right_knee"
+STATE_TOPIC      = "/har/start"
 
 # [ Chest, Left Knee, Right Hand, Left Hand, Right Knee ]
 SENSOR_ORDER = ["chest", "lknee", "rhand", "lhand", "rknee"]
@@ -82,6 +83,11 @@ class CentralNode(object):
         self.pub = rospy.Publisher(PUB_TOPIC, Probs, queue_size=10)
         self._lock = threading.Lock()
 
+        self.run_enabled = False  # inicia detenido hasta recibir RUN=True (latched)
+        self.state_sub = rospy.Subscriber(STATE_TOPIC, Bool, self._start_cb, queue_size=1)
+
+        rospy.loginfo("[central] Esperando estado en %s (latched).", STATE_TOPIC)
+
         # Cache por sensor (para ZOH)
         self.last_probs = {s: None for s in SENSOR_ORDER}   # np.array shape (K,)
         self.last_rx_t  = {s: None for s in SENSOR_ORDER}   # tiempo local (central) de recepción
@@ -127,6 +133,36 @@ class CentralNode(object):
 
         rospy.loginfo("[central] Publicando %s. Modo inicial: SYNC (ATS).", PUB_TOPIC)
 
+    def _start_cb(self, msg: Bool):
+        now_sec = rospy.Time.now().to_sec()
+        new_state = bool(msg.data)
+
+        with self._lock:
+            if new_state == self.run_enabled:
+                return
+
+            self.run_enabled = new_state
+
+            if not self.run_enabled:
+                # STOP: pausar publicación y "congelar" con estado limpio
+                self.mode = "SYNC"             # Una vez vuelva el sensor usamos SYNC al volver
+                self.good_since = None
+                self.last_sync_cb_t = None     # fuerza watchdog a esperar ATS nuevamente
+                # Opc: Borramos cache ZOH para que no se usen datos viejos al reanudar
+                for s in SENSOR_ORDER:
+                    self.last_probs[s] = None
+                    self.last_rx_t[s]  = None
+
+                rospy.logwarn("[central] STOP recibido -> no se publicará /har/probs/global.")
+            else:
+                # START/RUN: reanudar; reiniciar temporizadores de failover para evitar saltos
+                self.t0 = now_sec
+                self.mode = "SYNC"
+                self.good_since = None
+                self.last_sync_cb_t = None      # Dejamos last_sync_cb_t=None para que el nodo espere ATS y no haga failover inmediato
+
+                rospy.loginfo("[central] RUN=True recibido -> reanudando. Preferencia: ATS(SYNC).")
+
     # Callback para ZOH(Uniform)
     def _cb_cache(self, msg, sensor_id):
         p = np.array(msg.probs, dtype=np.float32)
@@ -150,6 +186,9 @@ class CentralNode(object):
     # ATS callback (SYNC)
     def callback_sync(self, msg_chest, msg_lhand, msg_rhand, msg_lknee, msg_rknee):
         now_sec = rospy.Time.now().to_sec()
+        with self._lock:
+            if not self.run_enabled:
+                return
 
         # Registrar que ATS está vivo (clave para failover/recover)
         with self._lock:
@@ -272,6 +311,10 @@ class CentralNode(object):
     # Timer watchdog + ZOH publish
     def _timer_cb(self, _evt):
         now_sec = rospy.Time.now().to_sec()
+        with self._lock:
+            if not self.run_enabled:
+                return
+
         with self._lock:
             # Failover: si ATS no ha disparado recientemente
             if self.mode == "SYNC":
