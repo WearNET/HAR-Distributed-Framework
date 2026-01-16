@@ -14,7 +14,7 @@ import joblib
 # ROS
 import rospy
 from har_msgs.msg import Probs  # generado en har_msgs/msg/Probs.msg
-from std_msgs.msg import Header, Empty
+from std_msgs.msg import Header, Empty, Bool
 from sensor_msgs.msg import Imu
 
 # ===================== PARÁMETROS (EDITA AQUÍ) =====================
@@ -91,12 +91,11 @@ class LHandNode:
         self.pub_quat = rospy.Publisher(TOPIC_QUAT, Imu, queue_size=10)
         self.seq = 0
 
-        # --- START TOPICS SAME TIME ---
-        self.started = False              
-        self.t0_experiment_ns = None
-        self.start_sub = rospy.Subscriber(
+        # # --- START TOPICS SAME TIME ---
+        self.started = False
+        self.state_sub = rospy.Subscriber(
             "/har/start",
-            Empty,
+            Bool,
             self._start_cb,
             queue_size=1
         )
@@ -177,13 +176,18 @@ class LHandNode:
             self.dev.disconnect()
             rospy.loginfo(f"[{self.sensor_id}] Desconectado.")
 
-    # ---------- Callback de inicio (/har/start) ----------
-    def _start_cb(self, msg: Empty):
-        self.started = True
-        self.t0_experiment_ns = rospy.Time.now().to_nsec()
-        self.seq = 0
-        self.buffer.clear()
-        rospy.loginfo(f"[{self.sensor_id}] START recibido -> t0_experiment_ns={self.t0_experiment_ns}")
+    # # ---------- Callback de inicio (/har/start) ----------
+    def _start_cb(self, msg: Bool):
+        if msg.data:
+            # START
+            self.started = True
+            self.seq = 0
+            self.buffer.clear()
+            rospy.loginfo(f"[{self.sensor_id}] RUN=True (START) recibido")
+        else:
+            # STOP
+            self.started = False
+            rospy.loginfo(f"[{self.sensor_id}] RUN=False (STOP) recibido")
 
     # ---------- Callback QUATERNION (100Hz) con downsampling a 50Hz ----------
     def _cb_quat(self, ctx: c_void_p, data: c_void_p):
@@ -229,7 +233,7 @@ class LHandNode:
                 t0 = time.time()
                 if len(self.buffer) >= self.window_size:
                     window = list(self.buffer)[-self.window_size:]            # [(ts, [4]), ...] × 50
-                    t0_ns = window[0][0]
+                    t0_ns = window[-1][0]
                     X = np.array([s for (_, s) in window], dtype=np.float32)  # (50, 4)
 
                     # Escalado (4 columnas [w, x, y, z])
