@@ -3,6 +3,7 @@
 
 import os
 import threading
+import time
 
 import rospy
 import torch
@@ -81,6 +82,8 @@ class CentralNode(object):
     def __init__(self):
         rospy.loginfo("[central] Iniciando nodo central ATS(SYNC) + ZOH(Uniform) con failover/recover...")
         self.pub = rospy.Publisher(PUB_TOPIC, Probs, queue_size=10)
+        self.global_seq = 0
+
         self._lock = threading.Lock()
 
         self.run_enabled = False  # inicia detenido hasta recibir RUN=True (latched)
@@ -91,6 +94,9 @@ class CentralNode(object):
         # Cache por sensor (para ZOH)
         self.last_probs = {s: None for s in SENSOR_ORDER}   # np.array shape (K,)
         self.last_rx_t  = {s: None for s in SENSOR_ORDER}   # tiempo local (central) de recepción
+        self.last_t0_ns = {s: None for s in SENSOR_ORDER}   # t0_ns del último msg de cada sensor
+        self.last_drop  = {s: None for s in SENSOR_ORDER}   # dropped_pct del último msg de cada sensor
+        self.last_send_ns = {s: None for s in SENSOR_ORDER}  # t_send_ns último por sensor
 
         self.K = None
         self.model = None
@@ -182,6 +188,9 @@ class CentralNode(object):
 
             self.last_probs[sensor_id] = p
             self.last_rx_t[sensor_id]  = float(now_sec)
+            self.last_t0_ns[sensor_id] = int(msg.t0_ns) if hasattr(msg, "t0_ns") else None
+            self.last_drop[sensor_id]  = float(msg.dropped_pct) if hasattr(msg, "dropped_pct") else None
+            self.last_send_ns[sensor_id] = int(msg.t_send_ns) if hasattr(msg, "t_send_ns") else None
 
     # ATS callback (SYNC)
     def callback_sync(self, msg_chest, msg_lhand, msg_rhand, msg_lknee, msg_rknee):
@@ -235,8 +244,36 @@ class CentralNode(object):
         # [ Chest (AG), Left Knee (AG), Right Hand (AG), Left Hand (Q), Right Knee (Q) ]
         x = np.concatenate([p_chest, p_lknee, p_rhand, p_lhand, p_rknee], axis=0) 
 
+        # ==== t0_ns global (SYNC) ====
+        t0_candidates = []
+        for m in [msg_chest, msg_lhand, msg_rhand, msg_lknee, msg_rknee]:
+            if hasattr(m, "t0_ns") and int(m.t0_ns) > 0:
+                t0_candidates.append(int(m.t0_ns))
+
+        if len(t0_candidates) > 0:
+            t0_ns_global = max(t0_candidates)
+        else:
+            # fallback a header.stamp si t0_ns no está seteado en locales
+            stamps_ns = [
+                int(msg_chest.header.stamp.to_nsec()),
+                int(msg_lhand.header.stamp.to_nsec()),
+                int(msg_rhand.header.stamp.to_nsec()),
+                int(msg_lknee.header.stamp.to_nsec()),
+                int(msg_rknee.header.stamp.to_nsec()),
+            ]
+            t0_ns_global = max(stamps_ns)
+
+        t_send_locals = [
+            msg_chest.t_send_ns,
+            msg_lhand.t_send_ns,
+            msg_rhand.t_send_ns,
+            msg_lknee.t_send_ns,
+            msg_rknee.t_send_ns,
+        ]
+        t_last_local_send_ns = max(t_send_locals)
+
         # Inferencia + publish
-        self._infer_and_publish(x, mode_tag="SYNC")
+        self._infer_and_publish(x, mode_tag="SYNC", t0_ns=t0_ns_global, dropped_pct=0.0, t_last_local_send_ns=t_last_local_send_ns)
 
         # Debug: span de stamps del ATS (solo diagnóstico)
         stamps = np.array([
@@ -252,6 +289,10 @@ class CentralNode(object):
     # ZOH builder
     def _build_input_zoh_uniform(self, now_sec):
         vecs = []
+        t0_used = []
+        send_used = []
+        degraded = 0
+        total = len(SENSOR_ORDER)
         statuses = {}
         ages = {}
 
@@ -263,23 +304,36 @@ class CentralNode(object):
                 v = np.ones((self.K,), dtype=np.float32) / float(self.K)
                 statuses[s] = "uniform_never"
                 ages[s] = None
+                degraded += 1
             else:
                 age = float(now_sec - t)
                 ages[s] = age
                 if age <= ZOH_MAX_HOLD_SEC:
                     v = p
                     statuses[s] = "zoh" if age > FRESH_MAX_AGE_SEC else "fresh"
+                    # Usamos datos reales (fresh o zoh), guardamos t0/t_send para trazabilidad
+                    if self.last_t0_ns[s] is not None and int(self.last_t0_ns[s]) > 0:
+                        t0_used.append(int(self.last_t0_ns[s]))
+                    if self.last_send_ns[s] is not None and int(self.last_send_ns[s]) > 0:
+                        send_used.append(int(self.last_send_ns[s]))
+
+                    if statuses[s] != "fresh":
+                        degraded += 1
                 else:
                     v = np.ones((self.K,), dtype=np.float32) / float(self.K)
                     statuses[s] = "uniform_hold_exceeded"
+                    degraded += 1
 
             vecs.append(v)
 
         x = np.concatenate(vecs, axis=0)
-        return x, statuses, ages
+        t0_ns_global = max(t0_used) if len(t0_used)>0 else int(time.time_ns())
+        t_last_local_send_ns = max(send_used) if len(send_used) > 0 else 0
+        dropped_pct_global = 100.0 * degraded / float(total)
+        return x, statuses, ages, t0_ns_global, dropped_pct_global, t_last_local_send_ns
 
     # Inference + publish
-    def _infer_and_publish(self, x, mode_tag):   
+    def _infer_and_publish(self, x, mode_tag, t0_ns, dropped_pct, t_last_local_send_ns):   
         if self.model is None:
             self.input_dim = x.shape[0]
             self.num_classes = self.K
@@ -295,8 +349,18 @@ class CentralNode(object):
         out_msg = Probs()
         out_msg.header = Header()
         out_msg.header.stamp = rospy.Time.now()
-        out_msg.sensor_id = "central"
+        out_msg.sensor_id = f"central_{mode_tag.lower()}"
+        out_msg.seq = int(self.global_seq)
+        self.global_seq += 1
+        
+        out_msg.K = int(self.K)
+        out_msg.t0_ns = int(t0_ns)
+        
         out_msg.probs = probs_global.astype(np.float32).tolist()
+        out_msg.dropped_pct = float(dropped_pct)
+        out_msg.t_last_local_send_ns = int(t_last_local_send_ns)
+        out_msg.t_send_ns = int(time.time_ns())
+        
         self.pub.publish(out_msg)
 
         pred_class = int(np.argmax(probs_global))
@@ -339,10 +403,10 @@ class CentralNode(object):
             if self.K is None:
                 return
 
-            x, statuses, ages = self._build_input_zoh_uniform(now_sec)
+            x, statuses, ages, t0_ns_global, dropped_pct_global, t_last_local_send_ns = self._build_input_zoh_uniform(now_sec)
 
         # Inferencia + publish en ZOH (fuera del lock)
-        self._infer_and_publish(x, mode_tag="ZOH")
+        self._infer_and_publish(x, mode_tag="ZOH", t0_ns=t0_ns_global, dropped_pct=dropped_pct_global, t_last_local_send_ns=t_last_local_send_ns)
 
         st_csv = ",".join(
             f"{s}:{statuses[s]}:{(-1.0 if ages[s] is None else ages[s]):.3f}"
