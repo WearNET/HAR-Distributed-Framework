@@ -131,7 +131,7 @@ class LHandNode:
         self.scaler = joblib.load(SCALER_PATH)
 
         # MetaWear
-        self.dev = MetaWear(self.mac, hci_mac="00:E0:5C:48:01:63")
+        self.dev = MetaWear(self.mac, hci_mac="00:E0:5C:48:01:70")
         self.sig_quat = None
         self.cb_quat = None
 
