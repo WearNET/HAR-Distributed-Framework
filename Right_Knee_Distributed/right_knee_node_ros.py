@@ -131,7 +131,7 @@ class RKneeNode:
         self.scaler = joblib.load(SCALER_PATH)
 
         # MetaWear
-        self.dev = MetaWear(self.mac, hci_mac="5C:F3:70:AB:34:F7") #00:E0:5C:48:00:F2
+        self.dev = MetaWear(self.mac, hci_mac="54:EF:33:9E:19:F8")
         self.sig_quat = None
         self.cb_quat = None
 

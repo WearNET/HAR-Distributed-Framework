@@ -139,7 +139,7 @@ class LKneeNode:
         self.scaler = joblib.load(SCALER_PATH)
 
         # MetaWear
-        self.dev = MetaWear(self.mac, hci_mac="00:E0:5C:48:01:70")
+        self.dev = MetaWear(self.mac, hci_mac="54:EF:33:9B:83:78")
         self.sig_cacc = None
         self.sig_cgyr = None
         self.cb_cacc = None
