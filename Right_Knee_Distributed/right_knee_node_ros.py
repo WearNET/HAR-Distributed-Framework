@@ -3,6 +3,8 @@
 import os
 import sys
 import time
+import csv
+from datetime import datetime
 from collections import deque
 from ctypes import c_void_p
 
@@ -28,6 +30,10 @@ TARGET_HZ   = 50                                        # Frecuencia de inferenc
 CONNECT_RETRIES = 8
 TOPIC_PROBS = "har/probs/right_knee"                     # Topic ROS para publicar
 TOPIC_QUAT  = "har/imu_right_knee"                       # Topic ROS para publicar quaternion
+
+# ---- CSV logging (ventana + probs) ----
+LOG_DIR = "./logs"
+LOG_RAW_AND_PROBS = True
 # ===================================================================
 
 # ---------- SDK MetaWear ----------
@@ -125,13 +131,103 @@ class RKneeNode:
         self.scaler = joblib.load(SCALER_PATH)
 
         # MetaWear
-        self.dev = MetaWear(self.mac)
+        self.dev = MetaWear(self.mac, hci_mac="5C:F3:70:AB:34:F7") #00:E0:5C:48:00:F2
         self.sig_quat = None
         self.cb_quat = None
 
         # Downsampling 100Hz → 50Hz
         self.last_keep_ns = None
         self.min_delta_ns = int(1e9 / 50)  # 20 ms
+
+        # -------- CSV logger (abre en START, cierra en STOP) --------
+        self.log_enabled = bool(LOG_RAW_AND_PROBS)
+        self.csv_f = None
+        self.csv_w = None
+        self.csv_path = None
+        self.run_id = 0  # incrementa en cada START
+        if self.log_enabled:
+            os.makedirs(LOG_DIR, exist_ok=True)
+
+    # ---------- CSV helpers ----------
+    def _open_csv_for_run(self):
+        if not self.log_enabled:
+            return
+        if self.csv_f:
+            self._close_csv_for_run()
+
+        self.run_id += 1
+        ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+        self.csv_path = os.path.join(
+            LOG_DIR,
+            f"{self.sensor_id}_run{self.run_id:03d}_{ts}_raw_window_probs.csv"
+        )
+
+        self.csv_f = open(self.csv_path, "w", newline="")
+        self.csv_w = csv.writer(self.csv_f)
+
+        header = [
+            "date", "time",
+            "sensor_id", "run_id", "seq",
+            "t0_ns", "t_send_ns", "ros_stamp_ns",
+            "window_size", "K"
+        ]
+
+        # ventana cruda flatten: raw_0_w ... raw_49_z
+        for i in range(self.window_size):
+            header += [f"raw_{i}_w", f"raw_{i}_x", f"raw_{i}_y", f"raw_{i}_z"]
+
+        # ventana escalada flatten: scl_0_w ... scl_49_z
+        for i in range(self.window_size):
+            header += [f"scl_{i}_w", f"scl_{i}_x", f"scl_{i}_y", f"scl_{i}_z"]
+
+        # probs
+        for k in range(self.K):
+            header += [f"p{k}"]
+
+        self.csv_w.writerow(header)
+        self.csv_f.flush()
+        rospy.loginfo(f"[{self.sensor_id}] CSV abierto (START) -> {self.csv_path}")
+
+    def _close_csv_for_run(self):
+        try:
+            if self.csv_f:
+                self.csv_f.flush()
+                self.csv_f.close()
+                rospy.loginfo(f"[{self.sensor_id}] CSV cerrado (STOP) -> {self.csv_path}")
+        finally:
+            self.csv_f = None
+            self.csv_w = None
+            self.csv_path = None
+
+    def _log_window_and_probs(self, seq: int, t0_ns: int, probs_np: np.ndarray, X_raw: np.ndarray, X_scaled: np.ndarray):
+        if not self.csv_w:
+            return
+        try:
+            now = datetime.now()
+            date_str = now.strftime("%Y-%m-%d")
+            time_str = now.strftime("%H:%M:%S.%f")[:-3]  # ms
+
+            ros_stamp_ns = int(rospy.Time.now().to_nsec())
+            t_send_ns = int(time.time_ns())
+
+            row = [
+                date_str, time_str,
+                self.sensor_id, int(self.run_id), int(seq),
+                int(t0_ns), int(t_send_ns), int(ros_stamp_ns),
+                int(self.window_size), int(self.K)
+            ]
+
+            row += [float(v) for v in X_raw.reshape(-1)]
+            row += [float(v) for v in X_scaled.reshape(-1)]
+            row += [float(x) for x in probs_np.ravel()]
+
+            self.csv_w.writerow(row)
+
+            # flush cada 10 filas
+            if (seq % 10) == 0 and self.csv_f:
+                self.csv_f.flush()
+        except Exception as e:
+            rospy.logwarn(f"[{self.sensor_id}] CSV log error: {e}")
 
     # ---------- BLE / Sensor Fusion ----------
     def connect_and_config(self):
@@ -173,21 +269,27 @@ class RKneeNode:
             if self.sig_quat:
                 libmetawear.mbl_mw_datasignal_unsubscribe(self.sig_quat)
         finally:
+            self._close_csv_for_run()
             self.dev.disconnect()
             rospy.loginfo(f"[{self.sensor_id}] Desconectado.")
 
     # ---------- Callback de inicio (/har/start) ----------
     def _start_cb(self, msg: Bool):
-        if msg.data:
+        if msg.data and not self.started:
             # START
             self.started = True
             self.seq = 0
             self.buffer.clear()
+            self.last_keep_ns = None
+            self._open_csv_for_run()
             rospy.loginfo(f"[{self.sensor_id}] RUN=True (START) recibido")
-        else:
+        elif (not msg.data) and self.started:
             # STOP
             self.started = False
+            self._close_csv_for_run()
             rospy.loginfo(f"[{self.sensor_id}] RUN=False (STOP) recibido")
+        else:
+            pass
 
     # ---------- Callback QUATERNION (100Hz) con downsampling a 50Hz ----------
     def _cb_quat(self, ctx: c_void_p, data: c_void_p):
@@ -231,7 +333,7 @@ class RKneeNode:
                     continue
 
                 t0 = time.time()
-                if len(self.buffer) >= self.window_size:
+                if len(self.buffer) >= self.window_size and self.csv_w is not None:
                     window = list(self.buffer)[-self.window_size:]            # [(ts, [4]), ...] × 50
                     t0_ns = window[-1][0]
                     X = np.array([s for (_, s) in window], dtype=np.float32)  # (50, 4)
@@ -251,6 +353,9 @@ class RKneeNode:
                         logits = self.model(X_t)
                         probs = torch.softmax(logits, dim=-1).cpu().numpy().ravel()
 
+                    if self.log_enabled:
+                        self._log_window_and_probs(self.seq, t0_ns, probs, X, X_scaled)
+                      
                     self._publish_probs(t0_ns, probs)
 
                 dt = time.time() - t0

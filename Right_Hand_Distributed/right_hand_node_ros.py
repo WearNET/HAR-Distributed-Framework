@@ -1,9 +1,12 @@
 # right_hand_node_ros.py — Local node (r_hand) con ACC+GYRO → probs → ROS1
 # right_hand_node_ros.py — Local node (r_hand) con QUAT → GUI → ROS
+# + CSV logging: ventana cruda + ventana escalada + probs (1 fila por inferencia)
 
 import os
 import sys
 import time
+import csv
+from datetime import datetime
 from collections import deque
 from ctypes import c_void_p
 
@@ -29,6 +32,10 @@ TARGET_HZ   = 50                                        # Frecuencia de inferenc
 CONNECT_RETRIES = 8
 TOPIC_PROBS = "har/probs/right_hand"                     # Topic ROS para publicar
 TOPIC_QUAT  = "har/imu_right_hand"                       # Topic ROS para publicar quaternion
+
+# ---- CSV logging (ventana + probs) ----
+LOG_DIR = "./logs"
+LOG_RAW_AND_PROBS = True       # ON/OFF
 # ===================================================================
 
 # ---------- SDK MetaWear ----------
@@ -126,7 +133,7 @@ class RHandNode:
         self.scaler = joblib.load(SCALER_PATH)
 
         # MetaWear
-        self.dev = MetaWear(self.mac)
+        self.dev = MetaWear(self.mac, hci_mac="00:E0:5C:48:06:BD")
         self.sig_cacc = None
         self.sig_cgyr = None
         self.cb_cacc = None
@@ -137,6 +144,101 @@ class RHandNode:
 
         # Diccionario temporal para unir acc+gyro por timestamp
         self._partial = {}
+
+        # -------- CSV logger (abre en START, cierra en STOP) --------
+        self.log_enabled = bool(LOG_RAW_AND_PROBS)
+        self.csv_f = None
+        self.csv_w = None
+        self.csv_path = None
+        self.run_id = 0  # incrementa en cada START
+
+        if self.log_enabled:
+            os.makedirs(LOG_DIR, exist_ok=True)
+
+    # ---------- CSV helpers ----------
+    def _open_csv_for_run(self):
+        if not self.log_enabled:
+            return
+        if self.csv_f:
+            # si por alguna razón estaba abierto, ciérralo
+            self._close_csv_for_run()
+
+        self.run_id += 1
+        ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+        self.csv_path = os.path.join(
+            LOG_DIR,
+            f"{self.sensor_id}_run{self.run_id:03d}_{ts}_raw_window_probs.csv"
+        )
+
+        self.csv_f = open(self.csv_path, "w", newline="")
+        self.csv_w = csv.writer(self.csv_f)
+
+        header = [
+            "date", "time",                    # legibles
+            "sensor_id", "run_id", "seq",      # ids
+            "t0_ns", "t_send_ns", "ros_stamp_ns",
+            "window_size", "K"
+        ]
+
+        for i in range(self.window_size):
+            header += [
+                f"raw_{i}_ax", f"raw_{i}_ay", f"raw_{i}_az",
+                f"raw_{i}_gx", f"raw_{i}_gy", f"raw_{i}_gz"
+            ]
+
+        for i in range(self.window_size):
+            header += [
+                f"scl_{i}_ax", f"scl_{i}_ay", f"scl_{i}_az",
+                f"scl_{i}_gx", f"scl_{i}_gy", f"scl_{i}_gz"
+            ]
+
+        for k in range(self.K):
+            header += [f"p{k}"]
+
+        self.csv_w.writerow(header)
+        self.csv_f.flush()
+        rospy.loginfo(f"[{self.sensor_id}] CSV abierto (START) -> {self.csv_path}")
+
+    def _close_csv_for_run(self):
+        try:
+            if self.csv_f:
+                self.csv_f.flush()
+                self.csv_f.close()
+                rospy.loginfo(f"[{self.sensor_id}] CSV cerrado (STOP) -> {self.csv_path}")
+        finally:
+            self.csv_f = None
+            self.csv_w = None
+            self.csv_path = None
+
+    def _log_window_and_probs(self, seq: int, t0_ns: int, probs_np: np.ndarray, X_raw: np.ndarray, X_scaled: np.ndarray):
+        if not self.csv_w:
+            return
+        try:
+            now = datetime.now()
+            date_str = now.strftime("%Y-%m-%d")
+            time_str = now.strftime("%H:%M:%S.%f")[:-3]  # ms
+
+            ros_stamp_ns = int(rospy.Time.now().to_nsec())
+            t_send_ns = int(time.time_ns())
+
+            row = [
+                date_str, time_str,
+                self.sensor_id, int(self.run_id), int(seq),
+                int(t0_ns), int(t_send_ns), int(ros_stamp_ns),
+                int(self.window_size), int(self.K)
+            ]
+
+            row += [float(v) for v in X_raw.reshape(-1)]
+            row += [float(v) for v in X_scaled.reshape(-1)]
+            row += [float(x) for x in probs_np.ravel()]
+
+            self.csv_w.writerow(row)
+
+            # flush cada 10 filas
+            if (seq % 10) == 0 and self.csv_f:
+                self.csv_f.flush()
+        except Exception as e:
+            rospy.logwarn(f"[{self.sensor_id}] CSV log error: {e}")
 
     # ---------- BLE / Sensor Fusion ----------
     def connect_and_config(self):
@@ -194,6 +296,7 @@ class RHandNode:
             if self.sig_quat:
                 libmetawear.mbl_mw_datasignal_unsubscribe(self.sig_quat)
         finally:
+            self._close_csv_for_run()
             self.dev.disconnect()
             rospy.loginfo(f"[{self.sensor_id}] Desconectado.")
 
@@ -204,11 +307,16 @@ class RHandNode:
             self.started = True
             self.seq = 0
             self.buffer.clear()
+            self._partial.clear()
+            self._open_csv_for_run()
             rospy.loginfo(f"[{self.sensor_id}] RUN=True (START) recibido")
-        else:
+        elif (not msg.data) and self.started:
             # STOP
             self.started = False
+            self._close_csv_for_run()
             rospy.loginfo(f"[{self.sensor_id}] RUN=False (STOP) recibido")
+        else:
+            pass
 
     # ---------- Callbacks ----------
     def _cb_cacc(self, ctx: c_void_p, data: c_void_p):
@@ -275,7 +383,7 @@ class RHandNode:
                     continue
 
                 t0 = time.time()
-                if len(self.buffer) >= self.window_size:
+                if len(self.buffer) >= self.window_size and self.csv_w is not None:
                     window = list(self.buffer)[-self.window_size:]            # [(ts, [6]), ...] × 50
                     t0_ns = window[-1][0]
                     X = np.array([s for (_, s) in window], dtype=np.float32)  # (50, 6)
@@ -294,6 +402,10 @@ class RHandNode:
                     with torch.no_grad():
                         logits = self.model(X_t)
                         probs = torch.softmax(logits, dim=-1).cpu().numpy().ravel()
+
+                    # Log (1 fila por inferencia)
+                    if self.log_enabled:
+                        self._log_window_and_probs(self.seq, t0_ns, probs, X, X_scaled)
 
                     self._publish_probs(t0_ns, probs)
                 dt = time.time() - t0
