@@ -89,6 +89,18 @@ class LHandNode:
         self.window_size = WINDOW_SIZE
         self.period = 1.0 / float(TARGET_HZ)
 
+        # -------- CSV logger (abre en START, cierra en STOP) --------
+        self.log_enabled = bool(LOG_RAW_AND_PROBS)
+        self.csv_f = None
+        self.csv_w = None
+        self.csv_path = None
+        self.run_id = 0  # incrementa en cada START
+        self.started = False
+        self.logging_active = False   # CSV abierto solo cuando hay stream
+        self.sensor_ready = False     # BLE+SF listo
+        if self.log_enabled:
+            os.makedirs(LOG_DIR, exist_ok=True)
+
         # Buffer ventana (4 features: quaternion [w, x, y, z])
         self.buffer = deque(maxlen=self.window_size)
 
@@ -98,7 +110,6 @@ class LHandNode:
         self.seq = 0
 
         # # --- START TOPICS SAME TIME ---
-        self.started = False
         self.state_sub = rospy.Subscriber(
             "/har/start",
             Bool,
@@ -138,15 +149,6 @@ class LHandNode:
         # Downsampling 100Hz → 50Hz
         self.last_keep_ns = None
         self.min_delta_ns = int(1e9 / 50)  # 20 ms
-
-        # -------- CSV logger (abre en START, cierra en STOP) --------
-        self.log_enabled = bool(LOG_RAW_AND_PROBS)
-        self.csv_f = None
-        self.csv_w = None
-        self.csv_path = None
-        self.run_id = 0  # incrementa en cada START
-        if self.log_enabled:
-            os.makedirs(LOG_DIR, exist_ok=True)
 
     # ---------- CSV helpers ----------
     def _open_csv_for_run(self):
@@ -262,6 +264,7 @@ class LHandNode:
         libmetawear.mbl_mw_sensor_fusion_enable_data(self.dev.board, SensorFusionData.QUATERNION)
         libmetawear.mbl_mw_sensor_fusion_start(self.dev.board)
         rospy.loginfo(f"[{self.sensor_id}] Sensor Fusion (QUATERNION) iniciado.")
+        self.sensor_ready = True
 
     def disconnect(self):
         try:
@@ -272,6 +275,7 @@ class LHandNode:
             self._close_csv_for_run()
             self.dev.disconnect()
             rospy.loginfo(f"[{self.sensor_id}] Desconectado.")
+            self.sensor_ready = False
 
     # # ---------- Callback de inicio (/har/start) ----------
     def _start_cb(self, msg: Bool):
@@ -281,13 +285,14 @@ class LHandNode:
             self.seq = 0
             self.buffer.clear()
             self.last_keep_ns = None
-            self._open_csv_for_run()
             rospy.loginfo(f"[{self.sensor_id}] RUN=True (START) recibido")
         elif (not msg.data) and self.started:
             # STOP
             self.started = False
-            self._close_csv_for_run()
             rospy.loginfo(f"[{self.sensor_id}] RUN=False (STOP) recibido")
+            if self.logging_active:
+                self._close_csv_for_run()
+                self.logging_active = False
         else:
             pass
 
@@ -331,6 +336,11 @@ class LHandNode:
                 if not self.started:
                     rate.sleep()
                     continue
+
+                # Si RUN está activo, pero no abrimos CSV, se SOLO si el sensor está listo
+                if self.started and (not self.logging_active) and self.sensor_ready:
+                    self._open_csv_for_run()
+                    self.logging_active = True
 
                 t0 = time.time()
                 if len(self.buffer) >= self.window_size and self.csv_w is not None:
