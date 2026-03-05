@@ -1,11 +1,15 @@
-# chest_node_ros.py — Local node (chest) con ACC+GYRO → probs → ROS1
-# chest_node_ros.py — Local node (chest) con QUAT → GUI → ROS
-# + CSV logging: ventana cruda + ventana escalada + probs (1 fila por inferencia)
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+# chest_node_ros.py — Local node (chest) with ACC+GYRO → probs → ROS1
+# chest_node_ros.py — Local node (chest) with QUAT → GUI → ROS
+# + CSV logging: raw window + scaled window + probs (1 row per inference)
 
 import os
 import sys
 import time
 import csv
+import types
 from datetime import datetime
 from collections import deque
 from ctypes import c_void_p
@@ -17,26 +21,26 @@ import joblib
 
 # ROS
 import rospy
-from har_msgs.msg import Probs  # generado en har_msgs/msg/Probs.msg
-from std_msgs.msg import Header, Empty, Bool
+from har_msgs.msg import Probs  # Generated in har_msgs/msg/Probs.msg
+from std_msgs.msg import Header, Bool
 from sensor_msgs.msg import Imu
 
-# ===================== PARÁMETROS (EDITA AQUÍ) =====================
+# =========================== PARAMETERS =================================
 SENSOR_ID   = "chest"
-MAC_ADDR    = "CE:94:48:FE:5D:C5"                       # MAC real del MetaMotionRL
-MODEL_PATH  = "./cnn_lstm_fold1.pth"                    # Modelo entrenado (input_dim=6 para acc+gyro)
-SCALER_PATH = "./scaler_model_ag_chest.pkl"         # Scaler joblib.dump() de 6 columnas [ax,ay,az,gx,gy,gz]
-K_CLASSES   = 6                                         # Número de clases
-WINDOW_SIZE = 50                                        # 50 muestras (~1s a 50Hz)
-TARGET_HZ   = 50                                        # Frecuencia de inferencia/publicación
+MAC_ADDR    = "CE:94:48:FE:5D:C5"                       # MAC MetaMotionRL
+MODEL_PATH  = "./cnn_lstm_fold1.pth"                    # Trained model (input_dim=6 for acc+gyro)
+SCALER_PATH = "./scaler_model_ag_chest.pkl"             # Scaler joblib.dump() 6 columns [ax,ay,az,gx,gy,gz]
+K_CLASSES   = 6                                         # Number of classes
+WINDOW_SIZE = 50                                        # 50 samples (~1s a 50Hz)
+TARGET_HZ   = 50                                        # Frequency of inference/publication
 CONNECT_RETRIES = 8
-TOPIC_PROBS = "har/probs/chest"                     # Topic ROS para publicar
-TOPIC_QUAT  = "har/imu_chest"                       # Topic ROS para publicar quaternion
+TOPIC_PROBS = "har/probs/chest"                     # ROS topic to publish
+TOPIC_QUAT  = "har/imu_chest"                       # ROS topic for publishing quaternions
 
-# ---- CSV logging (ventana + probs) ----
+# CSV logging (window + probs)
 LOG_DIR = "./logs"
 LOG_RAW_AND_PROBS = True       # ON/OFF
-# ===================================================================
+# ========================================================================
 
 # ---------- SDK MetaWear ----------
 from mbientlab.metawear import MetaWear, parse_value, libmetawear
@@ -51,7 +55,7 @@ except ImportError:
         FnVoid_VoidP_DataP as FnVoid_VoidP_Data, Data
     )
 
-# ------------------ Modelo local (CNN+LSTM) ------------------
+# ===================== LOCAL MODEL (CNN+LSTM) ===========================
 class CNN_LSTM_Sensor(nn.Module):
     def __init__(self, input_dim=6, cnn_out_channels=16, lstm_hidden=32, lstm_layers=1, output_dim=6):
         super(CNN_LSTM_Sensor, self).__init__()
@@ -79,10 +83,10 @@ class CNN_LSTM_Sensor(nn.Module):
         x = self.cnn(x)          # (B, C, T')
         x = x.permute(0, 2, 1)   # (B, T', C)
         lstm_out, _ = self.lstm(x)
-        x = lstm_out[:, -1, :]   # último tiempo
+        x = lstm_out[:, -1, :]   # Last time
         return self.fc(x)
 
-# ------------------ Nodo principal ------------------
+# =========================== MAIN NODE ================================
 class ChestNode:
     def __init__(self):
         self.sensor_id = SENSOR_ID
@@ -91,24 +95,30 @@ class ChestNode:
         self.window_size = WINDOW_SIZE
         self.period = 1.0 / float(TARGET_HZ)
 
-        # Buffer ventana (6 features: acc xyz + gyro xyz)
+        # CSV logger (opens at START, closes at STOP)
+        self.log_enabled = bool(LOG_RAW_AND_PROBS)
+        self.csv_f = None
+        self.csv_w = None
+        self.csv_path = None
+        self.run_id = 0
+        self.started = False
+        self.logging_active = False
+        self.sensor_ready = False
+        if self.log_enabled:
+            os.makedirs(LOG_DIR, exist_ok=True)
+
+        # Buffer window (6 features: acc xyz + gyro xyz)
         self.buffer = deque(maxlen=self.window_size)
+
+        # Temporary dictionary to join acc+gyro by timestamp
+        self._partial = {}
 
         # ROS Publisher
         self.pub = rospy.Publisher(TOPIC_PROBS, Probs, queue_size=10)
         self.pub_quat = rospy.Publisher(TOPIC_QUAT, Imu, queue_size=10)
         self.seq = 0
 
-        # # --- START TOPICS SAME TIME ---
-        self.started = False
-        self.state_sub = rospy.Subscriber(
-            "/har/start",
-            Bool,
-            self._start_cb,
-            queue_size=1
-        )
-
-        # Modelo (input_dim=6 para acc+gyro)
+        # Model (input_dim=6 for acc+gyro)
         self.model = CNN_LSTM_Sensor(input_dim=6, output_dim=self.K)
         try:
             state = torch.load(MODEL_PATH, map_location="cpu", weights_only=True)
@@ -117,8 +127,7 @@ class ChestNode:
         self.model.load_state_dict(state)
         self.model.eval()
 
-        # Shim NumPy 2.x -> 1.x (por si tu scaler lo necesita)
-        import types
+        # Shim NumPy 2.x -> 1.x
         if not hasattr(np, "_core") and hasattr(np, "core"):
             mod = types.ModuleType("numpy._core")
             sys.modules["numpy._core"] = mod
@@ -128,7 +137,7 @@ class ChestNode:
             except AttributeError:
                 pass
 
-        # Scaler (joblib) — 6 columnas [ax, ay, az, gx, gy, gz]
+        # Scaler (joblib) — 6 columns [ax, ay, az, gx, gy, gz]
         rospy.loginfo(f"[{self.sensor_id}] Cargando scaler desde: {SCALER_PATH}")
         self.scaler = joblib.load(SCALER_PATH)
 
@@ -140,27 +149,22 @@ class ChestNode:
         self.cb_cgyr = None
         self.sig_quat = None
         self.cb_quat = None
-        self._quat_toggle = False  # para submuestreo 100Hz -> ~50Hz
+        self._quat_toggle = False  # For subsampling 100Hz -> ~50Hz
 
-        # Diccionario temporal para unir acc+gyro por timestamp
-        self._partial = {}
+        # Start topics at the same time
+        self.state_sub = rospy.Subscriber(
+            "/har/start",
+            Bool,
+            self._start_cb,
+            queue_size=1
+        )
 
-        # -------- CSV logger (abre en START, cierra en STOP) --------
-        self.log_enabled = bool(LOG_RAW_AND_PROBS)
-        self.csv_f = None
-        self.csv_w = None
-        self.csv_path = None
-        self.run_id = 0  # incrementa en cada START
-
-        if self.log_enabled:
-            os.makedirs(LOG_DIR, exist_ok=True)
-
-    # ---------- CSV helpers ----------
+    # CSV helpers
     def _open_csv_for_run(self):
         if not self.log_enabled:
             return
         if self.csv_f:
-            # si por alguna razón estaba abierto, ciérralo
+            # If the CSV was open, we close it
             self._close_csv_for_run()
 
         self.run_id += 1
@@ -174,8 +178,8 @@ class ChestNode:
         self.csv_w = csv.writer(self.csv_f)
 
         header = [
-            "date", "time",                    # legibles
-            "sensor_id", "run_id", "seq",      # ids
+            "date", "time",
+            "sensor_id", "run_id", "seq",
             "t0_ns", "t_send_ns", "ros_stamp_ns",
             "window_size", "K"
         ]
@@ -216,7 +220,7 @@ class ChestNode:
         try:
             now = datetime.now()
             date_str = now.strftime("%Y-%m-%d")
-            time_str = now.strftime("%H:%M:%S.%f")[:-3]  # ms
+            time_str = now.strftime("%H:%M:%S.%f")[:-3]
 
             ros_stamp_ns = int(rospy.Time.now().to_nsec())
             t_send_ns = int(time.time_ns())
@@ -234,7 +238,7 @@ class ChestNode:
 
             self.csv_w.writerow(row)
 
-            # flush cada 10 filas
+            # Flush every 10 rows
             if (seq % 10) == 0 and self.csv_f:
                 self.csv_f.flush()
         except Exception as e:
@@ -254,16 +258,16 @@ class ChestNode:
         else:
             raise RuntimeError(f"No se pudo conectar a {self.mac}")
 
-        # Parámetros BLE
+        # Parameters BLE
         libmetawear.mbl_mw_settings_set_connection_parameters(self.dev.board, 7.5, 7.5, 0, 6000)
 
-        # Sensor Fusion → IMU_PLUS (solo acc+gyro)
+        # Sensor Fusion → IMU_PLUS (only acc+gyro)
         libmetawear.mbl_mw_sensor_fusion_set_mode(self.dev.board, SensorFusionMode.IMU_PLUS)
         libmetawear.mbl_mw_sensor_fusion_set_acc_range(self.dev.board, SensorFusionAccRange._8G)
         libmetawear.mbl_mw_sensor_fusion_set_gyro_range(self.dev.board, SensorFusionGyroRange._1000DPS)
         libmetawear.mbl_mw_sensor_fusion_write_config(self.dev.board)
 
-        # Señales corregidas
+        # Corrected signals
         self.sig_cacc = libmetawear.mbl_mw_sensor_fusion_get_data_signal(self.dev.board, SensorFusionData.CORRECTED_ACC)
         self.sig_cgyr = libmetawear.mbl_mw_sensor_fusion_get_data_signal(self.dev.board, SensorFusionData.CORRECTED_GYRO)
         self.sig_quat = libmetawear.mbl_mw_sensor_fusion_get_data_signal(self.dev.board, SensorFusionData.QUATERNION)
@@ -279,12 +283,13 @@ class ChestNode:
         libmetawear.mbl_mw_datasignal_subscribe(self.sig_cgyr, None, self.cb_cgyr)
         libmetawear.mbl_mw_datasignal_subscribe(self.sig_quat, None, self.cb_quat)
 
-        # Habilitar y arrancar (dos streams)
+        # Enable and start (two streams)
         libmetawear.mbl_mw_sensor_fusion_enable_data(self.dev.board, SensorFusionData.CORRECTED_ACC)
         libmetawear.mbl_mw_sensor_fusion_enable_data(self.dev.board, SensorFusionData.CORRECTED_GYRO)
         libmetawear.mbl_mw_sensor_fusion_enable_data(self.dev.board, SensorFusionData.QUATERNION)
         libmetawear.mbl_mw_sensor_fusion_start(self.dev.board)
         rospy.loginfo(f"[{self.sensor_id}] Sensor Fusion (ACC+GYRO+QUAT) iniciado a ~50Hz.")
+        self.sensor_ready = True
 
     def disconnect(self):
         try:
@@ -299,26 +304,26 @@ class ChestNode:
             self._close_csv_for_run()
             self.dev.disconnect()
             rospy.loginfo(f"[{self.sensor_id}] Desconectado.")
+            self.sensor_ready = False
 
-    # # ---------- Callback de inicio (/har/start) ----------
+    #  Start callback (/har/start) 
     def _start_cb(self, msg: Bool):
         if msg.data:
-            # START
             self.started = True
             self.seq = 0
             self.buffer.clear()
             self._partial.clear()
-            self._open_csv_for_run()
             rospy.loginfo(f"[{self.sensor_id}] RUN=True (START) recibido")
         elif (not msg.data) and self.started:
-            # STOP
             self.started = False
-            self._close_csv_for_run()
             rospy.loginfo(f"[{self.sensor_id}] RUN=False (STOP) recibido")
+            if self.logging_active:
+                self._close_csv_for_run()
+                self.logging_active = False
         else:
             pass
 
-    # ---------- Callbacks ----------
+    # Callbacks
     def _cb_cacc(self, ctx: c_void_p, data: c_void_p):
         try:
             a = parse_value(data)  # CorrectedCartesianFloat: x,y,z
@@ -340,7 +345,7 @@ class ChestNode:
             pass
 
     def _cb_quat(self, ctx: c_void_p, data: c_void_p):
-        # Submuestreo 1 de cada 2 muestras
+        # Subsampling 1 out of every 2 samples
         self._quat_toggle = not self._quat_toggle
         if not self._quat_toggle:
             return
@@ -367,15 +372,14 @@ class ChestNode:
         if pack and pack['acc'] is not None and pack['gyr'] is not None:
             sample = pack['acc'] + pack['gyr']     # [ax,ay,az,gx,gy,gz]
             self.buffer.append((ts_ns, sample))
-            # limpieza de ese timestamp
-            self._partial.pop(ts_ns, None)
+            self._partial.pop(ts_ns, None) # Cleaning that timestamp
 
-        # limpia entradas muy viejas (>50ms)
+        # Cleans very old entrances (>50ms)
         old_keys = [k for k in list(self._partial.keys()) if ts_ns - k > int(5e7)]
         for k in old_keys:
             self._partial.pop(k, None)
 
-    # ---------- Loop: ventana → inferencia → publicar ----------
+    # Loop: window → inference → publish
     def run(self):
         rospy.loginfo(f"[{self.sensor_id}] Ejecutando… Ctrl+C para salir.")
         rate = rospy.Rate(TARGET_HZ)
@@ -385,18 +389,23 @@ class ChestNode:
                     rate.sleep()
                     continue
 
+                # If RUN is active, we do not open CSV unless the sensor is already connected
+                if self.started and (not self.logging_active) and self.sensor_ready:
+                    self._open_csv_for_run()
+                    self.logging_active = True
+
                 t0 = time.time()
                 if len(self.buffer) >= self.window_size and self.csv_w is not None:
                     window = list(self.buffer)[-self.window_size:]            # [(ts, [6]), ...] × 50
                     t0_ns = window[-1][0]
                     X = np.array([s for (_, s) in window], dtype=np.float32)  # (50, 6)
 
-                    # Escalado (6 columnas [ax,ay,az,gx,gy,gz])
+                    # Scaling (6 columns) [ax,ay,az,gx,gy,gz])
                     X_scaled = self.scaler.transform(X).astype(np.float32, copy=False)
                     if not X_scaled.flags['C_CONTIGUOUS']:
                         X_scaled = np.ascontiguousarray(X_scaled)
 
-                    # Tensor robusto
+                    # Robust tensioner
                     try:
                         X_t = torch.from_numpy(X_scaled).unsqueeze(0)         # (1, 50, 6)
                     except Exception:
@@ -406,7 +415,7 @@ class ChestNode:
                         logits = self.model(X_t)
                         probs = torch.softmax(logits, dim=-1).cpu().numpy().ravel()
 
-                    # Log (1 fila por inferencia)
+                    # Log (1 row by inference)
                     if self.log_enabled:
                         self._log_window_and_probs(self.seq, t0_ns, probs, X, X_scaled)
 
@@ -433,7 +442,7 @@ class ChestNode:
         self.pub.publish(msg)
         self.seq += 1
 
-# ------------------ main ------------------
+# ------------------ Main ------------------
 if __name__ == "__main__":
     rospy.init_node("chest_node", anonymous=False)
     node = ChestNode()
