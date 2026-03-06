@@ -19,6 +19,15 @@ This node can be executed with the following command:
 ```bash
 python3 central_node_ros_main.py
 python3 har_aggregator_and_relay.py
+python3 har_start_latch_relay.py
+python3 experiment_manager_node.py
+python3 results_exporter_node.py
+```
+
+You can also create your own ROS package from the last 4 scripts by creating its executable and placing it in a launch file and running it as follows:
+
+```bash
+roslaunch name_your_package name_asigned.launch
 ```
 
 ## **[Chest Distributed](Chest_Distributed)**  
