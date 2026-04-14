@@ -24,6 +24,9 @@ from har_msgs.msg import Probs  # Generated in har_msgs/msg/Probs.msg
 from std_msgs.msg import Header, Bool
 from sensor_msgs.msg import Imu 
 
+import warnings
+warnings.filterwarnings("ignore")
+
 # =========================== PARAMETERS =================================
 SENSOR_ID   = "r_knee"
 MAC_ADDR    = "F9:8C:1E:4A:F5:D0"                       # MAC MetaMotionRL
@@ -130,7 +133,7 @@ class RKneeNode:
 
         if self.device.type == "cuda":
             torch.backends.cudnn.benchmark = True
-        
+
         self._warmup_model()
 
         # Shim NumPy 2.x -> 1.x
@@ -390,12 +393,9 @@ class RKneeNode:
                     with torch.no_grad():
                         if self.device.type == "cuda":
                             torch.cuda.synchronize(self.device)
-
                         logits = self.model(X_t)
-
                         if self.device.type == "cuda":
                             torch.cuda.synchronize(self.device)
-
                         probs = torch.softmax(logits, dim=-1).cpu().numpy().ravel()
 
                     # Log (1 row by inference)
