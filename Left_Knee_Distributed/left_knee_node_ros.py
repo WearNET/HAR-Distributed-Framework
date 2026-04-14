@@ -22,7 +22,10 @@ import joblib
 import rospy
 from har_msgs.msg import Probs  # Generated in har_msgs/msg/Probs.msg
 from std_msgs.msg import Header, Bool
-from sensor_msgs.msg import Imu 
+from sensor_msgs.msg import Imu
+
+import warnings
+warnings.filterwarnings("ignore")
 
 # =========================== PARAMETERS =================================
 SENSOR_ID   = "l_knee"
@@ -118,13 +121,23 @@ class LKneeNode:
         self.seq = 0
 
         # Model (input_dim=6 for acc+gyro)
+        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        rospy.loginfo(f"[{self.sensor_id}] Inference device: {self.device}")
+
         self.model = CNN_LSTM_Sensor(input_dim=6, output_dim=self.K)
         try:
-            state = torch.load(MODEL_PATH, map_location="cpu", weights_only=True)
+            state = torch.load(MODEL_PATH, map_location=self.device, weights_only=True)
         except TypeError:
-            state = torch.load(MODEL_PATH, map_location="cpu")
+            state = torch.load(MODEL_PATH, map_location=self.device)
+
         self.model.load_state_dict(state)
+        self.model.to(self.device)
         self.model.eval()
+
+        if self.device.type == "cuda":
+            torch.backends.cudnn.benchmark = True
+
+        self._warmup_model()
 
         # Shim NumPy 2.x -> 1.x
         if not hasattr(np, "_core") and hasattr(np, "core"):
@@ -157,6 +170,23 @@ class LKneeNode:
             self._start_cb,
             queue_size=1
         )
+
+    def _warmup_model(self, num_iters: int = 10):
+        rospy.loginfo(f"[{self.sensor_id}] Warm-up del modelo ({num_iters} iteraciones)...")
+
+        dummy = torch.zeros((1, self.window_size, 6), dtype=torch.float32, device=self.device)
+
+        with torch.no_grad():
+            for _ in range(num_iters):
+                if self.device.type == "cuda":
+                    torch.cuda.synchronize(self.device)
+
+                _ = self.model(dummy)
+
+                if self.device.type == "cuda":
+                    torch.cuda.synchronize(self.device)
+
+        rospy.loginfo(f"[{self.sensor_id}] Warm-up completado.")
 
     # CSV helpers
     def _open_csv_for_run(self):
@@ -405,14 +435,20 @@ class LKneeNode:
                     if not X_scaled.flags['C_CONTIGUOUS']:
                         X_scaled = np.ascontiguousarray(X_scaled)
 
-                    # Robust tensioner
-                    try:    
+                    # Robust tensor creation
+                    try:
                         X_t = torch.from_numpy(X_scaled).unsqueeze(0)         # (1, 50, 6)
                     except Exception:
                         X_t = torch.tensor(X_scaled, dtype=torch.float32).unsqueeze(0)
 
+                    X_t = X_t.to(self.device, non_blocking=True)
+
                     with torch.no_grad():
+                        if self.device.type == "cuda":
+                            torch.cuda.synchronize(self.device)
                         logits = self.model(X_t)
+                        if self.device.type == "cuda":
+                            torch.cuda.synchronize(self.device)
                         probs = torch.softmax(logits, dim=-1).cpu().numpy().ravel()
                     
                     # Log (1 row by inference)
