@@ -14,6 +14,9 @@ from har_msgs.msg import Probs
 from std_msgs.msg import Header, Bool
 import message_filters
 
+import warnings
+warnings.filterwarnings("ignore")
+
 # ================= CONFIGURACIÓN =================
 NODE_NAME    = "central_har_node"
 MODEL_PATH   = "nn_central_fold1.pth"
@@ -65,18 +68,33 @@ class CentralHARNet(nn.Module):
         return self.net(x)
 
 def load_model(input_dim, num_classes):
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
     model = CentralHARNet(input_dim=input_dim, num_classes=num_classes)
+
     if os.path.exists(MODEL_PATH):
-        state = torch.load(MODEL_PATH, map_location="cpu")
+        try:
+            state = torch.load(MODEL_PATH, map_location=device, weights_only=True)
+        except TypeError:
+            state = torch.load(MODEL_PATH, map_location=device)
+
         if isinstance(state, dict) and "state_dict" in state:
             model.load_state_dict(state["state_dict"])
         else:
             model.load_state_dict(state)
+
         rospy.loginfo("[central] Modelo cargado desde: %s", MODEL_PATH)
     else:
         rospy.logwarn("[central] NO se encontró el modelo en %s, usando pesos aleatorios", MODEL_PATH)
+
+    model.to(device)
     model.eval()
-    return model
+
+    if device.type == "cuda":
+        torch.backends.cudnn.benchmark = True
+
+    rospy.loginfo("[central] Inference device: %s", device)
+    return model, device
 
 class CentralNode(object):
     def __init__(self):
@@ -100,6 +118,7 @@ class CentralNode(object):
 
         self.K = None
         self.model = None
+        self.device = None
         self.input_dim = None
         self.num_classes = None
 
@@ -337,12 +356,17 @@ class CentralNode(object):
         if self.model is None:
             self.input_dim = x.shape[0]
             self.num_classes = self.K
-            self.model = load_model(self.input_dim, self.num_classes)
+            self.model, self.device = load_model(self.input_dim, self.num_classes)
 
         # A tensor y forward
-        x_tensor = torch.tensor(x, dtype=torch.float32).unsqueeze(0)
+        x_tensor = torch.tensor(x, dtype=torch.float32).unsqueeze(0).to(self.device, non_blocking=True)
+
         with torch.no_grad():
+            if self.device.type == "cuda":
+                torch.cuda.synchronize(self.device)
             logits = self.model(x_tensor)
+            if self.device.type == "cuda":
+                torch.cuda.synchronize(self.device)
             probs_global = torch.softmax(logits, dim=1).cpu().numpy().flatten()
 
         # Publicar
