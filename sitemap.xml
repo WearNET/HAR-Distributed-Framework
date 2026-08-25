@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://WearNET.github.io/HAR-Distributed-Framework/system-overview.html</loc>
+    <lastmod>2026-08-25T19:46:47.793Z</lastmod>
+  </url>
+  <url>
+    <loc>https://WearNET.github.io/HAR-Distributed-Framework/jetson-environment.html</loc>
+    <lastmod>2026-08-19T22:09:49.633Z</lastmod>
+  </url>
+  <url>
+    <loc>https://WearNET.github.io/HAR-Distributed-Framework/hardware-overview.html</loc>
+    <lastmod>2026-08-19T22:04:29.595Z</lastmod>
+  </url>
+  <url>
+    <loc>https://WearNET.github.io/HAR-Distributed-Framework/expansion-jetson-board.html</loc>
+    <lastmod>2026-08-25T17:03:04.476Z</lastmod>
+  </url>
+  <url>
+    <loc>https://WearNET.github.io/HAR-Distributed-Framework/flash-jetson-board.html</loc>
+    <lastmod>2026-08-25T17:03:04.477Z</lastmod>
+  </url>
+  <url>
+    <loc>https://WearNET.github.io/HAR-Distributed-Framework/index.html</loc>
+    <lastmod>2026-08-25T17:03:04.478Z</lastmod>
+  </url>
+  <url>
+    <loc>https://WearNET.github.io/HAR-Distributed-Framework/software-overview.html</loc>
+    <lastmod>2026-08-19T22:06:26.204Z</lastmod>
+  </url>
+</urlset>
