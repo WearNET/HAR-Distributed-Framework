@@ -1,0 +1,85 @@
+# Flashing JetPack OS via Command Line
+
+Flashing JetPack OS via command line can be very easy for the Linux knowledge base users.
+
+### **Step 1.** Download the proper NVIDIA Linux Driver Package
+On the **Linux host PC**, we need to open a browser and go the [Jetson Linux Archive](https://developer.nvidia.com/embedded/jetson-linux-archive). First we should check if the version of Jetson Linux is supported our reComputer Jetson module.
+
+![](assets/images/flash_jetson/jetson_archive.png){fig-align="center"}
+
+For ReCompute the latest version used was 32.7.4. Once you find the proper version, click to go to the downloaded page. Find and click the "L4T Driver Package (BSP)" and "Sample Root Filesystem" to download the driver files. The names of the files are like ``Tegra_Linux_Sample-Root-Filesystem_Rxx.x.x_aarch64.tbz2`` and ``Jetson-210_Linux_Rxx.x.x_aarch64.tbz2.``
+
+![](assets/images/flash_jetson/nvidia_4lt.png){fig-align="center"}
+
+As the example, we choose the NVIDIA L4T 35.1 version since it is included as part of JetPack 5.0.2 and supports the Jetson Xavier NX module. The names of the files:
+
+- Tegra_Linux_Sample-Root-Filesystem_R35.1.0_aarch64.tbz2
+- Jetson_Linux_R35.1.0_aarch64.tbz2
+
+::: {.callout-note title="INFO"}
+You can also choose other version like NVIDIA L4T 32.7.2 which supports Jetpack 4.6.2.
+:::
+
+### **Step 2.** Unzip Package Files and Assemble the Rootfs via Command Line
+
+```{.bash code-line-numbers="true"}
+mkdir -p ~/jetson_nano_flash
+cd ~/jetson_nano_flash
+# Place both downloaded files here
+```
+On the Linux host PC, we should find a folder and store the package files we download before. Then open a command line window(Terminal) at the folder and use the command line below to unzip the files and assemble the rootfs:
+
+```{.bash code-line-numbers="true"}
+tar xf ${L4T_RELEASE_PACKAGE}
+cd Linux_for_Tegra/rootfs/
+sudo tar xpf ../../${SAMPLE_FS_PACKAGE}
+cd ..
+sudo ./apply_binaries.sh
+```
+
+::: {.callout-note title="NOTE"}
+``${}`` is where you put the names of the files.
+:::
+
+As the example of **NVIDIA L4T 35.1**, the downloaded files are stored in /Desktop/L4T_Drivers, so under the '/Desktop/L4T_Drivers' path we open the command line window(Terminal) and execute the following command.
+
+```{.bash code-line-numbers="true"}
+tar xf Jetson_Linux_R35.1.0_aarch64.tbz2
+cd Linux_for_Tegra/rootfs/
+sudo tar xpf ../../Tegra_Linux_Sample-Root-Filesystem_R35.1.0_aarch64.tbz2
+cd ..
+sudo ./apply_binaries.sh
+```
+The output should be like:
+
+![](assets/images/flash_jetson/output.png){fig-align="center"}
+
+### **Step 3.** Flash the System to reComputer
+Since we alreadly force the reComputer J2021 into the recovery mode and the module is Jetson Xavier NX. We can directly flash the system into the reComputer execute following command:
+
+```{.bash code-line-numbers="true"}
+sudo ./flash.sh jetson-nano-emmc mmcblk0p1
+```
+![](assets/images/flash_jetson/output2.png){fig-align="center"}
+
+::: {.callout-note title="NOTE"}
+Flashing L4T takes about 10 minutes, or more under a slow host computer.
+:::
+
+At this moment, we can unplug the jumper and then power up the reComputer again to use it.
+
+## **Troubleshooting**
+1. It is mandatory that the Host be a Linux Machine version 18.04, since if the machine does not have this operating system the flashing will not work.
+2. **QEMU binary is not available, looking for QEMU from host system:** To solve this, follow the next commands
+
+
+```{.bash code-line-numbers="true"}
+sudo apt update
+sudo apt install qemu-user-static
+```
+## **Recommendations**
+1. Do not use virtual machines to do this process, either by command line or via SDK Manager
+2. If you do not have a machine with Linux Ubuntu 18.04 you will need to get one, or failing that install the operating system on your machine, you can do this by dual boot following the next resource:
+    - [Windows and Linux in one PC](https://www.youtube.com/watch?v=GPd5BNmu6L8&ab_channel=GuaridaTech)
+3. For more information refer to documentation
+    - [Seeed Studio Wiki](https://wiki.seeedstudio.com/)
