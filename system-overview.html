@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>System Overview – HAR Distributed Framework</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-711d5f0cb2eecbce4b54be160a5a7e6e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">HAR Distributed Framework</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="./index.html" aria-current="page"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./system-overview.html"> 
+<span class="menu-text">System Overview</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/WearNET/HAR-Distributed-Framework"> <i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">System Overview</li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./expansion-jetson-board.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Expansion on Jetson Boards</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./flash-jetson-board.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Flashing Jetson Boards</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#system-architecture" id="toc-system-architecture" class="nav-link active" data-scroll-target="#system-architecture">System Architecture</a></li>
+  <li><a href="#main-system-components" id="toc-main-system-components" class="nav-link" data-scroll-target="#main-system-components">Main System Components</a>
+  <ul class="collapse">
+  <li><a href="#wearable-sensor-nodes" id="toc-wearable-sensor-nodes" class="nav-link" data-scroll-target="#wearable-sensor-nodes">Wearable Sensor Nodes</a></li>
+  <li><a href="#edge-computing-nodes" id="toc-edge-computing-nodes" class="nav-link" data-scroll-target="#edge-computing-nodes">Edge Computing Nodes</a></li>
+  <li><a href="#central-computing-node" id="toc-central-computing-node" class="nav-link" data-scroll-target="#central-computing-node">Central Computing Node</a></li>
+  </ul></li>
+  <li><a href="#system-data-flow" id="toc-system-data-flow" class="nav-link" data-scroll-target="#system-data-flow">System Data Flow</a></li>
+  <li><a href="#distributed-processing-strategy" id="toc-distributed-processing-strategy" class="nav-link" data-scroll-target="#distributed-processing-strategy">Distributed Processing Strategy</a></li>
+  <li><a href="#probability-level-communication" id="toc-probability-level-communication" class="nav-link" data-scroll-target="#probability-level-communication">Probability-Level Communication</a></li>
+  <li><a href="#prediction-synchronization" id="toc-prediction-synchronization" class="nav-link" data-scroll-target="#prediction-synchronization">Prediction Synchronization</a></li>
+  <li><a href="#clock-synchronization" id="toc-clock-synchronization" class="nav-link" data-scroll-target="#clock-synchronization">Clock Synchronization</a></li>
+  <li><a href="#central-prediction-fusion" id="toc-central-prediction-fusion" class="nav-link" data-scroll-target="#central-prediction-fusion">Central Prediction Fusion</a></li>
+  <li><a href="#real-time-system-outputs" id="toc-real-time-system-outputs" class="nav-link" data-scroll-target="#real-time-system-outputs">Real-Time System Outputs</a>
+  <ul class="collapse">
+  <li><a href="#experiment-logging" id="toc-experiment-logging" class="nav-link" data-scroll-target="#experiment-logging">Experiment Logging</a></li>
+  <li><a href="#visualization-interface" id="toc-visualization-interface" class="nav-link" data-scroll-target="#visualization-interface">Visualization Interface</a></li>
+  </ul></li>
+  <li><a href="#complete-framework-workflow" id="toc-complete-framework-workflow" class="nav-link" data-scroll-target="#complete-framework-workflow">Complete Framework Workflow</a></li>
+  <li><a href="#documentation-scope" id="toc-documentation-scope" class="nav-link" data-scroll-target="#documentation-scope">Documentation Scope</a></li>
+  <li><a href="#documentation-organization" id="toc-documentation-organization" class="nav-link" data-scroll-target="#documentation-organization">Documentation Organization</a></li>
+  <li><a href="#next-step" id="toc-next-step" class="nav-link" data-scroll-target="#next-step">Next Step</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/blob/main/system-overview.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">System Overview</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>The <strong>HAR Distributed Framework</strong> is a multi-node wearable computing architecture developed for Human Activity Recognition (HAR) using distributed embedded processing.</p>
+<p>Instead of continuously transmitting all raw wearable sensor measurements to a single computer for processing, the framework distributes part of the classification workload among multiple embedded edge devices.</p>
+<p>Each edge node processes information from a wearable sensor, performs local neural network inference, and generates a probability distribution over the supported activity classes.</p>
+<p>These local predictions are transmitted to a central computing node, where they are temporally synchronized and combined to generate the final system-level activity prediction.</p>
+<section id="system-architecture" class="level2">
+<h2 class="anchored" data-anchor-id="system-architecture">System Architecture</h2>
+<p>The framework is organized into four main computational layers:</p>
+<ol type="1">
+<li><strong>Wearable sensing</strong></li>
+<li><strong>Edge inference</strong></li>
+<li><strong>Communication and synchronization</strong></li>
+<li><strong>Central prediction fusion</strong></li>
+</ol>
+<p>The overall processing flow can be summarized as:</p>
+<pre class="text"><code>                     WEARABLE LAYER
+
+                       Sensors
+                          │
+                          ▼
+
+                    EDGE COMPUTING
+                          │
+                 Local HAR Models
+                          │
+                          ▼
+                Probability Vectors
+                          │
+                          ▼
+
+              COMMUNICATION NETWORK
+                          │
+                          ▼
+
+                    CENTRAL NODE
+                          │
+                  Synchronization
+                          │
+                          ▼
+                 Prediction Fusion
+                          │
+                          ▼
+
+                  Global Prediction
+                    │           │
+                    ▼           ▼
+                  Logging      GUI</code></pre>
+<p>This architecture separates sensor-level processing from system-level decision making. Local models perform inference close to the sensing source, while the central node combines the information generated by all distributed nodes.</p>
+</section>
+<section id="main-system-components" class="level2">
+<h2 class="anchored" data-anchor-id="main-system-components">Main System Components</h2>
+<p>The framework consists of three main hardware and computational groups:</p>
+<section id="wearable-sensor-nodes" class="level3">
+<h3 class="anchored" data-anchor-id="wearable-sensor-nodes">Wearable Sensor Nodes</h3>
+<p>Wearable inertial sensors are placed at multiple body locations to capture motion and orientation information during human activities.</p>
+<p>The distributed configuration uses five sensing locations:</p>
+<ul>
+<li>Chest</li>
+<li>Left Hand</li>
+<li>Right Hand</li>
+<li>Left Knee</li>
+<li>Right Knee</li>
+</ul>
+<p>Each sensing stream is associated with an embedded computing node responsible for receiving sensor measurements, preparing the model input, and performing local inference.</p>
+<p>The wearable sensors provide inertial and orientation information that represents the movement of different regions of the body.</p>
+</section>
+<section id="edge-computing-nodes" class="level3">
+<h3 class="anchored" data-anchor-id="edge-computing-nodes">Edge Computing Nodes</h3>
+<p>The edge computing nodes execute trained local Human Activity Recognition models using the data received from their corresponding wearable sensors.</p>
+<p>The main local processing sequence is:</p>
+<pre class="text"><code>Sensor Acquisition
+       │
+       ▼
+Data Buffering
+       │
+       ▼
+Window Construction
+       │
+       ▼
+Local Neural Network
+       │
+       ▼
+Activity Probabilities</code></pre>
+<p>The real-time system operates using fixed input windows of <strong>50 samples</strong>.</p>
+<p>Once a complete window is available, the local neural network processes the sensor data and produces a probability distribution over the supported activity classes.</p>
+<p>Conceptually, the local model output can be represented as:</p>
+<pre class="text"><code>[p0, p1, p2, p3, p4, p5]</code></pre>
+<p>where each value represents the probability associated with one activity class.</p>
+<p>Rather than continuously forwarding the complete raw sensor stream to the central device, the edge nodes transmit these local prediction probabilities.</p>
+</section>
+<section id="central-computing-node" class="level3">
+<h3 class="anchored" data-anchor-id="central-computing-node">Central Computing Node</h3>
+<p>The central computing node receives predictions generated independently by all edge nodes.</p>
+<p>Its main responsibilities include:</p>
+<ul>
+<li>receiving local probability vectors;</li>
+<li>temporally aligning predictions from different nodes;</li>
+<li>handling temporarily unavailable predictions;</li>
+<li>combining local probability vectors;</li>
+<li>executing the central fusion model;</li>
+<li>generating the global activity prediction;</li>
+<li>recording timing and synchronization information; and</li>
+<li>forwarding prediction results to the visualization interface.</li>
+</ul>
+<p>The central processing pipeline can be summarized as:</p>
+<pre class="text"><code>Local Predictions
+       │
+       ▼
+Prediction Reception
+       │
+       ▼
+Temporal Synchronization
+       │
+       ▼
+Prediction Fusion
+       │
+       ▼
+Global Probability Vector
+       │
+       ▼
+Global Activity Prediction</code></pre>
+</section>
+</section>
+<section id="system-data-flow" class="level2">
+<h2 class="anchored" data-anchor-id="system-data-flow">System Data Flow</h2>
+<p>The complete data flow of the distributed HAR framework follows the sequence below:</p>
+<ol type="1">
+<li>Wearable sensors acquire motion and orientation measurements.</li>
+<li>Sensor measurements are transferred to their corresponding edge computing nodes.</li>
+<li>Each edge node buffers the incoming data.</li>
+<li>A fixed-length input window is constructed.</li>
+<li>The local HAR model performs neural network inference.</li>
+<li>Each local model generates an activity probability vector.</li>
+<li>The probability vector is transmitted through the communication network.</li>
+<li>The central node receives predictions generated by the distributed edge nodes.</li>
+<li>Predictions from different nodes are temporally synchronized.</li>
+<li>The synchronized probability vectors are provided to the central fusion model.</li>
+<li>The fusion model generates a global activity probability distribution.</li>
+<li>The final activity prediction is obtained.</li>
+<li>Prediction, communication, timing, and synchronization information can be recorded for subsequent analysis.</li>
+<li>The global prediction can also be forwarded to the graphical visualization interface.</li>
+</ol>
+<p>The complete processing chain can therefore be represented as:</p>
+<pre class="text"><code>Wearable Sensors
+       │
+       ▼
+Embedded Edge Nodes
+       │
+       ▼
+Sensor Data Buffering
+       │
+       ▼
+50-Sample Windows
+       │
+       ▼
+Local HAR Models
+       │
+       ▼
+Activity Probability Vectors
+       │
+       ▼
+Communication Network
+       │
+       ▼
+Prediction Synchronization
+       │
+       ▼
+Central Fusion Model
+       │
+       ▼
+Global HAR Prediction
+       │
+       ├──────────────► Experiment Logging
+       │
+       └──────────────► Visualization Interface</code></pre>
+</section>
+<section id="distributed-processing-strategy" class="level2">
+<h2 class="anchored" data-anchor-id="distributed-processing-strategy">Distributed Processing Strategy</h2>
+<p>A fundamental characteristic of the framework is the separation between <strong>local inference</strong> and <strong>global decision making</strong>.</p>
+<p>At the edge level, each embedded node processes information associated with a specific wearable sensing location.</p>
+<p>At the central level, the system combines the predictions produced by the distributed nodes.</p>
+<p>The computational strategy can therefore be represented as two processing stages:</p>
+<pre class="text"><code>Sensor-Level Processing
+        │
+        ▼
+Local Predictions
+        │
+        ▼
+System-Level Processing
+        │
+        ▼
+Global Prediction</code></pre>
+<p>This organization allows the framework to distribute the computational workload across multiple embedded devices while maintaining a central mechanism for system-level activity recognition.</p>
+</section>
+<section id="probability-level-communication" class="level2">
+<h2 class="anchored" data-anchor-id="probability-level-communication">Probability-Level Communication</h2>
+<p>Communication between the edge nodes and the central node is performed at the <strong>prediction level</strong>.</p>
+<p>The local edge devices perform inference before communicating with the central system.</p>
+<p>The basic communication principle is:</p>
+<pre class="text"><code>Wearable Sensor
+       │
+       ▼
+Local Edge Device
+       │
+       ▼
+Local HAR Model
+       │
+       ▼
+Probability Vector
+       │
+       ▼
+Communication Network
+       │
+       ▼
+Central Computing Node</code></pre>
+<p>Therefore, the communication framework exchanges model outputs rather than continuously transmitting complete raw sensor windows for centralized inference.</p>
+<p>The implementation details of the communication protocol, message structure, ROS topics, timestamps, and sequence information are described later in the documentation.</p>
+</section>
+<section id="prediction-synchronization" class="level2">
+<h2 class="anchored" data-anchor-id="prediction-synchronization">Prediction Synchronization</h2>
+<p>Local predictions are generated by independent embedded nodes and may not arrive at the central device at exactly the same instant.</p>
+<p>The framework therefore includes mechanisms for temporally coordinating the predictions before they are used by the central fusion model.</p>
+<p>Under normal operating conditions, predictions generated by the different nodes are grouped according to their timestamps using approximate temporal synchronization.</p>
+<p>The system also includes a mechanism for maintaining operation when a prediction from one or more distributed nodes is temporarily unavailable.</p>
+<p>The detailed implementation of the synchronization mechanisms is documented separately.</p>
+</section>
+<section id="clock-synchronization" class="level2">
+<h2 class="anchored" data-anchor-id="clock-synchronization">Clock Synchronization</h2>
+<p>Because timestamps are generated on independent computing devices, their system clocks must share a common time reference.</p>
+<p>Clock synchronization is therefore required to support:</p>
+<ul>
+<li>temporal alignment of distributed predictions;</li>
+<li>communication latency measurements;</li>
+<li>synchronization measurements;</li>
+<li>event ordering; and</li>
+<li>end-to-end system performance analysis.</li>
+</ul>
+<p>The framework uses network-based clock synchronization between the central and distributed computing nodes.</p>
+<p>The complete clock synchronization configuration is documented in the corresponding implementation section.</p>
+</section>
+<section id="central-prediction-fusion" class="level2">
+<h2 class="anchored" data-anchor-id="central-prediction-fusion">Central Prediction Fusion</h2>
+<p>Once local predictions have been received and synchronized, they are provided to the central fusion model.</p>
+<p>Conceptually, the fusion process can be represented as:</p>
+<pre class="text"><code>Chest Probabilities ────────────┐
+Left Hand Probabilities ────────┤
+Right Hand Probabilities ───────┤
+Left Knee Probabilities ────────┤──► Fusion Model ───► Global Prediction
+Right Knee Probabilities ───────┘</code></pre>
+<p>The central model combines the information generated from different body locations and produces a single probability distribution representing the global system prediction.</p>
+<p>The architecture, training procedure, input organization, and deployment of the fusion model are described in the model development section of this documentation.</p>
+</section>
+<section id="real-time-system-outputs" class="level2">
+<h2 class="anchored" data-anchor-id="real-time-system-outputs">Real-Time System Outputs</h2>
+<p>The final global prediction can be consumed by multiple components of the framework.</p>
+<section id="experiment-logging" class="level3">
+<h3 class="anchored" data-anchor-id="experiment-logging">Experiment Logging</h3>
+<p>The system records information required to analyze its behavior during real-time execution.</p>
+<p>This includes information associated with:</p>
+<ul>
+<li>local predictions;</li>
+<li>global predictions;</li>
+<li>inference timing;</li>
+<li>communication timing;</li>
+<li>synchronization;</li>
+<li>sequence information; and</li>
+<li>experiment execution.</li>
+</ul>
+<p>These records are later used for quantitative evaluation of the distributed framework.</p>
+</section>
+<section id="visualization-interface" class="level3">
+<h3 class="anchored" data-anchor-id="visualization-interface">Visualization Interface</h3>
+<p>The global activity prediction is also made available to a graphical visualization interface.</p>
+<p>The interface allows the predicted activities and system outputs to be observed while the distributed framework is operating.</p>
+<p>The implementation and configuration of the visualization system are documented in a dedicated section.</p>
+</section>
+</section>
+<section id="complete-framework-workflow" class="level2">
+<h2 class="anchored" data-anchor-id="complete-framework-workflow">Complete Framework Workflow</h2>
+<p>The complete framework can be summarized as:</p>
+<pre class="text"><code>                         HUMAN ACTIVITY
+                               │
+                               ▼
+                     Wearable Sensor Data
+                               │
+                               ▼
+                    Distributed Edge Nodes
+                               │
+                        Local Processing
+                               │
+                               ▼
+                       Local HAR Models
+                               │
+                               ▼
+                    Probability Predictions
+                               │
+                               ▼
+                   Communication Framework
+                               │
+                               ▼
+                    Temporal Synchronization
+                               │
+                               ▼
+                     Central Fusion Model
+                               │
+                               ▼
+                    Global HAR Prediction
+                         │             │
+                         ▼             ▼
+                      Logging    Visualization</code></pre>
+</section>
+<section id="documentation-scope" class="level2">
+<h2 class="anchored" data-anchor-id="documentation-scope">Documentation Scope</h2>
+<p>The objective of this documentation is not only to describe the architecture of the HAR Distributed Framework, but also to document <strong>how each component was implemented</strong>.</p>
+<p>The documentation progressively covers:</p>
+<ul>
+<li>hardware infrastructure;</li>
+<li>wearable sensor configuration;</li>
+<li>embedded computing devices;</li>
+<li>network infrastructure;</li>
+<li>software environments;</li>
+<li>data acquisition;</li>
+<li>sensor data preprocessing;</li>
+<li>dataset preparation;</li>
+<li>neural network development;</li>
+<li>local model training;</li>
+<li>central fusion model training;</li>
+<li>centralized baseline development;</li>
+<li>distributed deployment;</li>
+<li>communication configuration;</li>
+<li>synchronization mechanisms;</li>
+<li>real-time execution;</li>
+<li>experiment logging;</li>
+<li>graphical visualization;</li>
+<li>performance evaluation;</li>
+<li>robustness experiments;</li>
+<li>result reproduction; and</li>
+<li>troubleshooting.</li>
+</ul>
+<p>Each technical section is intended to explain both the role of the corresponding component and the practical steps required to reproduce its implementation.</p>
+</section>
+<section id="documentation-organization" class="level2">
+<h2 class="anchored" data-anchor-id="documentation-organization">Documentation Organization</h2>
+<p>The implementation documentation is organized according to the practical development flow of the framework:</p>
+<pre class="text"><code>Framework Overview
+       │
+       ▼
+Hardware Setup
+       │
+       ▼
+Software Environment
+       │
+       ▼
+Data Acquisition
+       │
+       ▼
+Data Preparation
+       │
+       ▼
+Model Development
+       │
+       ▼
+Distributed Deployment
+       │
+       ▼
+Communication Framework
+       │
+       ▼
+Synchronization
+       │
+       ▼
+Real-Time System
+       │
+       ▼
+Experiments
+       │
+       ▼
+Result Reproduction
+       │
+       ▼
+Troubleshooting</code></pre>
+<p>This organization allows the documentation to be followed sequentially by a reader interested in understanding or reproducing the complete framework.</p>
+</section>
+<section id="next-step" class="level2">
+<h2 class="anchored" data-anchor-id="next-step">Next Step</h2>
+<p>The next section describes the <strong>hardware infrastructure</strong> used to implement the distributed HAR framework, including the wearable sensing devices, embedded edge computing nodes, central computing platform, and communication network.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>HAR Distributed Framework</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/blob/main/system-overview.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>Technical Documentation &amp; Reproducibility Resources<br>
+Author: Jhonathan Rivas-Caicedo</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+<script src="site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

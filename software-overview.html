@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Software Environment – HAR Distributed Framework</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-711d5f0cb2eecbce4b54be160a5a7e6e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">HAR Distributed Framework</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="./index.html" aria-current="page"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./system-overview.html"> 
+<span class="menu-text">System Overview</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/WearNET/HAR-Distributed-Framework"> <i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Software Environment</li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./expansion-jetson-board.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Expansion on Jetson Boards</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./flash-jetson-board.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Flashing Jetson Boards</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#software-architecture" id="toc-software-architecture" class="nav-link active" data-scroll-target="#software-architecture">Software Architecture</a></li>
+  <li><a href="#distributed-software-roles" id="toc-distributed-software-roles" class="nav-link" data-scroll-target="#distributed-software-roles">Distributed Software Roles</a>
+  <ul class="collapse">
+  <li><a href="#edge-nodes" id="toc-edge-nodes" class="nav-link" data-scroll-target="#edge-nodes">Edge Nodes</a></li>
+  <li><a href="#central-node" id="toc-central-node" class="nav-link" data-scroll-target="#central-node">Central Node</a></li>
+  </ul></li>
+  <li><a href="#containerized-deployment" id="toc-containerized-deployment" class="nav-link" data-scroll-target="#containerized-deployment">Containerized Deployment</a></li>
+  <li><a href="#ros-noetic" id="toc-ros-noetic" class="nav-link" data-scroll-target="#ros-noetic">ROS Noetic</a></li>
+  <li><a href="#python-environment" id="toc-python-environment" class="nav-link" data-scroll-target="#python-environment">Python Environment</a></li>
+  <li><a href="#pytorch" id="toc-pytorch" class="nav-link" data-scroll-target="#pytorch">PyTorch</a></li>
+  <li><a href="#gpu-acceleration" id="toc-gpu-acceleration" class="nav-link" data-scroll-target="#gpu-acceleration">GPU Acceleration</a></li>
+  <li><a href="#clock-synchronization-software" id="toc-clock-synchronization-software" class="nav-link" data-scroll-target="#clock-synchronization-software">Clock Synchronization Software</a></li>
+  <li><a href="#visualization-software" id="toc-visualization-software" class="nav-link" data-scroll-target="#visualization-software">Visualization Software</a></li>
+  <li><a href="#software-communication-overview" id="toc-software-communication-overview" class="nav-link" data-scroll-target="#software-communication-overview">Software Communication Overview</a></li>
+  <li><a href="#software-components-summary" id="toc-software-components-summary" class="nav-link" data-scroll-target="#software-components-summary">Software Components Summary</a></li>
+  <li><a href="#software-documentation-structure" id="toc-software-documentation-structure" class="nav-link" data-scroll-target="#software-documentation-structure">Software Documentation Structure</a></li>
+  <li><a href="#reproducibility-considerations" id="toc-reproducibility-considerations" class="nav-link" data-scroll-target="#reproducibility-considerations">Reproducibility Considerations</a></li>
+  <li><a href="#next-step" id="toc-next-step" class="nav-link" data-scroll-target="#next-step">Next Step</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/blob/main/software-overview.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Software Environment</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>The <strong>HAR Distributed Framework</strong> relies on a software stack that supports wearable sensor acquisition, embedded neural network inference, distributed communication, synchronization, experiment logging, and real-time visualization.</p>
+<p>Because the framework operates across multiple embedded computing devices, the software environment must also provide a consistent mechanism for deploying and executing the required components on independent nodes.</p>
+<p>The principal software technologies used by the framework include:</p>
+<ul>
+<li>Linux-based operating environments on the NVIDIA Jetson platforms;</li>
+<li>Docker for containerized deployment;</li>
+<li>ROS Noetic for distributed communication;</li>
+<li>Python for data acquisition, inference, communication, and experiment utilities;</li>
+<li>PyTorch for neural network inference;</li>
+<li>NVIDIA CUDA support for GPU-accelerated inference where applicable;</li>
+<li>Chrony for network clock synchronization; and</li>
+<li>Unity for the real-time visualization interface.</li>
+</ul>
+<section id="software-architecture" class="level2">
+<h2 class="anchored" data-anchor-id="software-architecture">Software Architecture</h2>
+<p>The software stack can be viewed as a set of layers running on top of the distributed hardware infrastructure:</p>
+<pre class="text"><code>Application Layer
+────────────────────────────────────────
+HAR Models
+Sensor Acquisition
+Central Fusion
+Logging
+Visualization
+
+Distributed Middleware
+────────────────────────────────────────
+ROS Noetic
+
+Runtime Environment
+────────────────────────────────────────
+Python
+PyTorch
+CUDA
+
+Containerization
+────────────────────────────────────────
+Docker
+
+Operating System
+────────────────────────────────────────
+Linux / NVIDIA Jetson Environment
+
+Hardware
+────────────────────────────────────────
+Jetson Edge Nodes + Central Jetson</code></pre>
+<p>Not every component is executed on every device.</p>
+<p>The edge nodes primarily execute sensor acquisition and local inference, while the central node executes synchronization, prediction fusion, experiment logging, and communication with higher-level visualization components.</p>
+</section>
+<section id="distributed-software-roles" class="level2">
+<h2 class="anchored" data-anchor-id="distributed-software-roles">Distributed Software Roles</h2>
+<p>The software responsibilities are distributed according to the role of each computing node.</p>
+<section id="edge-nodes" class="level3">
+<h3 class="anchored" data-anchor-id="edge-nodes">Edge Nodes</h3>
+<p>Each edge node is responsible for running the software required to:</p>
+<ul>
+<li>communicate with its associated wearable sensor;</li>
+<li>acquire incoming sensor measurements;</li>
+<li>buffer sensor data;</li>
+<li>construct input windows;</li>
+<li>execute a local HAR neural network;</li>
+<li>generate activity probability vectors;</li>
+<li>publish predictions through ROS;</li>
+<li>timestamp prediction messages; and</li>
+<li>record local performance information when required.</li>
+</ul>
+<p>Conceptually:</p>
+<pre class="text"><code>Linux
+  │
+Docker
+  │
+ROS + Python + PyTorch
+  │
+  ├── Sensor Acquisition
+  ├── Data Buffering
+  ├── Local Inference
+  └── Prediction Publisher</code></pre>
+</section>
+<section id="central-node" class="level3">
+<h3 class="anchored" data-anchor-id="central-node">Central Node</h3>
+<p>The central computing node executes the software responsible for:</p>
+<ul>
+<li>receiving predictions from all distributed nodes;</li>
+<li>synchronizing incoming prediction messages;</li>
+<li>handling temporarily unavailable predictions;</li>
+<li>executing the central fusion model;</li>
+<li>publishing global predictions;</li>
+<li>recording timing and synchronization metrics; and</li>
+<li>communicating with the visualization interface.</li>
+</ul>
+<p>Conceptually:</p>
+<pre class="text"><code>Linux
+  │
+Docker
+  │
+ROS + Python + PyTorch
+  │
+  ├── Prediction Subscribers
+  ├── Synchronization
+  ├── Fusion Model
+  ├── Global Prediction
+  └── Experiment Logging</code></pre>
+</section>
+</section>
+<section id="containerized-deployment" class="level2">
+<h2 class="anchored" data-anchor-id="containerized-deployment">Containerized Deployment</h2>
+<p>Docker is used to provide isolated and reproducible execution environments across the distributed embedded devices.</p>
+<p>Rather than configuring every framework dependency directly in the host operating system, the main runtime components can be executed inside containers.</p>
+<p>The general deployment structure is:</p>
+<pre class="text"><code>Jetson Host System
+       │
+       ▼
+     Docker
+       │
+       ▼
+HAR Container
+       │
+       ├── ROS Noetic
+       ├── Python
+       ├── HAR Software
+       ├── Model Files
+       └── Required Dependencies</code></pre>
+<p>Containerization provides a consistent software environment across different computing nodes and simplifies deployment of the distributed ROS-based system.</p>
+<p>The exact Docker configuration, container creation procedure, device access, networking options, and execution commands are documented separately.</p>
+</section>
+<section id="ros-noetic" class="level2">
+<h2 class="anchored" data-anchor-id="ros-noetic">ROS Noetic</h2>
+<p>The distributed communication layer is implemented using <strong>ROS Noetic</strong>.</p>
+<p>ROS provides the publish/subscribe infrastructure used to exchange prediction information between the five local edge nodes and the central computing node.</p>
+<p>The communication architecture follows the general structure:</p>
+<pre class="text"><code>Local Edge Nodes
+      │
+      │ ROS Topics
+      ▼
+Central Node
+      │
+      ▼
+Global Prediction</code></pre>
+<p>Each local node publishes its probability predictions through a dedicated ROS topic.</p>
+<p>The central node subscribes to the distributed prediction streams and processes them as part of the synchronization and fusion pipeline.</p>
+<p>ROS is also used to distribute control and visualization-related information within the framework.</p>
+<p>Detailed documentation of the ROS architecture is provided later under the Communication Framework section.</p>
+</section>
+<section id="python-environment" class="level2">
+<h2 class="anchored" data-anchor-id="python-environment">Python Environment</h2>
+<p>Python is used extensively throughout the implementation of the distributed system.</p>
+<p>Python-based components support tasks including:</p>
+<ul>
+<li>wearable sensor communication;</li>
+<li>sensor data handling;</li>
+<li>local inference;</li>
+<li>model loading;</li>
+<li>ROS publishers and subscribers;</li>
+<li>prediction synchronization;</li>
+<li>central fusion;</li>
+<li>experiment logging;</li>
+<li>performance analysis; and</li>
+<li>supporting utilities.</li>
+</ul>
+<p>The precise Python version and package requirements depend on the Jetson software environment used for each deployment.</p>
+<p>For reproducibility, package versions and installation procedures should be documented alongside the corresponding container or execution environment.</p>
+</section>
+<section id="pytorch" class="level2">
+<h2 class="anchored" data-anchor-id="pytorch">PyTorch</h2>
+<p>The neural network models used by the framework are implemented and executed using <strong>PyTorch</strong>.</p>
+<p>PyTorch is used for:</p>
+<ul>
+<li>loading trained model parameters;</li>
+<li>preparing model inputs;</li>
+<li>executing local neural network inference;</li>
+<li>executing the central fusion model; and</li>
+<li>GPU-accelerated inference where supported by the target platform.</li>
+</ul>
+<p>A previously evaluated centralized GPU environment used:</p>
+<pre class="text"><code>PyTorch 2.0.0+nv23.05
+CUDA 11.4</code></pre>
+<p>These versions correspond to that specific centralized deployment and should not automatically be assumed to represent every Jetson node in the distributed system.</p>
+<p>The exact software configuration for each platform will therefore be documented independently where necessary.</p>
+</section>
+<section id="gpu-acceleration" class="level2">
+<h2 class="anchored" data-anchor-id="gpu-acceleration">GPU Acceleration</h2>
+<p>NVIDIA Jetson platforms provide integrated GPU resources that can be used by supported machine learning frameworks.</p>
+<p>Where GPU acceleration is enabled, the software stack conceptually becomes:</p>
+<pre class="text"><code>HAR Application
+      │
+      ▼
+   PyTorch
+      │
+      ▼
+    CUDA
+      │
+      ▼
+NVIDIA GPU</code></pre>
+<p>The use of GPU acceleration depends on the model, platform, runtime environment, and installed NVIDIA software stack.</p>
+<p>The deployment section will document how model execution was configured on the corresponding embedded platforms.</p>
+</section>
+<section id="clock-synchronization-software" class="level2">
+<h2 class="anchored" data-anchor-id="clock-synchronization-software">Clock Synchronization Software</h2>
+<p>The framework requires synchronized system clocks because predictions are generated independently across multiple physical devices.</p>
+<p><strong>Chrony</strong> is used to maintain clock synchronization between the central node and the distributed edge nodes.</p>
+<p>Conceptually:</p>
+<pre class="text"><code>                 Central Node
+                 Time Reference
+                      │
+        ┌─────────────┼─────────────┐
+        │             │             │
+        ▼             ▼             ▼
+     Edge 1        Edge 2        Edge 3
+        │             │             │
+        ▼             ▼             ▼
+     Edge 4        Edge 5       synchronized
+                                  timestamps</code></pre>
+<p>Synchronized timestamps are subsequently used by the communication and experiment measurement mechanisms.</p>
+<p>The complete Chrony configuration will be documented as a dedicated procedure.</p>
+</section>
+<section id="visualization-software" class="level2">
+<h2 class="anchored" data-anchor-id="visualization-software">Visualization Software</h2>
+<p>A graphical visualization interface was developed using <strong>Unity</strong>.</p>
+<p>The interface receives global HAR information from the distributed system and provides a real-time representation of system predictions.</p>
+<p>The high-level communication path is:</p>
+<pre class="text"><code>Distributed Edge Nodes
+         │
+         ▼
+     Central Node
+         │
+         ▼
+  Global Prediction
+         │
+         ▼
+       Unity
+         │
+         ▼
+Real-Time Visualization</code></pre>
+<p>The Unity interface is not required for the core HAR inference process but provides a useful mechanism for observing system behavior during real-time experiments.</p>
+<p>Its installation, ROS connectivity, activity visualization, and animation configuration are documented separately.</p>
+</section>
+<section id="software-communication-overview" class="level2">
+<h2 class="anchored" data-anchor-id="software-communication-overview">Software Communication Overview</h2>
+<p>The relationship among the primary software components can be summarized as:</p>
+<pre class="text"><code>              EDGE COMPUTING NODES
+
+MetaMotionRL
+     │
+     ▼
+Sensor Acquisition
+     │
+     ▼
+Local PyTorch Model
+     │
+     ▼
+ROS Publisher
+     │
+     │
+     │        Distributed Network
+     │
+     ▼
+──────────────────────────────────────
+     │
+     ▼
+ROS Subscribers
+     │
+     ▼
+Synchronization
+     │
+     ▼
+Central PyTorch Fusion Model
+     │
+     ▼
+Global Prediction
+     │
+     ├────────────► Logging
+     │
+     └────────────► Unity
+
+              CENTRAL COMPUTING NODE</code></pre>
+</section>
+<section id="software-components-summary" class="level2">
+<h2 class="anchored" data-anchor-id="software-components-summary">Software Components Summary</h2>
+<p>The primary technologies used in the framework can be summarized as follows:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Software Component</th>
+<th>Main Role</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Linux / NVIDIA Jetson environment</td>
+<td>Host operating environment</td>
+</tr>
+<tr class="even">
+<td>Docker</td>
+<td>Containerized deployment</td>
+</tr>
+<tr class="odd">
+<td>ROS Noetic</td>
+<td>Distributed communication middleware</td>
+</tr>
+<tr class="even">
+<td>Python</td>
+<td>Framework implementation</td>
+</tr>
+<tr class="odd">
+<td>PyTorch</td>
+<td>Neural network inference</td>
+</tr>
+<tr class="even">
+<td>CUDA</td>
+<td>GPU acceleration where applicable</td>
+</tr>
+<tr class="odd">
+<td>Chrony</td>
+<td>Clock synchronization</td>
+</tr>
+<tr class="even">
+<td>Unity</td>
+<td>Real-time visualization</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="software-documentation-structure" class="level2">
+<h2 class="anchored" data-anchor-id="software-documentation-structure">Software Documentation Structure</h2>
+<p>The software environment will be documented through several dedicated implementation guides.</p>
+<p>The planned organization is:</p>
+<pre class="text"><code>Software Environment
+       │
+       ├── Software Overview
+       │
+       ├── Jetson Environment
+       │
+       ├── Docker Setup
+       │
+       ├── ROS Noetic Setup
+       │
+       ├── Python &amp; PyTorch
+       │
+       └── Clock Synchronization</code></pre>
+<p>Each guide will include the relevant dependencies, configuration files, commands, validation procedures, and known implementation considerations.</p>
+</section>
+<section id="reproducibility-considerations" class="level2">
+<h2 class="anchored" data-anchor-id="reproducibility-considerations">Reproducibility Considerations</h2>
+<p>For a distributed embedded system, recording software versions is particularly important because compatibility may depend on the combination of:</p>
+<ul>
+<li>Jetson hardware;</li>
+<li>NVIDIA JetPack version;</li>
+<li>Ubuntu version;</li>
+<li>CUDA version;</li>
+<li>Python version;</li>
+<li>PyTorch build;</li>
+<li>ROS distribution; and</li>
+<li>container configuration.</li>
+</ul>
+<p>For this reason, subsequent implementation pages will distinguish between software versions that were actually used in the experimental system and versions that may be compatible but were not explicitly evaluated.</p>
+<p>This distinction is important for maintaining reproducibility of the original implementation.</p>
+</section>
+<section id="next-step" class="level2">
+<h2 class="anchored" data-anchor-id="next-step">Next Step</h2>
+<p>The next documentation pages describe how the software environment was configured on the NVIDIA Jetson platforms.</p>
+<p>The first implementation-level topic will be the <strong>Jetson software environment</strong>, followed by containerization with Docker and the ROS Noetic communication environment.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>HAR Distributed Framework</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/blob/main/software-overview.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>Technical Documentation &amp; Reproducibility Resources<br>
+Author: Jhonathan Rivas-Caicedo</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+<script src="site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
