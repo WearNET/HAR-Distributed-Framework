@@ -1,7 +1,11 @@
 # HAR-Distributed-Framework
 HAR Distributed System for the Classification of a Finite Set of Human Activities
 
-<img width="15906" height="9843" alt="electronics-3760176" src="https://github.com/user-attachments/assets/94f1e0dc-2d3a-4656-89ec-749dd85fc1fc" />
+<img width="15906" 
+  height="9843" 
+  alt="HAR-Image-GitHub" 
+  src="https://github.com/user-attachments/assets/fd570809-996d-411a-88c5-9586f5f0c324" 
+  />
 
 ## **[Central Node Model](Central_Node_Model)**  
 This node is responsible for executing the central neural network that combines all the probabilities from each of the sensors used as input for the MLP and generates the overall classification of the activity performed. It also has the script responsible for communicating with the GUI.
