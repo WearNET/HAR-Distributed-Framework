@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
-   width="1110"
+   width="770"
    height="900"
-   viewBox="0 0 1110 900"
+   viewBox="0 0 770 900"
    version="1.1"
    id="svg19"
    sodipodi:docname="complete-framework-workflow.svg"
@@ -20,9 +20,9 @@
      inkscape:pageopacity="0.0"
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
-     inkscape:zoom="0.58870968"
-     inkscape:cx="297.26027"
-     inkscape:cy="682"
+     inkscape:zoom="0.83256121"
+     inkscape:cx="389.16057"
+     inkscape:cy="416.18561"
      inkscape:window-width="2560"
      inkscape:window-height="1334"
      inkscape:window-x="999"
@@ -69,14 +69,14 @@
     .white { font: 700 18px Arial, Helvetica, sans-serif; fill: white; }
   </style>
   <text
-     x="22"
+     x="195.27676"
      y="22"
      class="section"
      id="text1"
      style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:18px;line-height:normal;font-family:Arial, Helvetica, sans-serif">COMPLETE FRAMEWORK WORKFLOW</text>
   <rect
-     x="432"
-     y="60"
+     x="156"
+     y="48"
      width="440"
      height="70"
      rx="16"
@@ -86,32 +86,32 @@
      filter="url(#shadow)"
      id="rect2" />
   <text
-     x="652"
-     y="87"
+     x="376"
+     y="75"
      text-anchor="middle"
      class="box-title"
      id="text2"
      style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:20px;line-height:normal;font-family:Arial, Helvetica, sans-serif">Human Activity</text>
   <text
-     x="652"
-     y="115"
+     x="376"
+     y="103"
      text-anchor="middle"
      class="box-sub"
      id="text3"
      style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:16px;line-height:normal;font-family:Arial, Helvetica, sans-serif">Physical movement</text>
   <line
-     x1="652"
-     y1="130"
-     x2="652"
-     y2="150"
+     x1="376"
+     y1="118"
+     x2="376"
+     y2="138"
      stroke="#7d8ba5"
      stroke-width="3"
      marker-end="url(#arrow)"
      id="line3"
      style="stroke-width:1.5;stroke-dasharray:none" />
   <rect
-     x="432"
-     y="155"
+     x="156"
+     y="143"
      width="440"
      height="70"
      rx="16"
@@ -121,32 +121,32 @@
      filter="url(#shadow)"
      id="rect3" />
   <text
-     x="652"
-     y="182"
+     x="376"
+     y="170"
      text-anchor="middle"
      class="box-title"
      id="text4"
      style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:20px;line-height:normal;font-family:Arial, Helvetica, sans-serif">Wearable Sensor Data</text>
   <text
-     x="652"
-     y="210"
+     x="376"
+     y="198"
      text-anchor="middle"
      class="box-sub"
      id="text5"
      style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:16px;line-height:normal;font-family:Arial, Helvetica, sans-serif">Motion &amp; orientation measurements</text>
   <line
-     x1="652"
-     y1="225"
-     x2="652"
-     y2="245"
+     x1="376"
+     y1="213"
+     x2="376"
+     y2="233"
      stroke="#7d8ba5"
      stroke-width="3"
      marker-end="url(#arrow)"
      id="line5"
      style="stroke-width:1.5;stroke-dasharray:none" />
   <rect
-     x="432"
-     y="250"
+     x="156"
+     y="238"
      width="440"
      height="70"
      rx="16"
@@ -156,32 +156,32 @@
      filter="url(#shadow)"
      id="rect5" />
   <text
-     x="652"
-     y="277"
+     x="376"
+     y="265"
      text-anchor="middle"
      class="box-title"
      id="text6"
      style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:20px;line-height:normal;font-family:Arial, Helvetica, sans-serif">Distributed Edge Nodes</text>
   <text
-     x="652"
-     y="305"
+     x="376"
+     y="293"
      text-anchor="middle"
      class="box-sub"
      id="text7"
      style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:16px;line-height:normal;font-family:Arial, Helvetica, sans-serif">Acquisition, buffering &amp; local processing</text>
   <line
-     x1="652"
-     y1="320"
-     x2="652"
-     y2="340"
+     x1="376"
+     y1="308"
+     x2="376"
+     y2="328"
      stroke="#7d8ba5"
      stroke-width="3"
      marker-end="url(#arrow)"
      id="line7"
      style="stroke-width:1.5;stroke-dasharray:none" />
   <rect
-     x="432"
-     y="345"
+     x="156"
+     y="333"
      width="440"
      height="70"
      rx="16"
@@ -191,32 +191,32 @@
      filter="url(#shadow)"
      id="rect7" />
   <text
-     x="652"
-     y="372"
+     x="376"
+     y="360"
      text-anchor="middle"
      class="box-title"
      id="text8"
      style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:20px;line-height:normal;font-family:Arial, Helvetica, sans-serif">Local HAR Models</text>
   <text
-     x="652"
-     y="400"
+     x="376"
+     y="388"
      text-anchor="middle"
      class="box-sub"
      id="text9"
      style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:16px;line-height:normal;font-family:Arial, Helvetica, sans-serif">Sensor-level neural network inference</text>
   <line
-     x1="652"
-     y1="415"
-     x2="652"
-     y2="435"
+     x1="376"
+     y1="403"
+     x2="376"
+     y2="423"
      stroke="#7d8ba5"
      stroke-width="3"
      marker-end="url(#arrow)"
      id="line9"
      style="stroke-width:1.5;stroke-dasharray:none" />
   <rect
-     x="432"
-     y="440"
+     x="156"
+     y="428"
      width="440"
      height="70"
      rx="16"
@@ -226,32 +226,32 @@
      filter="url(#shadow)"
      id="rect9" />
   <text
-     x="652"
-     y="467"
+     x="376"
+     y="455"
      text-anchor="middle"
      class="box-title"
      id="text10"
      style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:20px;line-height:normal;font-family:Arial, Helvetica, sans-serif">Probability Predictions</text>
   <text
-     x="652"
-     y="495"
+     x="376"
+     y="483"
      text-anchor="middle"
      class="box-sub"
      id="text11"
      style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:16px;line-height:normal;font-family:Arial, Helvetica, sans-serif">Local class probability vectors</text>
   <line
-     x1="652"
-     y1="510"
-     x2="652"
-     y2="530"
+     x1="376"
+     y1="498"
+     x2="376"
+     y2="518"
      stroke="#7d8ba5"
      stroke-width="3"
      marker-end="url(#arrow)"
      id="line11"
      style="stroke-width:1.5;stroke-dasharray:none" />
   <rect
-     x="432"
-     y="535"
+     x="156"
+     y="523"
      width="440"
      height="70"
      rx="16"
@@ -261,32 +261,32 @@
      filter="url(#shadow)"
      id="rect11" />
   <text
-     x="652"
-     y="562"
+     x="376"
+     y="550"
      text-anchor="middle"
      class="box-title"
      id="text12"
      style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:20px;line-height:normal;font-family:Arial, Helvetica, sans-serif">Communication &amp; Synchronization</text>
   <text
-     x="652"
-     y="590"
+     x="376"
+     y="578"
      text-anchor="middle"
      class="box-sub"
      id="text13"
      style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:16px;line-height:normal;font-family:Arial, Helvetica, sans-serif">Distributed exchange and temporal alignment</text>
   <line
-     x1="652"
-     y1="605"
-     x2="652"
-     y2="625"
+     x1="376"
+     y1="593"
+     x2="376"
+     y2="613"
      stroke="#7d8ba5"
      stroke-width="3"
      marker-end="url(#arrow)"
      id="line13"
      style="stroke-width:1.5;stroke-dasharray:none" />
   <rect
-     x="432"
-     y="630"
+     x="156"
+     y="618"
      width="440"
      height="70"
      rx="16"
@@ -296,32 +296,32 @@
      filter="url(#shadow)"
      id="rect13" />
   <text
-     x="652"
-     y="657"
+     x="376"
+     y="645"
      text-anchor="middle"
      class="box-title"
      id="text14"
      style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:20px;line-height:normal;font-family:Arial, Helvetica, sans-serif">Central Fusion Model</text>
   <text
-     x="652"
-     y="685"
+     x="376"
+     y="673"
      text-anchor="middle"
      class="box-sub"
      id="text15"
      style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:16px;line-height:normal;font-family:Arial, Helvetica, sans-serif">System-level decision making</text>
   <line
-     x1="652"
-     y1="700"
-     x2="652"
-     y2="720"
+     x1="376"
+     y1="688"
+     x2="376"
+     y2="708"
      stroke="#7d8ba5"
      stroke-width="3"
      marker-end="url(#arrow)"
      id="line15"
      style="stroke-width:1.5;stroke-dasharray:none" />
   <rect
-     x="432"
-     y="725"
+     x="156"
+     y="713"
      width="440"
      height="70"
      rx="16"
@@ -331,15 +331,15 @@
      filter="url(#shadow)"
      id="rect15" />
   <text
-     x="652"
-     y="752"
+     x="376"
+     y="740"
      text-anchor="middle"
      class="box-title"
      id="text16"
      style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:20px;line-height:normal;font-family:Arial, Helvetica, sans-serif">Global HAR Prediction</text>
   <text
-     x="652"
-     y="780"
+     x="376"
+     y="768"
      text-anchor="middle"
      class="box-sub"
      id="text17"
@@ -352,7 +352,7 @@
      marker-end="url(#arrow)"
      id="polyline17"
      style="stroke-width:1.5;stroke-dasharray:none"
-     transform="translate(-48,-30)" />
+     transform="translate(-324,-42)" />
   <polyline
      points="700,825 700,855 980,855 980,880"
      fill="none"
@@ -361,17 +361,17 @@
      marker-end="url(#arrow)"
      id="polyline18"
      style="stroke-width:1.5;stroke-dasharray:none"
-     transform="translate(-48,-30)" />
+     transform="translate(-324,-42)" />
   <text
-     x="372"
-     y="880"
+     x="96"
+     y="868"
      text-anchor="middle"
      class="label"
      id="text18"
      style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:15px;line-height:normal;font-family:Arial, Helvetica, sans-serif">Experiment Logging</text>
   <text
-     x="932"
-     y="880"
+     x="656"
+     y="868"
      text-anchor="middle"
      class="label"
      id="text19"
