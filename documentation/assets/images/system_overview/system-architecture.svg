@@ -1,0 +1,573 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="1400"
+   height="820"
+   viewBox="0 0 1400 820"
+   version="1.1"
+   id="svg35"
+   sodipodi:docname="system-architecture.svg"
+   inkscape:version="1.4 (86a8ad7, 2024-10-11)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview35"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="0.94424625"
+     inkscape:cx="593.59516"
+     inkscape:cy="330.9518"
+     inkscape:window-width="2560"
+     inkscape:window-height="1334"
+     inkscape:window-x="999"
+     inkscape:window-y="1629"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg35" />
+  <defs
+     id="defs1">
+    <marker
+       id="arrow"
+       markerWidth="10"
+       markerHeight="10"
+       refX="8.5"
+       refY="3.5"
+       orient="auto"
+       markerUnits="strokeWidth">
+      <path
+         d="M0,0 L9,3.5 L0,7 z"
+         fill="#7D8BA5"
+         id="path1" />
+    </marker>
+    <filter
+       id="shadow"
+       x="-0.0058823529"
+       y="-0.011111111"
+       width="1.0117647"
+       height="1.0222222">
+      <feDropShadow
+         dx="0"
+         dy="3"
+         stdDeviation="5"
+         flood-color="#000000"
+         flood-opacity="0.10" />
+    </filter>
+    <filter
+       id="shadow-9"
+       x="-0.0058823529"
+       y="-0.011111111"
+       width="1.0117647"
+       height="1.0222222">
+      <feDropShadow
+         dx="0"
+         dy="3"
+         stdDeviation="5"
+         flood-color="#000000"
+         flood-opacity="0.10" />
+    </filter>
+  </defs>
+  <style
+     id="style1">
+    .title { font: 700 30px Arial, Helvetica, sans-serif; fill: #172033; }
+    .section { font: 700 18px Arial, Helvetica, sans-serif; fill: #1F4EAA; letter-spacing: 0.8px; }
+    .box-title { font: 700 20px Arial, Helvetica, sans-serif; fill: #172033; }
+    .box-sub { font: 400 16px Arial, Helvetica, sans-serif; fill: #5C677D; }
+    .small { font: 400 14px Arial, Helvetica, sans-serif; fill: #5C677D; }
+    .label { font: 700 15px Arial, Helvetica, sans-serif; fill: #172033; }
+    .white { font: 700 18px Arial, Helvetica, sans-serif; fill: white; }
+  </style>
+  <text
+     x="70"
+     y="58"
+     class="section"
+     id="text1">DISTRIBUTED HAR ARCHITECTURE</text>
+  <rect
+     x="95"
+     y="95"
+     width="170"
+     height="90"
+     rx="16"
+     fill="#EAF9FF"
+     stroke="#CFD7E6"
+     stroke-width="2"
+     filter="url(#shadow)"
+     id="rect2" />
+  <text
+     x="180.0"
+     y="132.0"
+     text-anchor="middle"
+     class="box-title"
+     id="text2">MetaMotionRL</text>
+  <text
+     x="180.0"
+     y="160.0"
+     text-anchor="middle"
+     class="box-sub"
+     id="text3">Chest</text>
+  <line
+     x1="180"
+     y1="185"
+     x2="180"
+     y2="245"
+     stroke="#7D8BA5"
+     stroke-width="3"
+     marker-end="url(#arrow)"
+     id="line3"
+     style="stroke-width:1.5;stroke-dasharray:none" />
+  <rect
+     x="125.0"
+     y="200.0"
+     width="110"
+     height="24"
+     rx="12"
+     fill="#FFFFFF"
+     id="rect3" />
+  <text
+     x="180.0"
+     y="217.0"
+     text-anchor="middle"
+     class="small"
+     id="text4">BLE</text>
+  <rect
+     x="95"
+     y="250"
+     width="170"
+     height="100"
+     rx="16"
+     fill="#EAF1FF"
+     stroke="#CFD7E6"
+     stroke-width="2"
+     filter="url(#shadow)"
+     id="rect4" />
+  <text
+     x="180.0"
+     y="292.0"
+     text-anchor="middle"
+     class="box-title"
+     id="text5">Edge Node</text>
+  <text
+     x="180.0"
+     y="320.0"
+     text-anchor="middle"
+     class="box-sub"
+     id="text6">Local HAR inference</text>
+  <rect
+     x="355"
+     y="95"
+     width="170"
+     height="90"
+     rx="16"
+     fill="#EAF9FF"
+     stroke="#CFD7E6"
+     stroke-width="2"
+     filter="url(#shadow)"
+     id="rect6" />
+  <text
+     x="440.0"
+     y="132.0"
+     text-anchor="middle"
+     class="box-title"
+     id="text7">MetaMotionRL</text>
+  <text
+     x="440.0"
+     y="160.0"
+     text-anchor="middle"
+     class="box-sub"
+     id="text8">Left Hand</text>
+  <line
+     x1="440"
+     y1="185"
+     x2="440"
+     y2="245"
+     stroke="#7D8BA5"
+     stroke-width="3"
+     marker-end="url(#arrow)"
+     id="line8"
+     style="stroke-width:1.5;stroke-dasharray:none" />
+  <rect
+     x="385.0"
+     y="200.0"
+     width="110"
+     height="24"
+     rx="12"
+     fill="#FFFFFF"
+     id="rect8" />
+  <text
+     x="440.0"
+     y="217.0"
+     text-anchor="middle"
+     class="small"
+     id="text9">BLE</text>
+  <rect
+     x="355"
+     y="250"
+     width="170"
+     height="100"
+     rx="16"
+     fill="#EAF1FF"
+     stroke="#CFD7E6"
+     stroke-width="2"
+     filter="url(#shadow)"
+     id="rect9" />
+  <text
+     x="440.0"
+     y="292.0"
+     text-anchor="middle"
+     class="box-title"
+     id="text10">Edge Node</text>
+  <text
+     x="440.0"
+     y="320.0"
+     text-anchor="middle"
+     class="box-sub"
+     id="text11">Local HAR inference</text>
+  <line
+     x1="700"
+     y1="185"
+     x2="700"
+     y2="245"
+     stroke="#7D8BA5"
+     stroke-width="3"
+     marker-end="url(#arrow)"
+     id="line13"
+     style="stroke-width:1.5;stroke-dasharray:none" />
+  <rect
+     x="645.0"
+     y="200.0"
+     width="110"
+     height="24"
+     rx="12"
+     fill="#FFFFFF"
+     id="rect13" />
+  <text
+     x="700.0"
+     y="217.0"
+     text-anchor="middle"
+     class="small"
+     id="text14">BLE</text>
+  <rect
+     x="615"
+     y="250"
+     width="170"
+     height="100"
+     rx="16"
+     fill="#EAF1FF"
+     stroke="#CFD7E6"
+     stroke-width="2"
+     filter="url(#shadow)"
+     id="rect14" />
+  <text
+     x="700.0"
+     y="292.0"
+     text-anchor="middle"
+     class="box-title"
+     id="text15">Edge Node</text>
+  <text
+     x="700.0"
+     y="320.0"
+     text-anchor="middle"
+     class="box-sub"
+     id="text16">Local HAR inference</text>
+  <rect
+     x="875"
+     y="95"
+     width="170"
+     height="90"
+     rx="16"
+     fill="#EAF9FF"
+     stroke="#CFD7E6"
+     stroke-width="2"
+     filter="url(#shadow)"
+     id="rect16" />
+  <text
+     x="960.0"
+     y="132.0"
+     text-anchor="middle"
+     class="box-title"
+     id="text17">MetaMotionRL</text>
+  <text
+     x="960.0"
+     y="160.0"
+     text-anchor="middle"
+     class="box-sub"
+     id="text18">Left Knee</text>
+  <line
+     x1="960"
+     y1="185"
+     x2="960"
+     y2="245"
+     stroke="#7D8BA5"
+     stroke-width="3"
+     marker-end="url(#arrow)"
+     id="line18"
+     style="stroke-width:1.5;stroke-dasharray:none" />
+  <rect
+     x="905.0"
+     y="200.0"
+     width="110"
+     height="24"
+     rx="12"
+     fill="#FFFFFF"
+     id="rect18" />
+  <text
+     x="960.0"
+     y="217.0"
+     text-anchor="middle"
+     class="small"
+     id="text19">BLE</text>
+  <rect
+     x="875"
+     y="250"
+     width="170"
+     height="100"
+     rx="16"
+     fill="#EAF1FF"
+     stroke="#CFD7E6"
+     stroke-width="2"
+     filter="url(#shadow)"
+     id="rect19" />
+  <text
+     x="960.0"
+     y="292.0"
+     text-anchor="middle"
+     class="box-title"
+     id="text20">Edge Node</text>
+  <text
+     x="960.0"
+     y="320.0"
+     text-anchor="middle"
+     class="box-sub"
+     id="text21">Local HAR inference</text>
+  <rect
+     x="1135"
+     y="95"
+     width="170"
+     height="90"
+     rx="16"
+     fill="#EAF9FF"
+     stroke="#CFD7E6"
+     stroke-width="2"
+     filter="url(#shadow)"
+     id="rect21" />
+  <text
+     x="1220.0"
+     y="132.0"
+     text-anchor="middle"
+     class="box-title"
+     id="text22">MetaMotionRL</text>
+  <text
+     x="1220.0"
+     y="160.0"
+     text-anchor="middle"
+     class="box-sub"
+     id="text23">Right Knee</text>
+  <line
+     x1="1220"
+     y1="185"
+     x2="1220"
+     y2="245"
+     stroke="#7D8BA5"
+     stroke-width="3"
+     marker-end="url(#arrow)"
+     id="line23"
+     style="stroke-width:1.5;stroke-dasharray:none" />
+  <rect
+     x="1165.0"
+     y="200.0"
+     width="110"
+     height="24"
+     rx="12"
+     fill="#FFFFFF"
+     id="rect23" />
+  <text
+     x="1220.0"
+     y="217.0"
+     text-anchor="middle"
+     class="small"
+     id="text24">BLE</text>
+  <rect
+     x="1135"
+     y="250"
+     width="170"
+     height="100"
+     rx="16"
+     fill="#EAF1FF"
+     stroke="#CFD7E6"
+     stroke-width="2"
+     filter="url(#shadow)"
+     id="rect24" />
+  <text
+     x="1220.0"
+     y="292.0"
+     text-anchor="middle"
+     class="box-title"
+     id="text25">Edge Node</text>
+  <text
+     x="1220.0"
+     y="320.0"
+     text-anchor="middle"
+     class="box-sub"
+     id="text26">Local HAR inference</text>
+  <polyline
+     points="180,350 180,405 700,405 700,455"
+     fill="none"
+     stroke="#7D8BA5"
+     stroke-width="3"
+     marker-end="url(#arrow)"
+     id="polyline26"
+     style="stroke-width:1.5;stroke-dasharray:none" />
+  <polyline
+     points="440,350 440,405 700,405 700,455"
+     fill="none"
+     stroke="#7D8BA5"
+     stroke-width="3"
+     marker-end="url(#arrow)"
+     id="polyline27"
+     style="stroke-width:1.5;stroke-dasharray:none" />
+  <polyline
+     points="700,350 700,405 700,405 700,455"
+     fill="none"
+     stroke="#7D8BA5"
+     stroke-width="3"
+     marker-end="url(#arrow)"
+     id="polyline28"
+     style="stroke-width:1.5;stroke-dasharray:none" />
+  <polyline
+     points="960,350 960,405 700,405 700,455"
+     fill="none"
+     stroke="#7D8BA5"
+     stroke-width="3"
+     marker-end="url(#arrow)"
+     id="polyline29"
+     style="stroke-width:1.5;stroke-dasharray:none" />
+  <polyline
+     points="1220,350 1220,405 700,405 700,455"
+     fill="none"
+     stroke="#7D8BA5"
+     stroke-width="3"
+     marker-end="url(#arrow)"
+     id="polyline30"
+     style="stroke-width:1.5;stroke-dasharray:none" />
+  <rect
+     x="495"
+     y="465"
+     width="410"
+     height="95"
+     rx="16"
+     fill="#F1EDFF"
+     stroke="#CFD7E6"
+     stroke-width="2"
+     filter="url(#shadow)"
+     id="rect30" />
+  <text
+     x="700.0"
+     y="504.5"
+     text-anchor="middle"
+     class="box-title"
+     id="text30">Communication &amp; Synchronization</text>
+  <text
+     x="700.0"
+     y="532.5"
+     text-anchor="middle"
+     class="box-sub"
+     id="text31">Wi-Fi / distributed prediction exchange</text>
+  <line
+     x1="700"
+     y1="560"
+     x2="700"
+     y2="625"
+     stroke="#7D8BA5"
+     stroke-width="3"
+     marker-end="url(#arrow)"
+     id="line31"
+     style="stroke-width:1.5;stroke-dasharray:none" />
+  <rect
+     x="530"
+     y="635"
+     width="340"
+     height="95"
+     rx="16"
+     fill="#EAF7F2"
+     stroke="#CFD7E6"
+     stroke-width="2"
+     filter="url(#shadow)"
+     id="rect31" />
+  <text
+     x="700.0"
+     y="674.5"
+     text-anchor="middle"
+     class="box-title"
+     id="text32">Central Fusion</text>
+  <text
+     x="700.0"
+     y="702.5"
+     text-anchor="middle"
+     class="box-sub"
+     id="text33">System-level activity prediction</text>
+  <polyline
+     points="700,730 700,770 480,770 480,790"
+     fill="none"
+     stroke="#7D8BA5"
+     stroke-width="3"
+     marker-end="url(#arrow)"
+     id="polyline33"
+     style="stroke-width:1.5;stroke-dasharray:none" />
+  <polyline
+     points="700,730 700,770 920,770 920,790"
+     fill="none"
+     stroke="#7D8BA5"
+     stroke-width="3"
+     marker-end="url(#arrow)"
+     id="polyline34"
+     style="stroke-width:1.5;stroke-dasharray:none" />
+  <text
+     x="480"
+     y="810"
+     text-anchor="middle"
+     class="label"
+     id="text34">Logging</text>
+  <text
+     x="920"
+     y="810"
+     text-anchor="middle"
+     class="label"
+     id="text35">Visualization</text>
+  <g
+     id="g35"
+     transform="translate(16.000005,207)">
+    <g
+       id="g36">
+      <rect
+         x="599"
+         y="-112"
+         width="170"
+         height="90"
+         rx="16"
+         fill="#eaf9ff"
+         stroke="#cfd7e6"
+         stroke-width="2"
+         filter="url(#shadow)"
+         id="rect16-4"
+         style="filter:url(#shadow-9)" />
+      <text
+         x="684"
+         y="-75"
+         text-anchor="middle"
+         class="box-title"
+         id="text17-8"
+         style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:20px;line-height:normal;font-family:Arial, Helvetica, sans-serif;fill:#172033">MetaMotionRL</text>
+      <text
+         x="684"
+         y="-47"
+         text-anchor="middle"
+         class="box-sub"
+         id="text18-8"
+         style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:16px;line-height:normal;font-family:Arial, Helvetica, sans-serif;fill:#5c677d">Right Hand</text>
+    </g>
+  </g>
+</svg>

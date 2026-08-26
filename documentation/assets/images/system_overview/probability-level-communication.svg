@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="1400"
+   height="257"
+   viewBox="0 0 1400 257"
+   version="1.1"
+   id="svg15"
+   sodipodi:docname="probability-level-communication.svg"
+   inkscape:version="1.4 (86a8ad7, 2024-10-11)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview15"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="0.60811183"
+     inkscape:cx="438.24176"
+     inkscape:cy="68.244027"
+     inkscape:window-width="2560"
+     inkscape:window-height="1334"
+     inkscape:window-x="999"
+     inkscape:window-y="1629"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg15" />
+  <defs
+     id="defs1">
+    <marker
+       id="arrow"
+       markerWidth="10"
+       markerHeight="10"
+       refX="8.5"
+       refY="3.5"
+       orient="auto"
+       markerUnits="strokeWidth">
+      <path
+         d="M 0,0 9,3.5 0,7 Z"
+         fill="#7d8ba5"
+         id="path1" />
+    </marker>
+    <filter
+       id="shadow"
+       x="-0.0052631579"
+       y="-0.0095238095"
+       width="1.0105263"
+       height="1.0190476">
+      <feDropShadow
+         dx="0"
+         dy="3"
+         stdDeviation="5"
+         flood-color="#000000"
+         flood-opacity="0.10" />
+    </filter>
+  </defs>
+  <style
+     id="style1">
+    .title { font: 700 30px Arial, Helvetica, sans-serif; fill: #172033; }
+    .section { font: 700 18px Arial, Helvetica, sans-serif; fill: #1F4EAA; letter-spacing: 0.8px; }
+    .box-title { font: 700 20px Arial, Helvetica, sans-serif; fill: #172033; }
+    .box-sub { font: 400 16px Arial, Helvetica, sans-serif; fill: #5C677D; }
+    .small { font: 400 14px Arial, Helvetica, sans-serif; fill: #5C677D; }
+    .label { font: 700 15px Arial, Helvetica, sans-serif; fill: #172033; }
+    .white { font: 700 18px Arial, Helvetica, sans-serif; fill: white; }
+  </style>
+  <text
+     x="70"
+     y="24"
+     class="section"
+     id="text1"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:18px;line-height:normal;font-family:Arial, Helvetica, sans-serif">PROBABILITY-LEVEL COMMUNICATION</text>
+  <rect
+     x="35"
+     y="44"
+     width="190"
+     height="105"
+     rx="16"
+     fill="#eaf9ff"
+     stroke="#cfd7e6"
+     stroke-width="2"
+     filter="url(#shadow)"
+     id="rect2" />
+  <text
+     x="130"
+     y="88.5"
+     text-anchor="middle"
+     class="box-title"
+     id="text2"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:20px;line-height:normal;font-family:Arial, Helvetica, sans-serif">Wearable Sensor</text>
+  <text
+     x="130"
+     y="116.5"
+     text-anchor="middle"
+     class="box-sub"
+     id="text3"
+     style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:16px;line-height:normal;font-family:Arial, Helvetica, sans-serif">Motion / orientation</text>
+  <line
+     x1="225"
+     y1="96"
+     x2="257"
+     y2="96"
+     stroke="#7d8ba5"
+     stroke-width="3"
+     marker-end="url(#arrow)"
+     id="line3"
+     style="stroke-width:1.5;stroke-dasharray:none" />
+  <rect
+     x="260"
+     y="44"
+     width="190"
+     height="105"
+     rx="16"
+     fill="#f5f7fa"
+     stroke="#cfd7e6"
+     stroke-width="2"
+     filter="url(#shadow)"
+     id="rect3" />
+  <text
+     x="355"
+     y="88.5"
+     text-anchor="middle"
+     class="box-title"
+     id="text4"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:20px;line-height:normal;font-family:Arial, Helvetica, sans-serif">Edge Device</text>
+  <text
+     x="355"
+     y="116.5"
+     text-anchor="middle"
+     class="box-sub"
+     id="text5"
+     style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:16px;line-height:normal;font-family:Arial, Helvetica, sans-serif">Local processing</text>
+  <line
+     x1="450"
+     y1="96"
+     x2="482"
+     y2="96"
+     stroke="#7d8ba5"
+     stroke-width="3"
+     marker-end="url(#arrow)"
+     id="line5"
+     style="stroke-width:1.5;stroke-dasharray:none" />
+  <rect
+     x="485"
+     y="44"
+     width="190"
+     height="105"
+     rx="16"
+     fill="#eaf1ff"
+     stroke="#cfd7e6"
+     stroke-width="2"
+     filter="url(#shadow)"
+     id="rect5" />
+  <text
+     x="580"
+     y="88.5"
+     text-anchor="middle"
+     class="box-title"
+     id="text6"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:20px;line-height:normal;font-family:Arial, Helvetica, sans-serif">Local HAR Model</text>
+  <text
+     x="580"
+     y="116.5"
+     text-anchor="middle"
+     class="box-sub"
+     id="text7"
+     style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:16px;line-height:normal;font-family:Arial, Helvetica, sans-serif">Inference</text>
+  <line
+     x1="675"
+     y1="96"
+     x2="707"
+     y2="96"
+     stroke="#7d8ba5"
+     stroke-width="3"
+     marker-end="url(#arrow)"
+     id="line7"
+     style="stroke-width:1.5;stroke-dasharray:none" />
+  <rect
+     x="710"
+     y="44"
+     width="190"
+     height="105"
+     rx="16"
+     fill="#eaf7f2"
+     stroke="#cfd7e6"
+     stroke-width="2"
+     filter="url(#shadow)"
+     id="rect7" />
+  <text
+     x="805"
+     y="88.5"
+     text-anchor="middle"
+     class="box-title"
+     id="text8"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:20px;line-height:normal;font-family:Arial, Helvetica, sans-serif">Probability Vector</text>
+  <text
+     x="805"
+     y="116.5"
+     text-anchor="middle"
+     class="box-sub"
+     id="text9"
+     style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:16px;line-height:normal;font-family:Arial, Helvetica, sans-serif">[p0 … p5]</text>
+  <line
+     x1="900"
+     y1="96"
+     x2="932"
+     y2="96"
+     stroke="#7d8ba5"
+     stroke-width="3"
+     marker-end="url(#arrow)"
+     id="line9"
+     style="stroke-width:1.5;stroke-dasharray:none" />
+  <rect
+     x="935"
+     y="44"
+     width="190"
+     height="105"
+     rx="16"
+     fill="#f1edff"
+     stroke="#cfd7e6"
+     stroke-width="2"
+     filter="url(#shadow)"
+     id="rect9" />
+  <text
+     x="1030"
+     y="88.5"
+     text-anchor="middle"
+     class="box-title"
+     id="text10"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:20px;line-height:normal;font-family:Arial, Helvetica, sans-serif">Network</text>
+  <text
+     x="1030"
+     y="116.5"
+     text-anchor="middle"
+     class="box-sub"
+     id="text11"
+     style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:16px;line-height:normal;font-family:Arial, Helvetica, sans-serif">Prediction message</text>
+  <line
+     x1="1125"
+     y1="96"
+     x2="1157"
+     y2="96"
+     stroke="#7d8ba5"
+     stroke-width="3"
+     marker-end="url(#arrow)"
+     id="line11"
+     style="stroke-width:1.5;stroke-dasharray:none" />
+  <rect
+     x="1160"
+     y="44"
+     width="190"
+     height="105"
+     rx="16"
+     fill="#eaf7f2"
+     stroke="#cfd7e6"
+     stroke-width="2"
+     filter="url(#shadow)"
+     id="rect11" />
+  <text
+     x="1255"
+     y="88.5"
+     text-anchor="middle"
+     class="box-title"
+     id="text12"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:20px;line-height:normal;font-family:Arial, Helvetica, sans-serif">Central Node</text>
+  <text
+     x="1255"
+     y="116.5"
+     text-anchor="middle"
+     class="box-sub"
+     id="text13"
+     style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:16px;line-height:normal;font-family:Arial, Helvetica, sans-serif">Synchronization + fusion</text>
+  <rect
+     x="490"
+     y="169"
+     width="420"
+     height="68"
+     rx="18"
+     fill="#fff3e5"
+     stroke="#cfd7e6"
+     stroke-width="2"
+     id="rect13" />
+  <text
+     x="700"
+     y="197"
+     text-anchor="middle"
+     class="label"
+     id="text14"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:15px;line-height:normal;font-family:Arial, Helvetica, sans-serif">Only model outputs cross the distributed network</text>
+  <text
+     x="700"
+     y="222"
+     text-anchor="middle"
+     class="small"
+     id="text15"
+     style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:14px;line-height:normal;font-family:Arial, Helvetica, sans-serif">Continuous raw sensor windows remain at the edge</text>
+</svg>
