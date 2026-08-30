@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Storage Expansion – HAR Distributed Framework</title>
+<title>Edge Nodes – HAR Distributed Framework</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -25,41 +25,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -327,7 +292,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./flash-jetson-board.html">Setup</a></li><li class="breadcrumb-item"><a href="./expansion-jetson-board.html">Storage Expansion</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./edge-nodes.html">Framework</a></li><li class="breadcrumb-item"><a href="./edge-nodes.html">Edge Nodes</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -382,7 +347,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./expansion-jetson-board.html" class="sidebar-item-text sidebar-link active">
+  <a href="./expansion-jetson-board.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Storage Expansion</span></a>
   </div>
 </li>
@@ -417,7 +382,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./edge-nodes.html" class="sidebar-item-text sidebar-link">
+  <a href="./edge-nodes.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Edge Nodes</span></a>
   </div>
 </li>
@@ -475,34 +440,36 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#when-is-storage-expansion-useful" id="toc-when-is-storage-expansion-useful" class="nav-link active" data-scroll-target="#when-is-storage-expansion-useful">When Is Storage Expansion Useful?</a></li>
-  <li><a href="#requirements" id="toc-requirements" class="nav-link" data-scroll-target="#requirements">Requirements</a></li>
-  <li><a href="#install-the-nvme-ssd" id="toc-install-the-nvme-ssd" class="nav-link" data-scroll-target="#install-the-nvme-ssd">1. Install the NVMe SSD</a></li>
-  <li><a href="#prepare-the-ssd" id="toc-prepare-the-ssd" class="nav-link" data-scroll-target="#prepare-the-ssd">2. Prepare the SSD</a></li>
-  <li><a href="#download-the-root-on-nvme-utility" id="toc-download-the-root-on-nvme-utility" class="nav-link" data-scroll-target="#download-the-root-on-nvme-utility">3. Download the Root-on-NVMe Utility</a></li>
-  <li><a href="#copy-the-root-filesystem" id="toc-copy-the-root-filesystem" class="nav-link" data-scroll-target="#copy-the-root-filesystem">4. Copy the Root Filesystem</a></li>
-  <li><a href="#configure-boot-from-nvme" id="toc-configure-boot-from-nvme" class="nav-link" data-scroll-target="#configure-boot-from-nvme">5. Configure Boot from NVMe</a></li>
+  <li><a href="#edge-node-software-pipeline" id="toc-edge-node-software-pipeline" class="nav-link active" data-scroll-target="#edge-node-software-pipeline">Edge Node Software Pipeline</a></li>
+  <li><a href="#sensor-acquisition" id="toc-sensor-acquisition" class="nav-link" data-scroll-target="#sensor-acquisition">Sensor Acquisition</a></li>
+  <li><a href="#sample-buffer" id="toc-sample-buffer" class="nav-link" data-scroll-target="#sample-buffer">Sample Buffer</a></li>
+  <li><a href="#input-preparation" id="toc-input-preparation" class="nav-link" data-scroll-target="#input-preparation">Input Preparation</a></li>
+  <li><a href="#local-inference" id="toc-local-inference" class="nav-link" data-scroll-target="#local-inference">Local Inference</a></li>
+  <li><a href="#prediction-output" id="toc-prediction-output" class="nav-link" data-scroll-target="#prediction-output">Prediction Output</a></li>
+  <li><a href="#timing-information" id="toc-timing-information" class="nav-link" data-scroll-target="#timing-information">Timing Information</a></li>
+  <li><a href="#common-edge-node-structure" id="toc-common-edge-node-structure" class="nav-link" data-scroll-target="#common-edge-node-structure">Common Edge Node Structure</a></li>
+  <li><a href="#interaction-with-the-central-node" id="toc-interaction-with-the-central-node" class="nav-link" data-scroll-target="#interaction-with-the-central-node">Interaction with the Central Node</a></li>
   <li><a href="#verification" id="toc-verification" class="nav-link" data-scroll-target="#verification">Verification</a></li>
-  <li><a href="#nvme-device-path" id="toc-nvme-device-path" class="nav-link" data-scroll-target="#nvme-device-path">NVMe Device Path</a></li>
-  <li><a href="#recovery-behavior" id="toc-recovery-behavior" class="nav-link" data-scroll-target="#recovery-behavior">Recovery Behavior</a></li>
   <li><a href="#troubleshooting" id="toc-troubleshooting" class="nav-link" data-scroll-target="#troubleshooting">Troubleshooting</a>
   <ul class="collapse">
-  <li><a href="#ssd-is-not-detected" id="toc-ssd-is-not-detected" class="nav-link" data-scroll-target="#ssd-is-not-detected">SSD Is Not Detected</a></li>
-  <li><a href="#system-does-not-boot-from-the-ssd" id="toc-system-does-not-boot-from-the-ssd" class="nav-link" data-scroll-target="#system-does-not-boot-from-the-ssd">System Does Not Boot from the SSD</a></li>
-  <li><a href="#incorrect-nvme-device-path" id="toc-incorrect-nvme-device-path" class="nav-link" data-scroll-target="#incorrect-nvme-device-path">Incorrect NVMe Device Path</a></li>
+  <li><a href="#sensor-data-are-not-available" id="toc-sensor-data-are-not-available" class="nav-link" data-scroll-target="#sensor-data-are-not-available">Sensor Data Are Not Available</a></li>
+  <li><a href="#local-model-does-not-load" id="toc-local-model-does-not-load" class="nav-link" data-scroll-target="#local-model-does-not-load">Local Model Does Not Load</a></li>
+  <li><a href="#inference-runs-but-no-prediction-is-received-centrally" id="toc-inference-runs-but-no-prediction-is-received-centrally" class="nav-link" data-scroll-target="#inference-runs-but-no-prediction-is-received-centrally">Inference Runs but No Prediction Is Received Centrally</a></li>
+  <li><a href="#ros-communication-is-not-available" id="toc-ros-communication-is-not-available" class="nav-link" data-scroll-target="#ros-communication-is-not-available">ROS Communication Is Not Available</a></li>
   </ul></li>
+  <li><a href="#related-documentation" id="toc-related-documentation" class="nav-link" data-scroll-target="#related-documentation">Related Documentation</a></li>
   <li><a href="#next-step" id="toc-next-step" class="nav-link" data-scroll-target="#next-step">Next Step</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/blob/main/expansion-jetson-board.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/blob/main/edge-nodes.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./flash-jetson-board.html">Setup</a></li><li class="breadcrumb-item"><a href="./expansion-jetson-board.html">Storage Expansion</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./edge-nodes.html">Framework</a></li><li class="breadcrumb-item"><a href="./edge-nodes.html">Edge Nodes</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Storage Expansion</h1>
-<p class="subtitle lead">Optional Jetson Preparation</p>
+<h1 class="title">Edge Nodes</h1>
+<p class="subtitle lead">Local Processing and Inference</p>
 </div>
 
 
@@ -519,224 +486,207 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>This section describes how to expand the available storage of a compatible Jetson-based system using an <strong>NVMe SSD connected through an M.2 M-Key slot</strong>.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<p>The <strong>edge nodes</strong> execute the sensor-level processing required by the HAR Distributed Framework.</p>
+<p>Each edge device is associated with one wearable sensing location and runs the software required to acquire sensor data, prepare the model input, perform local inference, and transmit the resulting prediction to the central node.</p>
+<p>The five edge nodes follow the same general software pipeline.</p>
+<section id="edge-node-software-pipeline" class="level2">
+<h2 class="anchored" data-anchor-id="edge-node-software-pipeline">Edge Node Software Pipeline</h2>
+<p>The processing stages executed locally before communicating with the central node are shown in <a href="#fig-edge-pipeline" class="quarto-xref">Figure&nbsp;1</a>.</p>
+<div id="fig-edge-pipeline" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-edge-pipeline-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="assets/images/framework/edge_nodes/edge-node-software-pipeline.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%">
 </div>
-<div class="callout-title-container flex-fill">
-Note
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-edge-pipeline-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Software pipeline executed by each edge computing node.
+</figcaption>
+</figure>
 </div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Storage expansion is <strong>optional</strong>.</p>
-<p>If the Jetson device already provides sufficient storage for the operating system, framework dependencies, trained models, and experiment logs, this procedure can be skipped.</p>
-</div>
-</div>
-<section id="when-is-storage-expansion-useful" class="level2">
-<h2 class="anchored" data-anchor-id="when-is-storage-expansion-useful">When Is Storage Expansion Useful?</h2>
-<p>Storage expansion is useful when the onboard storage is not sufficient for:</p>
+<p>The local pipeline consists of six main stages:</p>
+<ol type="1">
+<li>Sensor Acquisition</li>
+<li>Sample Buffering</li>
+<li>Input Preparation</li>
+<li>Local Model Inference</li>
+<li>Prediction Generation</li>
+<li>ROS Publication</li>
+</ol>
+<p>The sensing configuration and model inputs associated with each node are documented separately under <a href="./models-data.html"><strong>Models &amp; Data</strong></a>.</p>
+</section>
+<section id="sensor-acquisition" class="level2">
+<h2 class="anchored" data-anchor-id="sensor-acquisition">Sensor Acquisition</h2>
+<p>Each edge node receives measurements from its assigned MetaMotionRL sensor through Bluetooth Low Energy (BLE).</p>
+<p>The acquisition component is responsible for:</p>
 <ul>
-<li>The operating system</li>
-<li>Docker images and containers</li>
-<li>Python and machine learning dependencies</li>
-<li>Trained models</li>
-<li>Experiment logs</li>
-<li>Additional development resources</li>
+<li>Establishing communication with the assigned wearable sensor</li>
+<li>Receiving the required sensor stream</li>
+<li>Maintaining continuous data acquisition</li>
+<li>Forwarding incoming samples to the local processing buffer</li>
 </ul>
-<p>The procedure documented here moves the system root filesystem to an NVMe SSD while preserving the original root filesystem stored in the Jetson’s internal storage.</p>
+<p>Wearable sensor pairing, physical placement, and BLE verification are covered in <a href="./wearable-sensors.html">Wearable Sensor Setup</a>.</p>
 </section>
-<section id="requirements" class="level2">
-<h2 class="anchored" data-anchor-id="requirements">Requirements</h2>
-<p>The procedure requires:</p>
+<section id="sample-buffer" class="level2">
+<h2 class="anchored" data-anchor-id="sample-buffer">Sample Buffer</h2>
+<p>Incoming measurements are accumulated locally until enough data are available to construct an input for the HAR model.</p>
+<p>The buffer isolates continuous sensor acquisition from neural network inference and allows the edge node to prepare model inputs from incoming measurements.</p>
+<p>Detailed window size, sampling rate, and signal organization are documented under <a href="./models-data.html"><strong>Models &amp; Data</strong></a>.</p>
+</section>
+<section id="input-preparation" class="level2">
+<h2 class="anchored" data-anchor-id="input-preparation">Input Preparation</h2>
+<p>Before inference, the buffered sensor data are converted into the input representation expected by the local model.</p>
+<p>This stage may include operations such as:</p>
 <ul>
-<li>A Jetson-based system with an <strong>M.2 M-Key slot</strong></li>
-<li>An NVMe SSD</li>
-<li>An existing working Jetson operating system</li>
-<li>Sufficient access privileges to modify the storage configuration</li>
+<li>Selecting the required sensor channels</li>
+<li>Organizing measurements in the expected order</li>
+<li>Constructing the model input tensor</li>
+<li>Applying any preprocessing required by the trained model</li>
 </ul>
-<p>The procedure was originally performed on a <strong>reComputer platform</strong> using an NVMe SSD.</p>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Important
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>The Jetson must already boot correctly before performing this procedure.</p>
-<p>Storage expansion does not replace the operating system flashing procedure.</p>
-</div>
-</div>
+<p>The exact input configuration is node-dependent and is therefore documented with the corresponding model definitions under <a href="./models-data.html"><strong>Models &amp; Data</strong></a>.</p>
 </section>
-<section id="install-the-nvme-ssd" class="level2">
-<h2 class="anchored" data-anchor-id="install-the-nvme-ssd">1. Install the NVMe SSD</h2>
-<p>Power off the Jetson device and install the NVMe SSD in the available M.2 M-Key slot.</p>
-<p>Refer to the corresponding carrier-board hardware instructions for the exact installation procedure.</p>
-<p>The device used for the original procedure is shown below.</p>
-<div class="text-center">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/reComputeJ1020.webp" class="img-fluid figure-img" style="width:40.0%"></p>
-<figcaption>Example reComputer platform used for NVMe storage expansion.</figcaption>
-</figure>
-</div>
-</div>
-<p>After installing the SSD, power on the Jetson and verify that the device is detected by the operating system.</p>
+<section id="local-inference" class="level2">
+<h2 class="anchored" data-anchor-id="local-inference">Local Inference</h2>
+<p>Once the model input is available, the edge node executes its trained local HAR model.</p>
+<p>Each local model processes information from one wearable sensing location and produces a probability distribution over the supported activity classes.</p>
+<p>Conceptually, the output has the form:</p>
+<pre class="text"><code>[p0, p1, p2, p3, p4, p5]</code></pre>
+<p>The edge node does not make the final system-level activity decision.</p>
+<p>Instead, the probability vector becomes the local contribution that will later be synchronized and combined by the central node.</p>
+<p>The architecture and training of the local models are documented under <a href="./models-data.html"><strong>Models &amp; Data</strong></a>.</p>
 </section>
-<section id="prepare-the-ssd" class="level2">
-<h2 class="anchored" data-anchor-id="prepare-the-ssd">2. Prepare the SSD</h2>
-<p>Open the Ubuntu <strong>Disks</strong> utility.</p>
-<p>The SSD should appear in the list of available storage devices.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/disk.webp" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div>
-<p>Select the SSD and choose <strong>Format Disk</strong>.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/format_disk.webp" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div>
-<p>Use a <strong>GPT partition table</strong>.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/format_disk2.webp" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div>
-<p>Create a new partition using the available storage space.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/format_disk3.webp" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div>
-<p>Continue with the partition creation process.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/format_disk4.webp" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div>
-<p>Format the partition using the <strong>Ext4</strong> filesystem.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/format_disk5.webp" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div>
-<p>Once completed, the SSD is ready to receive a copy of the Jetson root filesystem.</p>
+<section id="prediction-output" class="level2">
+<h2 class="anchored" data-anchor-id="prediction-output">Prediction Output</h2>
+<p>After inference, the local probability vector is prepared for transmission to the central node.</p>
+<p>The outgoing information includes the prediction together with the metadata required by the distributed framework, such as identification and timing information.</p>
+<p>The exact ROS message structure, sequence information, timestamps, and topic organization are documented under <a href="./communication-sync.html"><strong>Communication &amp; Synchronization</strong></a>.</p>
 </section>
-<section id="download-the-root-on-nvme-utility" class="level2">
-<h2 class="anchored" data-anchor-id="download-the-root-on-nvme-utility">3. Download the Root-on-NVMe Utility</h2>
-<p>Open a terminal and clone the <code>rootOnNVMe</code> repository:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/limengdu/rootOnNVMe.git</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> rootOnNVMe/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>This utility provides the scripts used to copy the existing root filesystem and configure the system to use the NVMe SSD.</p>
+<section id="timing-information" class="level2">
+<h2 class="anchored" data-anchor-id="timing-information">Timing Information</h2>
+<p>The edge implementation records timing information associated with local processing.</p>
+<p>These measurements are used later to characterize the contribution of the edge devices to the overall real-time performance of the distributed system.</p>
+<p>Timing measurement fields and the resulting experiment logs are documented under <a href="./experiments-logs.html"><strong>Experiments &amp; Logs</strong></a>.</p>
 </section>
-<section id="copy-the-root-filesystem" class="level2">
-<h2 class="anchored" data-anchor-id="copy-the-root-filesystem">4. Copy the Root Filesystem</h2>
-<p>Execute:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./copy-rootfs-ssd.sh</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The script copies the existing root filesystem from the Jetson internal storage to the SSD.</p>
-<p>The execution time depends on the amount of data currently stored in the root filesystem.</p>
+<section id="common-edge-node-structure" class="level2">
+<h2 class="anchored" data-anchor-id="common-edge-node-structure">Common Edge Node Structure</h2>
+<p>The five edge nodes use the same general processing pattern:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Edge Node</th>
+<th>Local Responsibility</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Chest</td>
+<td>Sensor acquisition and local HAR inference</td>
+</tr>
+<tr class="even">
+<td>Left Hand</td>
+<td>Sensor acquisition and local HAR inference</td>
+</tr>
+<tr class="odd">
+<td>Right Hand</td>
+<td>Sensor acquisition and local HAR inference</td>
+</tr>
+<tr class="even">
+<td>Left Knee</td>
+<td>Sensor acquisition and local HAR inference</td>
+</tr>
+<tr class="odd">
+<td>Right Knee</td>
+<td>Sensor acquisition and local HAR inference</td>
+</tr>
+</tbody>
+</table>
+<p>What changes between nodes is primarily the assigned sensor, input configuration, and trained local model.</p>
+<p>Those node-specific differences are documented under <a href="./models-data.html"><strong>Models &amp; Data</strong></a>.</p>
 </section>
-<section id="configure-boot-from-nvme" class="level2">
-<h2 class="anchored" data-anchor-id="configure-boot-from-nvme">5. Configure Boot from NVMe</h2>
-<p>After the copy operation completes, execute:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./setup-service.sh</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>This configures the service required to use the SSD as the system root filesystem.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/terminal.webp" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div>
-<p>Restart the Jetson after the configuration is complete.</p>
+<section id="interaction-with-the-central-node" class="level2">
+<h2 class="anchored" data-anchor-id="interaction-with-the-central-node">Interaction with the Central Node</h2>
+<p>The edge nodes operate independently until a local prediction is generated.</p>
+<p>Once available, each prediction is transmitted through ROS to the central computing node.</p>
+<p>The central node is then responsible for:</p>
+<ul>
+<li>Receiving predictions from all edge devices</li>
+<li>Coordinating them temporally</li>
+<li>Handling temporarily unavailable inputs</li>
+<li>Performing central fusion</li>
+<li>Generating the global HAR prediction</li>
+</ul>
+<p>These operations are described in <a href="./central-node.html">Central Node</a> and <a href="./communication-sync.html"><strong>Communication &amp; Synchronization</strong></a>.</p>
 </section>
 <section id="verification" class="level2">
 <h2 class="anchored" data-anchor-id="verification">Verification</h2>
-<p>After rebooting, verify that the system is using the NVMe SSD as the root filesystem.</p>
-<p>A useful command is:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">df</span> <span class="at">-h</span> /</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>You can also inspect available block devices using:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">lsblk</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The root filesystem should correspond to the NVMe storage device.</p>
-<p>The original implementation showed the expanded storage after reboot as illustrated below.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/terminal2.webp" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div>
-</section>
-<section id="nvme-device-path" class="level2">
-<h2 class="anchored" data-anchor-id="nvme-device-path">NVMe Device Path</h2>
-<p>The <code>rootOnNVMe</code> scripts assume the SSD partition is located at:</p>
-<pre class="text"><code>/dev/nvme0n1p1</code></pre>
-<p>Before running the scripts, verify the actual device path using:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> fdisk <span class="at">-l</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>or:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">lsblk</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="callout callout-style-default callout-warning callout-titled">
+<p>An edge node should be verified incrementally before the complete distributed system is started.</p>
+<p>Confirm that:</p>
+<ul>
+<li>The assigned wearable sensor is detected</li>
+<li>Sensor measurements are being received</li>
+<li>The local buffer is being updated</li>
+<li>The trained model loads correctly</li>
+<li>Local inference executes without errors</li>
+<li>A valid probability vector is generated</li>
+<li>Prediction messages can be published</li>
+<li>Local timing information is available when logging is enabled</li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Warning
+Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>If the SSD partition does not correspond to <code>/dev/nvme0n1p1</code>, the device path used by the <code>rootOnNVMe</code> scripts must be updated before continuing.</p>
-<p>The original procedure identifies the following files as containing the default path:</p>
-<pre class="text"><code>copy-rootfs-ssd.sh
-data/setssdroot.service
-data/setssdroot.sh</code></pre>
+<p>Validate one edge node completely before deploying all five simultaneously.</p>
+<p>This makes it easier to separate sensor, model, ROS, and network problems during initial setup.</p>
 </div>
 </div>
-</section>
-<section id="recovery-behavior" class="level2">
-<h2 class="anchored" data-anchor-id="recovery-behavior">Recovery Behavior</h2>
-<p>The expansion procedure does <strong>not</strong> remove the original root filesystem stored in the internal eMMC.</p>
-<p>This provides a useful recovery mechanism.</p>
-<p>If the SSD is removed, the system can still boot from the original internal storage, assuming the original installation remains intact.</p>
 </section>
 <section id="troubleshooting" class="level2">
 <h2 class="anchored" data-anchor-id="troubleshooting">Troubleshooting</h2>
-<section id="ssd-is-not-detected" class="level3">
-<h3 class="anchored" data-anchor-id="ssd-is-not-detected">SSD Is Not Detected</h3>
+<section id="sensor-data-are-not-available" class="level3">
+<h3 class="anchored" data-anchor-id="sensor-data-are-not-available">Sensor Data Are Not Available</h3>
+<p>Return to <a href="./wearable-sensors.html">Wearable Sensor Setup</a> and verify the BLE connection, sensor identity, and sensor-to-node assignment.</p>
+</section>
+<section id="local-model-does-not-load" class="level3">
+<h3 class="anchored" data-anchor-id="local-model-does-not-load">Local Model Does Not Load</h3>
 <p>Verify that:</p>
 <ul>
-<li>The SSD is correctly installed</li>
-<li>The carrier board supports the installed NVMe device</li>
-<li>The SSD is visible using <code>lsblk</code> or <code>sudo fdisk -l</code></li>
-<li>The M.2 slot supports NVMe storage</li>
+<li>The correct model file is available</li>
+<li>The configured model path is correct</li>
+<li>The Python/PyTorch environment is compatible</li>
+<li>The model corresponds to the input configuration assigned to that node</li>
 </ul>
+<p>Model organization is documented under <a href="./models-data.html"><strong>Models &amp; Data</strong></a>.</p>
 </section>
-<section id="system-does-not-boot-from-the-ssd" class="level3">
-<h3 class="anchored" data-anchor-id="system-does-not-boot-from-the-ssd">System Does Not Boot from the SSD</h3>
-<p>Check:</p>
+<section id="inference-runs-but-no-prediction-is-received-centrally" class="level3">
+<h3 class="anchored" data-anchor-id="inference-runs-but-no-prediction-is-received-centrally">Inference Runs but No Prediction Is Received Centrally</h3>
+<p>First verify that local inference is producing a valid output.</p>
+<p>If the local prediction exists but is not reaching the central node, continue troubleshooting under <a href="./communication-sync.html"><strong>Communication &amp; Synchronization</strong></a>.</p>
+</section>
+<section id="ros-communication-is-not-available" class="level3">
+<h3 class="anchored" data-anchor-id="ros-communication-is-not-available">ROS Communication Is Not Available</h3>
+<p>Verify the base ROS network configuration described in <a href="./network-time-sync.html">Network &amp; Time Synchronization</a>.</p>
+</section>
+</section>
+<section id="related-documentation" class="level2">
+<h2 class="anchored" data-anchor-id="related-documentation">Related Documentation</h2>
+<p>Use the following sections for details intentionally excluded from this page:</p>
 <ul>
-<li>That the root filesystem copy completed successfully</li>
-<li>That <code>setup-service.sh</code> executed without errors</li>
-<li>That the correct NVMe partition path is configured</li>
-<li>That the SSD contains a valid Ext4 filesystem</li>
+<li><a href="./wearable-sensors.html"><strong>Wearable Sensor Setup</strong></a> — BLE connectivity and physical sensor assignment.</li>
+<li><a href="./models-data.html"><strong>Models &amp; Data</strong></a> — Signal configuration, input windows, local model architecture, and trained model files.</li>
+<li><a href="./communication-sync.html"><strong>Communication &amp; Synchronization</strong></a> — ROS topics, message format, timestamps, and distributed synchronization.</li>
+<li><a href="./running-framework.html"><strong>Running the Framework</strong></a> — Commands used to start the edge nodes during normal operation.</li>
+<li><a href="./experiments-logs.html"><strong>Experiments &amp; Logs</strong></a> — Timing measurements and experiment outputs.</li>
 </ul>
-</section>
-<section id="incorrect-nvme-device-path" class="level3">
-<h3 class="anchored" data-anchor-id="incorrect-nvme-device-path">Incorrect NVMe Device Path</h3>
-<p>Use:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">lsblk</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>to determine the actual SSD partition.</p>
-<p>Update the <code>rootOnNVMe</code> configuration if the partition differs from:</p>
-<pre class="text"><code>/dev/nvme0n1p1</code></pre>
-</section>
 </section>
 <section id="next-step" class="level2">
 <h2 class="anchored" data-anchor-id="next-step">Next Step</h2>
-<p>Once the Jetson hardware and storage are ready, continue with:</p>
-<p><a href="./software-environment.html"><strong>Software Environment</strong></a></p>
-<p>If no storage expansion was required, this page can be skipped entirely.</p>
+<p>Continue with:</p>
+<p><a href="./central-node.html"><strong>Central Node</strong></a></p>
+<p>The next section describes the software responsible for receiving distributed predictions, coordinating them, executing the fusion model, and producing the global HAR output.</p>
 
 
 </section>
@@ -1163,7 +1113,7 @@ data/setssdroot.sh</code></pre>
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/blob/main/expansion-jetson-board.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/blob/main/edge-nodes.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <div style="text-align: right;">
 <p>Technical Documentation &amp; Reproducibility Resources<br> <small>Author: Jhonathan Rivas-Caicedo</small></p>

@@ -1,0 +1,1599 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Troubleshooting – HAR Distributed Framework</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b85bc7c33db8c58e0ec93c3465666fed.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-d03adc58341777237da3798d584e93e9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-9e7db03532c79058895dd3421a053729.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-d03adc58341777237da3798d584e93e9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">HAR Distributed Framework</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="./index.html" aria-current="page"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./getting-started.html"> 
+<span class="menu-text">Getting Started</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./system-overview.html"> 
+<span class="menu-text">System Overview</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://github.com/WearNET/HAR-Distributed-Framework"> <i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+<span class="menu-text">Repository</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./troubleshooting.html">Troubleshooting</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./getting-started.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Getting Started</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./system-overview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">System Overview</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Setup</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./flash-jetson-board.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Flash Jetson Boards</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./expansion-jetson-board.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Storage Expansion</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./software-environment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Software Environment</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./network-time-sync.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Network &amp; Time Synchronization</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./wearable-sensors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Wearable Sensor Setup</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Framework</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./edge-nodes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Edge Nodes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./central-node.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Central Node</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./communication-sync.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Communication &amp; Synchronization</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./models-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Models &amp; Data</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./running-framework.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Running the Framework</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./experiments-logs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Experiments &amp; Logs</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./extending-framework.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Extending the Framework</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./troubleshooting.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Troubleshooting</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#recommended-diagnostic-order" id="toc-recommended-diagnostic-order" class="nav-link active" data-scroll-target="#recommended-diagnostic-order">Recommended Diagnostic Order</a></li>
+  <li><a href="#quick-symptom-guide" id="toc-quick-symptom-guide" class="nav-link" data-scroll-target="#quick-symptom-guide">Quick Symptom Guide</a></li>
+  <li><a href="#network-and-ros" id="toc-network-and-ros" class="nav-link" data-scroll-target="#network-and-ros">Network and ROS</a>
+  <ul class="collapse">
+  <li><a href="#edge-node-cannot-reach-the-central-node" id="toc-edge-node-cannot-reach-the-central-node" class="nav-link" data-scroll-target="#edge-node-cannot-reach-the-central-node">Edge Node Cannot Reach the Central Node</a></li>
+  <li><a href="#ros-master-is-not-reachable" id="toc-ros-master-is-not-reachable" class="nav-link" data-scroll-target="#ros-master-is-not-reachable">ROS Master Is Not Reachable</a></li>
+  <li><a href="#custom-probs-message-is-not-available" id="toc-custom-probs-message-is-not-available" class="nav-link" data-scroll-target="#custom-probs-message-is-not-available">Custom <code>Probs</code> Message Is Not Available</a></li>
+  </ul></li>
+  <li><a href="#wearable-sensors-and-ble" id="toc-wearable-sensors-and-ble" class="nav-link" data-scroll-target="#wearable-sensors-and-ble">Wearable Sensors and BLE</a>
+  <ul class="collapse">
+  <li><a href="#sensor-is-not-detected" id="toc-sensor-is-not-detected" class="nav-link" data-scroll-target="#sensor-is-not-detected">Sensor Is Not Detected</a></li>
+  <li><a href="#wrong-sensor-connects-to-an-edge-node" id="toc-wrong-sensor-connects-to-an-edge-node" class="nav-link" data-scroll-target="#wrong-sensor-connects-to-an-edge-node">Wrong Sensor Connects to an Edge Node</a></li>
+  <li><a href="#sensor-connects-but-no-data-are-produced" id="toc-sensor-connects-but-no-data-are-produced" class="nav-link" data-scroll-target="#sensor-connects-but-no-data-are-produced">Sensor Connects but No Data Are Produced</a></li>
+  </ul></li>
+  <li><a href="#edge-node-problems" id="toc-edge-node-problems" class="nav-link" data-scroll-target="#edge-node-problems">Edge Node Problems</a>
+  <ul class="collapse">
+  <li><a href="#local-ros-node-does-not-appear" id="toc-local-ros-node-does-not-appear" class="nav-link" data-scroll-target="#local-ros-node-does-not-appear">Local ROS Node Does Not Appear</a></li>
+  <li><a href="#local-topic-is-missing" id="toc-local-topic-is-missing" class="nav-link" data-scroll-target="#local-topic-is-missing">Local Topic Is Missing</a></li>
+  <li><a href="#topic-exists-but-no-messages-are-published" id="toc-topic-exists-but-no-messages-are-published" class="nav-link" data-scroll-target="#topic-exists-but-no-messages-are-published">Topic Exists but No Messages Are Published</a></li>
+  <li><a href="#local-model-does-not-load" id="toc-local-model-does-not-load" class="nav-link" data-scroll-target="#local-model-does-not-load">Local Model Does Not Load</a></li>
+  <li><a href="#model-loads-but-local-predictions-are-incorrect" id="toc-model-loads-but-local-predictions-are-incorrect" class="nav-link" data-scroll-target="#model-loads-but-local-predictions-are-incorrect">Model Loads but Local Predictions Are Incorrect</a></li>
+  </ul></li>
+  <li><a href="#central-node-problems" id="toc-central-node-problems" class="nav-link" data-scroll-target="#central-node-problems">Central Node Problems</a>
+  <ul class="collapse">
+  <li><a href="#central-node-does-not-appear" id="toc-central-node-does-not-appear" class="nav-link" data-scroll-target="#central-node-does-not-appear">Central Node Does Not Appear</a></li>
+  <li><a href="#all-five-local-topics-exist-but-no-global-prediction-appears" id="toc-all-five-local-topics-exist-but-no-global-prediction-appears" class="nav-link" data-scroll-target="#all-five-local-topics-exist-but-no-global-prediction-appears">All Five Local Topics Exist but No Global Prediction Appears</a></li>
+  <li><a href="#central-model-file-is-missing" id="toc-central-model-file-is-missing" class="nav-link" data-scroll-target="#central-model-file-is-missing">Central Model File Is Missing</a></li>
+  <li><a href="#probability-vector-sizes-are-inconsistent" id="toc-probability-vector-sizes-are-inconsistent" class="nav-link" data-scroll-target="#probability-vector-sizes-are-inconsistent">Probability Vector Sizes Are Inconsistent</a></li>
+  </ul></li>
+  <li><a href="#synchronization-problems" id="toc-synchronization-problems" class="nav-link" data-scroll-target="#synchronization-problems">Synchronization Problems</a>
+  <ul class="collapse">
+  <li><a href="#ats-does-not-produce-synchronized-groups" id="toc-ats-does-not-produce-synchronized-groups" class="nav-link" data-scroll-target="#ats-does-not-produce-synchronized-groups">ATS Does Not Produce Synchronized Groups</a></li>
+  <li><a href="#central-node-switches-to-zoh" id="toc-central-node-switches-to-zoh" class="nav-link" data-scroll-target="#central-node-switches-to-zoh">Central Node Switches to ZOH</a></li>
+  <li><a href="#system-remains-in-zoh-after-a-node-recovers" id="toc-system-remains-in-zoh-after-a-node-recovers" class="nav-link" data-scroll-target="#system-remains-in-zoh-after-a-node-recovers">System Remains in ZOH After a Node Recovers</a></li>
+  <li><a href="#determine-the-current-fusion-mode" id="toc-determine-the-current-fusion-mode" class="nav-link" data-scroll-target="#determine-the-current-fusion-mode">Determine the Current Fusion Mode</a></li>
+  </ul></li>
+  <li><a href="#time-synchronization" id="toc-time-synchronization" class="nav-link" data-scroll-target="#time-synchronization">Time Synchronization</a>
+  <ul class="collapse">
+  <li><a href="#ros-topics-exist-but-ats-behavior-is-unstable" id="toc-ros-topics-exist-but-ats-behavior-is-unstable" class="nav-link" data-scroll-target="#ros-topics-exist-but-ats-behavior-is-unstable">ROS Topics Exist but ATS Behavior Is Unstable</a></li>
+  <li><a href="#chrony-does-not-see-the-central-time-source" id="toc-chrony-does-not-see-the-central-time-source" class="nav-link" data-scroll-target="#chrony-does-not-see-the-central-time-source">Chrony Does Not See the Central Time Source</a></li>
+  </ul></li>
+  <li><a href="#experiment-logging" id="toc-experiment-logging" class="nav-link" data-scroll-target="#experiment-logging">Experiment Logging</a>
+  <ul class="collapse">
+  <li><a href="#no-run-directory-is-created" id="toc-no-run-directory-is-created" class="nav-link" data-scroll-target="#no-run-directory-is-created">No Run Directory Is Created</a></li>
+  <li><a href="#run-directory-exists-but-inference.csv-is-empty" id="toc-run-directory-exists-but-inference.csv-is-empty" class="nav-link" data-scroll-target="#run-directory-exists-but-inference.csv-is-empty">Run Directory Exists but <code>inference.csv</code> Is Empty</a></li>
+  <li><a href="#latency.csv-contains-empty-timing-fields" id="toc-latency.csv-contains-empty-timing-fields" class="nav-link" data-scroll-target="#latency.csv-contains-empty-timing-fields"><code>latency.csv</code> Contains Empty Timing Fields</a></li>
+  <li><a href="#power.csv-is-empty" id="toc-power.csv-is-empty" class="nav-link" data-scroll-target="#power.csv-is-empty"><code>power.csv</code> Is Empty</a></li>
+  <li><a href="#cannot-calculate-classification-accuracy" id="toc-cannot-calculate-classification-accuracy" class="nav-link" data-scroll-target="#cannot-calculate-classification-accuracy">Cannot Calculate Classification Accuracy</a></li>
+  </ul></li>
+  <li><a href="#visualization-problems" id="toc-visualization-problems" class="nav-link" data-scroll-target="#visualization-problems">Visualization Problems</a>
+  <ul class="collapse">
+  <li><a href="#global-prediction-exists-but-unity-does-not-update" id="toc-global-prediction-exists-but-unity-does-not-update" class="nav-link" data-scroll-target="#global-prediction-exists-but-unity-does-not-update">Global Prediction Exists but Unity Does Not Update</a></li>
+  <li><a href="#unity-start-button-does-not-start-the-experiment" id="toc-unity-start-button-does-not-start-the-experiment" class="nav-link" data-scroll-target="#unity-start-button-does-not-start-the-experiment">Unity Start Button Does Not Start the Experiment</a></li>
+  </ul></li>
+  <li><a href="#unexpected-classification-behavior" id="toc-unexpected-classification-behavior" class="nav-link" data-scroll-target="#unexpected-classification-behavior">Unexpected Classification Behavior</a>
+  <ul class="collapse">
+  <li><a href="#probabilities-are-produced-but-predictions-are-clearly-incorrect" id="toc-probabilities-are-produced-but-predictions-are-clearly-incorrect" class="nav-link" data-scroll-target="#probabilities-are-produced-but-predictions-are-clearly-incorrect">Probabilities Are Produced but Predictions Are Clearly Incorrect</a></li>
+  <li><a href="#central-input-order-is-wrong" id="toc-central-input-order-is-wrong" class="nav-link" data-scroll-target="#central-input-order-is-wrong">Central Input Order Is Wrong</a></li>
+  </ul></li>
+  <li><a href="#minimal-system-test" id="toc-minimal-system-test" class="nav-link" data-scroll-target="#minimal-system-test">Minimal System Test</a>
+  <ul class="collapse">
+  <li><a href="#useful-diagnostic-commands" id="toc-useful-diagnostic-commands" class="nav-link" data-scroll-target="#useful-diagnostic-commands">Useful Diagnostic Commands</a></li>
+  <li><a href="#related-documentation" id="toc-related-documentation" class="nav-link" data-scroll-target="#related-documentation">Related Documentation</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/blob/main/troubleshooting.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Troubleshooting</h1>
+<p class="subtitle lead">Diagnosing Distributed HAR Runtime Problems</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Troubleshooting the <strong>HAR Distributed Framework</strong> is easier when failures are isolated according to the processing layer in which they occur.</p>
+<p>Because the system combines networking, ROS communication, BLE acquisition, local inference, synchronization, central fusion, logging, and visualization, checking components in the correct order avoids debugging downstream modules when the actual problem originates earlier in the pipeline.</p>
+<section id="recommended-diagnostic-order" class="level2">
+<h2 class="anchored" data-anchor-id="recommended-diagnostic-order">Recommended Diagnostic Order</h2>
+<p>The recommended troubleshooting sequence is shown in <a href="#fig-troubleshooting-flow" class="quarto-xref">Figure&nbsp;1</a>.</p>
+<div id="fig-troubleshooting-flow" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-troubleshooting-flow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="assets/images/troubleshooting/troubleshooting-diagnostic-flow.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-troubleshooting-flow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Recommended diagnostic sequence for isolating runtime failures in the distributed HAR framework.
+</figcaption>
+</figure>
+</div>
+<p>The general rule is:</p>
+<blockquote class="blockquote">
+<p>Verify the lowest common dependency first and move downstream only after that component is confirmed to be working.</p>
+</blockquote>
+<p>For example, do not troubleshoot central fusion until the local prediction streams have been verified.</p>
+</section>
+<section id="quick-symptom-guide" class="level2">
+<h2 class="anchored" data-anchor-id="quick-symptom-guide">Quick Symptom Guide</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Symptom</th>
+<th>First Component to Check</th>
+<th>Likely Area</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Edge node cannot reach central device</td>
+<td>Network</td>
+<td>IP connectivity</td>
+</tr>
+<tr class="even">
+<td><code>rostopic list</code> fails remotely</td>
+<td>ROS network</td>
+<td><code>ROS_MASTER_URI</code>, <code>ROS_IP</code></td>
+</tr>
+<tr class="odd">
+<td>Sensor is not detected</td>
+<td>Wearable sensor</td>
+<td>BLE / sensor assignment</td>
+</tr>
+<tr class="even">
+<td>Edge process starts but no prediction topic appears</td>
+<td>Edge node</td>
+<td>Sensor acquisition, model, ROS</td>
+</tr>
+<tr class="odd">
+<td>One local prediction topic is missing</td>
+<td>Corresponding edge node</td>
+<td>BLE, process, model</td>
+</tr>
+<tr class="even">
+<td>All local topics exist but no global output</td>
+<td>Central node</td>
+<td><code>/har/start</code>, synchronization, model</td>
+</tr>
+<tr class="odd">
+<td>Central switches repeatedly to ZOH</td>
+<td>Synchronization</td>
+<td>Message timing or missing streams</td>
+</tr>
+<tr class="even">
+<td>Global output exists but predictions are incorrect</td>
+<td>Models</td>
+<td>Model file, sensor order, class order</td>
+</tr>
+<tr class="odd">
+<td>Global output exists but no experiment files appear</td>
+<td>Experiment manager</td>
+<td><code>/har/start</code>, output path</td>
+</tr>
+<tr class="even">
+<td><code>power.csv</code> is empty</td>
+<td>Power monitoring</td>
+<td><code>jtop</code> / Jetson power interface</td>
+</tr>
+<tr class="odd">
+<td>HAR works but Unity does not update</td>
+<td>Visualization layer</td>
+<td>relay/UI topics</td>
+</tr>
+<tr class="even">
+<td>ATS rarely produces synchronized groups</td>
+<td>Time synchronization</td>
+<td>Chrony, timestamps, tolerance</td>
+</tr>
+</tbody>
+</table>
+<p>Use the sections below only after identifying the affected subsystem.</p>
+</section>
+<section id="network-and-ros" class="level1">
+<h1>Network and ROS</h1>
+<section id="edge-node-cannot-reach-the-central-node" class="level2">
+<h2 class="anchored" data-anchor-id="edge-node-cannot-reach-the-central-node">Edge Node Cannot Reach the Central Node</h2>
+<p>First verify basic IP communication:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ping</span> <span class="op">&lt;</span>CENTRAL_IP<span class="op">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>If the central node cannot be reached, troubleshoot the local network before inspecting ROS.</p>
+<p>Check the device address:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hostname</span> <span class="at">-I</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>or:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ip</span> addr</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Detailed network configuration is documented in <a href="./network-time-sync.html">Network &amp; Time Synchronization</a>.</p>
+</section>
+<section id="ros-master-is-not-reachable" class="level2">
+<h2 class="anchored" data-anchor-id="ros-master-is-not-reachable">ROS Master Is Not Reachable</h2>
+<p>Verify:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$ROS_MASTER_URI</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$ROS_IP</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>On an edge device, <code>ROS_MASTER_URI</code> should reference the central node.</p>
+<p>Then test:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">rostopic</span> list</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>If this command cannot communicate with the ROS master, verify:</p>
+<ul>
+<li>the central <code>roscore</code> process;</li>
+<li>IP connectivity;</li>
+<li>environment variables;</li>
+<li>firewall configuration; and</li>
+<li>Docker networking if ROS runs inside a container.</li>
+</ul>
+</section>
+<section id="custom-probs-message-is-not-available" class="level2">
+<h2 class="anchored" data-anchor-id="custom-probs-message-is-not-available">Custom <code>Probs</code> Message Is Not Available</h2>
+<p>Check:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">rosmsg</span> show har_msgs/Probs</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>If ROS cannot locate the message, source the Catkin workspace containing <code>har_msgs</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> <span class="op">&lt;</span>CATKIN_WS<span class="op">&gt;</span>/devel/setup.bash</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Then repeat:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">rosmsg</span> show har_msgs/Probs</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="wearable-sensors-and-ble" class="level1">
+<h1>Wearable Sensors and BLE</h1>
+<section id="sensor-is-not-detected" class="level2">
+<h2 class="anchored" data-anchor-id="sensor-is-not-detected">Sensor Is Not Detected</h2>
+<p>Inspect nearby Bluetooth devices:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">bluetoothctl</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Then:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">scan</span> on</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Verify that the expected MetaMotionRL device appears.</p>
+<p>If necessary, restart Bluetooth:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> systemctl restart bluetooth</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Then retry sensor discovery.</p>
+<p>Physical sensor assignment and BLE preparation are documented in <a href="./wearable-sensors.html">Wearable Sensor Setup</a>.</p>
+</section>
+<section id="wrong-sensor-connects-to-an-edge-node" class="level2">
+<h2 class="anchored" data-anchor-id="wrong-sensor-connects-to-an-edge-node">Wrong Sensor Connects to an Edge Node</h2>
+<p>Verify the MAC address configured for that edge process.</p>
+<p>Each edge role should maintain a fixed relationship among. The required sensor-to-model assignment consistency is illustrated in <a href="#fig-sensor-edge-model-mapping" class="quarto-xref">Figure&nbsp;2</a>.</p>
+<div id="fig-sensor-edge-model-mapping" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-sensor-edge-model-mapping-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="assets/images/troubleshooting/sensor-edge-model-mapping.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:55.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sensor-edge-model-mapping-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Relationship among body location, wearable sensor, MAC address, edge node, and local model.
+</figcaption>
+</figure>
+</div>
+<p>A BLE connection can be technically successful while still being incorrect if the process connects to the wearable assigned to another body location.</p>
+</section>
+<section id="sensor-connects-but-no-data-are-produced" class="level2">
+<h2 class="anchored" data-anchor-id="sensor-connects-but-no-data-are-produced">Sensor Connects but No Data Are Produced</h2>
+<p>Check the edge-node terminal for acquisition errors.</p>
+<p>Then verify that the expected sensor modality is being configured.</p>
+<p>For example, a quaternion branch and an accelerometer–gyroscope branch do not use the same acquisition pipeline.</p>
+<p>If the physical connection is valid but model input never becomes available, inspect the acquisition and buffering stages described under <a href="./edge-nodes.html">Edge Nodes</a>.</p>
+</section>
+</section>
+<section id="edge-node-problems" class="level1">
+<h1>Edge Node Problems</h1>
+<section id="local-ros-node-does-not-appear" class="level2">
+<h2 class="anchored" data-anchor-id="local-ros-node-does-not-appear">Local ROS Node Does Not Appear</h2>
+<p>Check:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">rosnode</span> list</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The expected edge roles are:</p>
+<pre class="text"><code>/chest_node
+/left_hand_node
+/right_hand_node
+/left_knee_node
+/right_knee_node</code></pre>
+<p>If the corresponding node is missing, inspect the Python process running on that Jetson.</p>
+</section>
+<section id="local-topic-is-missing" class="level2">
+<h2 class="anchored" data-anchor-id="local-topic-is-missing">Local Topic Is Missing</h2>
+<p>Check:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">rostopic</span> list</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The expected prediction topics are:</p>
+<pre class="text"><code>/har/probs/chest
+/har/probs/left_hand
+/har/probs/right_hand
+/har/probs/left_knee
+/har/probs/right_knee</code></pre>
+<p>If only one topic is missing, troubleshoot the corresponding edge node rather than the complete distributed system.</p>
+</section>
+<section id="topic-exists-but-no-messages-are-published" class="level2">
+<h2 class="anchored" data-anchor-id="topic-exists-but-no-messages-are-published">Topic Exists but No Messages Are Published</h2>
+<p>Inspect the topic:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">rostopic</span> echo /har/probs/<span class="op">&lt;</span>sensor<span class="op">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Check its rate:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">rostopic</span> hz /har/probs/<span class="op">&lt;</span>sensor<span class="op">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Then verify that the inference pipeline has received the start signal:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">rostopic</span> echo /har/start</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>A running Python process does not necessarily mean that inference is currently enabled.</p>
+</section>
+<section id="local-model-does-not-load" class="level2">
+<h2 class="anchored" data-anchor-id="local-model-does-not-load">Local Model Does Not Load</h2>
+<p>Verify that: <code>MODEL_PATH</code></p>
+<p>points to the correct trained parameter file.</p>
+<p>Also verify the corresponding scaler file.</p>
+<p>The following must match:</p>
+<pre class="text"><code>Sensor modality
+Window dimensions
+Channel ordering
+Scaler
+Model architecture
+Trained parameters</code></pre>
+<p>Model compatibility is documented under <a href="./models-data.html">Models &amp; Data</a>.</p>
+</section>
+<section id="model-loads-but-local-predictions-are-incorrect" class="level2">
+<h2 class="anchored" data-anchor-id="model-loads-but-local-predictions-are-incorrect">Model Loads but Local Predictions Are Incorrect</h2>
+<p>Check the sensor-to-model assignment first.</p>
+<p>A model can load successfully while receiving data from the wrong body location or in the wrong channel order.</p>
+<p>Also verify:</p>
+<pre class="text"><code>sensor_id
+K
+probs</code></pre>
+<p>using:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="ex">rostopic</span> echo /har/probs/<span class="op">&lt;</span>sensor<span class="op">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="central-node-problems" class="level1">
+<h1>Central Node Problems</h1>
+<section id="central-node-does-not-appear" class="level2">
+<h2 class="anchored" data-anchor-id="central-node-does-not-appear">Central Node Does Not Appear</h2>
+<p>Check:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="ex">rosnode</span> list</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The central HAR process should appear as:</p>
+<p><code>/central_har_node</code></p>
+<p>If it does not, inspect the terminal running:</p>
+<p><code>central_node_ros_main.py</code></p>
+</section>
+<section id="all-five-local-topics-exist-but-no-global-prediction-appears" class="level2">
+<h2 class="anchored" data-anchor-id="all-five-local-topics-exist-but-no-global-prediction-appears">All Five Local Topics Exist but No Global Prediction Appears</h2>
+<p>First verify that the framework is enabled:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="ex">rostopic</span> echo /har/start</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Then inspect:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="ex">rostopic</span> echo /har/probs/global</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>If the five local streams are active but the global stream is absent, inspect the central-node terminal for:</p>
+<ul>
+<li>Model-Loading Messages</li>
+<li>Probability-Vector Size Errors</li>
+<li>Synchronization Messages</li>
+<li>Failover Events</li>
+<li>Timestamp-Related Problems</li>
+</ul>
+</section>
+<section id="central-model-file-is-missing" class="level2">
+<h2 class="anchored" data-anchor-id="central-model-file-is-missing">Central Model File Is Missing</h2>
+<p>The current central implementation expects:</p>
+<p><code>nn_central_fold1.pth</code></p>
+<p>through its configured <code>MODEL_PATH</code>.</p>
+<p>A particularly important behavior of the current implementation is that if this file is not found, the central node can continue after issuing a warning and instantiate the model with <strong>random weights</strong>.</p>
+<p>Therefore, a running <code>/har/probs/global</code> topic does not by itself prove that the correct trained fusion model is being used.</p>
+<p>Always inspect the startup output and confirm that the expected model was successfully loaded.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Do not collect experimental data if the central process reports that the trained model file was not found.</p>
+<p>The system may continue generating numerically valid probability vectors using untrained parameters.</p>
+</div>
+</div>
+</section>
+<section id="probability-vector-sizes-are-inconsistent" class="level2">
+<h2 class="anchored" data-anchor-id="probability-vector-sizes-are-inconsistent">Probability Vector Sizes Are Inconsistent</h2>
+<p>The central node expects all local predictions participating in fusion to contain the same value of: <code>K</code></p>
+<p>For the current implementation: <code>K = 6</code></p>
+<p>Check each topic:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="ex">rostopic</span> echo /har/probs/<span class="op">&lt;</span>sensor<span class="op">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>and confirm that every local message contains six probabilities.</p>
+</section>
+</section>
+<section id="synchronization-problems" class="level1">
+<h1>Synchronization Problems</h1>
+<section id="ats-does-not-produce-synchronized-groups" class="level2">
+<h2 class="anchored" data-anchor-id="ats-does-not-produce-synchronized-groups">ATS Does Not Produce Synchronized Groups</h2>
+<p>Verify that all five streams are active:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="ex">rostopic</span> hz /har/probs/chest</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="ex">rostopic</span> hz /har/probs/left_hand</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="ex">rostopic</span> hz /har/probs/right_hand</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="ex">rostopic</span> hz /har/probs/left_knee</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="ex">rostopic</span> hz /har/probs/right_knee</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Then verify clock synchronization:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="ex">chronyc</span> tracking</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>and:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="ex">chronyc</span> sources <span class="at">-v</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The current implementation uses:</p>
+<pre class="text"><code>SYNC_SLOP_SEC = 0.05
+QUEUE_SIZE    = 10</code></pre>
+<p>corresponding to a maximum ATS tolerance of approximately:</p>
+<pre class="text"><code>50 ms</code></pre>
+<p>Detailed behavior is documented in <a href="./communication-sync.html">Communication &amp; Synchronization</a>.</p>
+</section>
+<section id="central-node-switches-to-zoh" class="level2">
+<h2 class="anchored" data-anchor-id="central-node-switches-to-zoh">Central Node Switches to ZOH</h2>
+<p>A transition such as:</p>
+<pre class="text"><code>FAILOVER -&gt; ZOH</code></pre>
+<p>indicates that ATS has not generated valid synchronized callbacks within the configured failover conditions.</p>
+<p>Check whether one or more local streams have:</p>
+<ul>
+<li>Stopped</li>
+<li>Slowed significantly</li>
+<li>Lost network connectivity</li>
+<li>Become temporally misaligned</li>
+<li>Stopped publishing current timestamps</li>
+</ul>
+<p>The fallback itself is expected behavior when normal synchronized operation cannot be maintained.</p>
+</section>
+<section id="system-remains-in-zoh-after-a-node-recovers" class="level2">
+<h2 class="anchored" data-anchor-id="system-remains-in-zoh-after-a-node-recovers">System Remains in ZOH After a Node Recovers</h2>
+<p>Verify that all five local streams have resumed normal publication.</p>
+<p>Then confirm that synchronized ATS events are occurring continuously.</p>
+<p>The central implementation requires ATS to remain stable for the configured recovery interval before switching back to normal synchronized operation.</p>
+</section>
+<section id="determine-the-current-fusion-mode" class="level2">
+<h2 class="anchored" data-anchor-id="determine-the-current-fusion-mode">Determine the Current Fusion Mode</h2>
+<p>Inspect:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="ex">rostopic</span> echo /har/probs/global</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The central implementation identifies the source mode in the global message through <code>sensor_id</code>.</p>
+<p>Depending on the active mode, the value can identify synchronized or fallback operation.</p>
+<p>This is useful when diagnosing whether a global prediction originated from normal ATS fusion or ZOH fallback.</p>
+</section>
+</section>
+<section id="time-synchronization" class="level1">
+<h1>Time Synchronization</h1>
+<section id="ros-topics-exist-but-ats-behavior-is-unstable" class="level2">
+<h2 class="anchored" data-anchor-id="ros-topics-exist-but-ats-behavior-is-unstable">ROS Topics Exist but ATS Behavior Is Unstable</h2>
+<p>A network connection alone is not sufficient for timestamp-based synchronization.</p>
+<p>Check Chrony on every distributed device.</p>
+<p>On an edge node:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="ex">chronyc</span> tracking</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>and:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="ex">chronyc</span> sources <span class="at">-v</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Large clock offsets can cause predictions representing similar movement intervals to appear temporally incompatible at the central node.</p>
+</section>
+<section id="chrony-does-not-see-the-central-time-source" class="level2">
+<h2 class="anchored" data-anchor-id="chrony-does-not-see-the-central-time-source">Chrony Does Not See the Central Time Source</h2>
+<p>Verify:</p>
+<ul>
+<li>Central-Node IP Connectivity</li>
+<li>The <code>server &lt;CENTRAL_IP&gt; iburst</code> entry on the edge node</li>
+<li>The <code>allow &lt;LOCAL_SUBNET&gt;</code> configuration on the central node</li>
+<li>That the Chrony service is running</li>
+</ul>
+<p>Check:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> systemctl status chrony</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Configuration details are documented in <a href="./network-time-sync.html">Network &amp; Time Synchronization</a>.</p>
+</section>
+</section>
+<section id="experiment-logging" class="level1">
+<h1>Experiment Logging</h1>
+<section id="no-run-directory-is-created" class="level2">
+<h2 class="anchored" data-anchor-id="no-run-directory-is-created">No Run Directory Is Created</h2>
+<p>Verify that:</p>
+<p><code>experiment_manager_node.py</code></p>
+<p>is running.</p>
+<p>Then verify:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="ex">rostopic</span> echo /har/start</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The manager creates a new run when it receives the experiment start signal.</p>
+<p>The default output location is:</p>
+<p><code>~/har_runs/</code></p>
+</section>
+<section id="run-directory-exists-but-inference.csv-is-empty" class="level2">
+<h2 class="anchored" data-anchor-id="run-directory-exists-but-inference.csv-is-empty">Run Directory Exists but <code>inference.csv</code> Is Empty</h2>
+<p>Verify that the manager receives:</p>
+<p><code>/har/probs/global</code></p>
+<p>using:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="ex">rostopic</span> echo /har/probs/global</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>If the global stream itself is empty, troubleshoot the central node first.</p>
+</section>
+<section id="latency.csv-contains-empty-timing-fields" class="level2">
+<h2 class="anchored" data-anchor-id="latency.csv-contains-empty-timing-fields"><code>latency.csv</code> Contains Empty Timing Fields</h2>
+<p>Inspect the global message:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb38"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="ex">rostopic</span> echo /har/probs/global</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Verify that timing fields such as:</p>
+<pre class="text"><code>t0_ns
+t_last_local_send_ns
+t_send_ns</code></pre>
+<p>contain valid values.</p>
+<p>The experiment manager cannot calculate a latency component when its required timestamps are unavailable.</p>
+</section>
+<section id="power.csv-is-empty" class="level2">
+<h2 class="anchored" data-anchor-id="power.csv-is-empty"><code>power.csv</code> Is Empty</h2>
+<p>Verify:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb40"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="ex">jtop</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>If the command is unavailable, confirm that <code>jetson-stats</code> is installed.</p>
+<p>Power logging is optional and does not prevent prediction or latency logging from operating.</p>
+</section>
+<section id="cannot-calculate-classification-accuracy" class="level2">
+<h2 class="anchored" data-anchor-id="cannot-calculate-classification-accuracy">Cannot Calculate Classification Accuracy</h2>
+<p>The current <code>experiment_manager_node.py</code> records:</p>
+<pre class="text"><code>pred_label</code></pre>
+<p>but does not independently generate:</p>
+<pre class="text"><code>true_label</code></pre>
+<p>Ground truth must therefore be supplied or associated during the experimental workflow before classification metrics can be calculated.</p>
+<p>See <a href="./experiments-logs.html">Experiments &amp; Logs</a>.</p>
+</section>
+</section>
+<section id="visualization-problems" class="level1">
+<h1>Visualization Problems</h1>
+<section id="global-prediction-exists-but-unity-does-not-update" class="level2">
+<h2 class="anchored" data-anchor-id="global-prediction-exists-but-unity-does-not-update">Global Prediction Exists but Unity Does Not Update</h2>
+<p>First confirm:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb43"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="ex">rostopic</span> echo /har/probs/global</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>If the global output exists, the inference system itself is functioning.</p>
+<p>The visualization data path is illustrated in <a href="#fig-global-visualization-flow" class="quarto-xref">Figure&nbsp;3</a>.</p>
+<div id="fig-global-visualization-flow" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-global-visualization-flow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="assets/images/troubleshooting/global-visualization-flow.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-global-visualization-flow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Data flow from the central HAR prediction to the Unity visualization interface.
+</figcaption>
+</figure>
+</div>
+<p>Verify:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb44"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="ex">rostopic</span> echo /har/probs/global_ui</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>If <code>/har/probs/global</code> exists but <code>/har/probs/global_ui</code> does not, inspect the relay or visualization bridge rather than the central fusion model.</p>
+</section>
+<section id="unity-start-button-does-not-start-the-experiment" class="level2">
+<h2 class="anchored" data-anchor-id="unity-start-button-does-not-start-the-experiment">Unity Start Button Does Not Start the Experiment</h2>
+<p>Verify the external control topic:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb45"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="ex">rostopic</span> echo /har/start_ui</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Then verify that the corresponding system-level signal reaches:</p>
+<pre class="text"><code>/har/start</code></pre>
+<p>If <code>/har/start_ui</code> changes but <code>/har/start</code> does not, inspect the start-control relay.</p>
+<p>If <code>/har/start</code> becomes <code>true</code> but inference still does not begin, return to the edge and central runtime sections.</p>
+</section>
+</section>
+<section id="unexpected-classification-behavior" class="level1">
+<h1>Unexpected Classification Behavior</h1>
+<section id="probabilities-are-produced-but-predictions-are-clearly-incorrect" class="level2">
+<h2 class="anchored" data-anchor-id="probabilities-are-produced-but-predictions-are-clearly-incorrect">Probabilities Are Produced but Predictions Are Clearly Incorrect</h2>
+<p>A technically functioning pipeline can still be semantically incorrect.</p>
+<p>Check:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Item</th>
+<th>Required Consistency</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Sensor assignment</td>
+<td>Correct body location</td>
+</tr>
+<tr class="even">
+<td>Modality</td>
+<td>Quaternion or ACC + GYRO as expected</td>
+</tr>
+<tr class="odd">
+<td>Channel order</td>
+<td>Same as training</td>
+</tr>
+<tr class="even">
+<td>Window size</td>
+<td>Same as model training</td>
+</tr>
+<tr class="odd">
+<td>Scaler</td>
+<td>Corresponding model/scaler pair</td>
+</tr>
+<tr class="even">
+<td>Local model</td>
+<td>Correct node-specific parameters</td>
+</tr>
+<tr class="odd">
+<td>Class order</td>
+<td>Identical across all classifiers</td>
+</tr>
+<tr class="even">
+<td>Sensor order</td>
+<td>Same order used to train central fusion</td>
+</tr>
+<tr class="odd">
+<td>Central model</td>
+<td>Correct trained parameter file</td>
+</tr>
+</tbody>
+</table>
+<p>This category of failure is especially important because ROS topics may appear completely normal.</p>
+</section>
+<section id="central-input-order-is-wrong" class="level2">
+<h2 class="anchored" data-anchor-id="central-input-order-is-wrong">Central Input Order Is Wrong</h2>
+<p>The central fusion model depends on a fixed semantic ordering of local probability vectors.</p>
+<p>The implementation uses:</p>
+<pre class="text"><code>Chest
+Left Knee
+Right Hand
+Left Hand
+Right Knee</code></pre>
+<p>when constructing the central fusion input.</p>
+<p>Changing this ordering without retraining the fusion model can produce incorrect classifications even though the input still contains the expected 30 numerical values.</p>
+</section>
+</section>
+<section id="minimal-system-test" class="level1">
+<h1>Minimal System Test</h1>
+<p>When the source of a problem is unclear, use the following isolation sequence:</p>
+<pre class="text"><code>1. Ping central node
+2. Verify ROS master
+3. Verify har_msgs/Probs
+4. Verify one edge node
+5. Verify its local topic
+6. Repeat for all five edge nodes
+7. Verify /har/start
+8. Verify /har/probs/global
+9. Verify experiment manager
+10. Verify visualization</code></pre>
+<p>Do not proceed to the next stage until the current stage behaves correctly.</p>
+<section id="useful-diagnostic-commands" class="level2">
+<h2 class="anchored" data-anchor-id="useful-diagnostic-commands">Useful Diagnostic Commands</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb49"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Network</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hostname</span> <span class="at">-I</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ping</span> <span class="op">&lt;</span>CENTRAL_IP<span class="op">&gt;</span></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ROS configuration</span></span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$ROS_MASTER_URI</span></span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$ROS_IP</span></span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a><span class="co"># ROS graph</span></span>
+<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a><span class="ex">rosnode</span> list</span>
+<span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a><span class="ex">rostopic</span> list</span>
+<span id="cb49-12"><a href="#cb49-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-13"><a href="#cb49-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Custom message</span></span>
+<span id="cb49-14"><a href="#cb49-14" aria-hidden="true" tabindex="-1"></a><span class="ex">rosmsg</span> show har_msgs/Probs</span>
+<span id="cb49-15"><a href="#cb49-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-16"><a href="#cb49-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Experiment control</span></span>
+<span id="cb49-17"><a href="#cb49-17" aria-hidden="true" tabindex="-1"></a><span class="ex">rostopic</span> echo /har/start</span>
+<span id="cb49-18"><a href="#cb49-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-19"><a href="#cb49-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Local prediction</span></span>
+<span id="cb49-20"><a href="#cb49-20" aria-hidden="true" tabindex="-1"></a><span class="ex">rostopic</span> echo /har/probs/chest</span>
+<span id="cb49-21"><a href="#cb49-21" aria-hidden="true" tabindex="-1"></a><span class="ex">rostopic</span> hz /har/probs/chest</span>
+<span id="cb49-22"><a href="#cb49-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-23"><a href="#cb49-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Global prediction</span></span>
+<span id="cb49-24"><a href="#cb49-24" aria-hidden="true" tabindex="-1"></a><span class="ex">rostopic</span> echo /har/probs/global</span>
+<span id="cb49-25"><a href="#cb49-25" aria-hidden="true" tabindex="-1"></a><span class="ex">rostopic</span> hz /har/probs/global</span>
+<span id="cb49-26"><a href="#cb49-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-27"><a href="#cb49-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualization output</span></span>
+<span id="cb49-28"><a href="#cb49-28" aria-hidden="true" tabindex="-1"></a><span class="ex">rostopic</span> echo /har/probs/global_ui</span>
+<span id="cb49-29"><a href="#cb49-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-30"><a href="#cb49-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Time synchronization</span></span>
+<span id="cb49-31"><a href="#cb49-31" aria-hidden="true" tabindex="-1"></a><span class="ex">chronyc</span> tracking</span>
+<span id="cb49-32"><a href="#cb49-32" aria-hidden="true" tabindex="-1"></a><span class="ex">chronyc</span> sources <span class="at">-v</span></span>
+<span id="cb49-33"><a href="#cb49-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-34"><a href="#cb49-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Power monitoring</span></span>
+<span id="cb49-35"><a href="#cb49-35" aria-hidden="true" tabindex="-1"></a><span class="ex">jtop</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="related-documentation" class="level2">
+<h2 class="anchored" data-anchor-id="related-documentation">Related Documentation</h2>
+<p>Use the corresponding page when a problem has been isolated:</p>
+<ul>
+<li><a href="./network-time-sync.html"><strong>Network &amp; Time Synchronization</strong></a> — ROS networking and Chrony.</li>
+<li><a href="./wearable-sensors.html"><strong>Wearable Sensor Setup</strong></a> — BLE and wearable assignment.</li>
+<li><a href="./edge-nodes.html"><strong>Edge Nodes</strong></a> — local acquisition and inference.</li>
+<li><a href="./central-node.html"><strong>Central Node</strong></a> — central fusion.</li>
+<li><a href="./communication-sync.html"><strong>Communication &amp; Synchronization</strong></a> — ATS, ZOH, timestamps, and topics.</li>
+<li><a href="./models-data.html"><strong>Models &amp; Data</strong></a> — dimensions, class order, and models.</li>
+<li><a href="./running-framework.html"><strong>Running the Framework</strong></a> — startup sequence.</li>
+<li><a href="./experiments-logs.html"><strong>Experiments &amp; Logs</strong></a> — runtime files and measurements.</li>
+<li><a href="./extending-framework.html"><strong>Extending the Framework</strong></a> — modifications to the baseline implementation.</li>
+</ul>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/WearNET\.github\.io\/HAR-Distributed-Framework\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>HAR Distributed Framework</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/blob/main/troubleshooting.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<div style="text-align: right;">
+<p>Technical Documentation &amp; Reproducibility Resources<br> <small>Author: Jhonathan Rivas-Caicedo</small></p>
+</div>
+</div>
+  </div>
+</footer>
+
+
+
+
+<script src="site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

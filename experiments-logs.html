@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Storage Expansion – HAR Distributed Framework</title>
+<title>Experiments &amp; Logs – HAR Distributed Framework</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -327,7 +327,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./flash-jetson-board.html">Setup</a></li><li class="breadcrumb-item"><a href="./expansion-jetson-board.html">Storage Expansion</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./experiments-logs.html">Experiments &amp; Logs</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -382,7 +382,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./expansion-jetson-board.html" class="sidebar-item-text sidebar-link active">
+  <a href="./expansion-jetson-board.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Storage Expansion</span></a>
   </div>
 </li>
@@ -449,7 +449,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./experiments-logs.html" class="sidebar-item-text sidebar-link">
+  <a href="./experiments-logs.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Experiments &amp; Logs</span></a>
   </div>
 </li>
@@ -475,34 +475,47 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#when-is-storage-expansion-useful" id="toc-when-is-storage-expansion-useful" class="nav-link active" data-scroll-target="#when-is-storage-expansion-useful">When Is Storage Expansion Useful?</a></li>
-  <li><a href="#requirements" id="toc-requirements" class="nav-link" data-scroll-target="#requirements">Requirements</a></li>
-  <li><a href="#install-the-nvme-ssd" id="toc-install-the-nvme-ssd" class="nav-link" data-scroll-target="#install-the-nvme-ssd">1. Install the NVMe SSD</a></li>
-  <li><a href="#prepare-the-ssd" id="toc-prepare-the-ssd" class="nav-link" data-scroll-target="#prepare-the-ssd">2. Prepare the SSD</a></li>
-  <li><a href="#download-the-root-on-nvme-utility" id="toc-download-the-root-on-nvme-utility" class="nav-link" data-scroll-target="#download-the-root-on-nvme-utility">3. Download the Root-on-NVMe Utility</a></li>
-  <li><a href="#copy-the-root-filesystem" id="toc-copy-the-root-filesystem" class="nav-link" data-scroll-target="#copy-the-root-filesystem">4. Copy the Root Filesystem</a></li>
-  <li><a href="#configure-boot-from-nvme" id="toc-configure-boot-from-nvme" class="nav-link" data-scroll-target="#configure-boot-from-nvme">5. Configure Boot from NVMe</a></li>
-  <li><a href="#verification" id="toc-verification" class="nav-link" data-scroll-target="#verification">Verification</a></li>
-  <li><a href="#nvme-device-path" id="toc-nvme-device-path" class="nav-link" data-scroll-target="#nvme-device-path">NVMe Device Path</a></li>
-  <li><a href="#recovery-behavior" id="toc-recovery-behavior" class="nav-link" data-scroll-target="#recovery-behavior">Recovery Behavior</a></li>
+  <li><a href="#experiment-logging-pipeline" id="toc-experiment-logging-pipeline" class="nav-link active" data-scroll-target="#experiment-logging-pipeline">Experiment Logging Pipeline</a></li>
+  <li><a href="#run-organization" id="toc-run-organization" class="nav-link" data-scroll-target="#run-organization">Run Organization</a></li>
+  <li><a href="#inference.csv" id="toc-inference.csv" class="nav-link" data-scroll-target="#inference.csv"><code>inference.csv</code></a></li>
+  <li><a href="#latency.csv" id="toc-latency.csv" class="nav-link" data-scroll-target="#latency.csv"><code>latency.csv</code></a></li>
+  <li><a href="#latency-decomposition" id="toc-latency-decomposition" class="nav-link" data-scroll-target="#latency-decomposition">Latency Decomposition</a>
+  <ul class="collapse">
+  <li><a href="#local-processing" id="toc-local-processing" class="nav-link" data-scroll-target="#local-processing">Local Processing</a></li>
+  <li><a href="#central-processing" id="toc-central-processing" class="nav-link" data-scroll-target="#central-processing">Central Processing</a></li>
+  <li><a href="#final-network-transfer" id="toc-final-network-transfer" class="nav-link" data-scroll-target="#final-network-transfer">Final Network Transfer</a></li>
+  <li><a href="#end-to-end-latency" id="toc-end-to-end-latency" class="nav-link" data-scroll-target="#end-to-end-latency">End-to-End Latency</a></li>
+  </ul></li>
+  <li><a href="#power.csv" id="toc-power.csv" class="nav-link" data-scroll-target="#power.csv"><code>power.csv</code></a></li>
+  <li><a href="#summary.json" id="toc-summary.json" class="nav-link" data-scroll-target="#summary.json"><code>summary.json</code></a></li>
+  <li><a href="#optional-local-edge-logs" id="toc-optional-local-edge-logs" class="nav-link" data-scroll-target="#optional-local-edge-logs">Optional Local Edge Logs</a></li>
+  <li><a href="#synchronization-metrics" id="toc-synchronization-metrics" class="nav-link" data-scroll-target="#synchronization-metrics">Synchronization Metrics</a></li>
+  <li><a href="#synchronization-analysis" id="toc-synchronization-analysis" class="nav-link" data-scroll-target="#synchronization-analysis">Synchronization Analysis</a></li>
+  <li><a href="#experiment-verification" id="toc-experiment-verification" class="nav-link" data-scroll-target="#experiment-verification">Experiment Verification</a></li>
+  <li><a href="#quick-data-inspection" id="toc-quick-data-inspection" class="nav-link" data-scroll-target="#quick-data-inspection">Quick Data Inspection</a></li>
+  <li><a href="#post-experiment-analysis" id="toc-post-experiment-analysis" class="nav-link" data-scroll-target="#post-experiment-analysis">Post-Experiment Analysis</a></li>
+  <li><a href="#archived-experiment-logs" id="toc-archived-experiment-logs" class="nav-link" data-scroll-target="#archived-experiment-logs">Archived Experiment Logs</a></li>
   <li><a href="#troubleshooting" id="toc-troubleshooting" class="nav-link" data-scroll-target="#troubleshooting">Troubleshooting</a>
   <ul class="collapse">
-  <li><a href="#ssd-is-not-detected" id="toc-ssd-is-not-detected" class="nav-link" data-scroll-target="#ssd-is-not-detected">SSD Is Not Detected</a></li>
-  <li><a href="#system-does-not-boot-from-the-ssd" id="toc-system-does-not-boot-from-the-ssd" class="nav-link" data-scroll-target="#system-does-not-boot-from-the-ssd">System Does Not Boot from the SSD</a></li>
-  <li><a href="#incorrect-nvme-device-path" id="toc-incorrect-nvme-device-path" class="nav-link" data-scroll-target="#incorrect-nvme-device-path">Incorrect NVMe Device Path</a></li>
+  <li><a href="#run-directory-is-not-created" id="toc-run-directory-is-not-created" class="nav-link" data-scroll-target="#run-directory-is-not-created">Run Directory Is Not Created</a></li>
+  <li><a href="#inference.csv-is-empty" id="toc-inference.csv-is-empty" class="nav-link" data-scroll-target="#inference.csv-is-empty"><code>inference.csv</code> Is Empty</a></li>
+  <li><a href="#latency.csv-contains-missing-values" id="toc-latency.csv-contains-missing-values" class="nav-link" data-scroll-target="#latency.csv-contains-missing-values"><code>latency.csv</code> Contains Missing Values</a></li>
+  <li><a href="#power.csv-is-empty" id="toc-power.csv-is-empty" class="nav-link" data-scroll-target="#power.csv-is-empty"><code>power.csv</code> Is Empty</a></li>
+  <li><a href="#classification-metrics-cannot-be-computed" id="toc-classification-metrics-cannot-be-computed" class="nav-link" data-scroll-target="#classification-metrics-cannot-be-computed">Classification Metrics Cannot Be Computed</a></li>
   </ul></li>
+  <li><a href="#related-documentation" id="toc-related-documentation" class="nav-link" data-scroll-target="#related-documentation">Related Documentation</a></li>
   <li><a href="#next-step" id="toc-next-step" class="nav-link" data-scroll-target="#next-step">Next Step</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/blob/main/expansion-jetson-board.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/blob/main/experiments-logs.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./flash-jetson-board.html">Setup</a></li><li class="breadcrumb-item"><a href="./expansion-jetson-board.html">Storage Expansion</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Storage Expansion</h1>
-<p class="subtitle lead">Optional Jetson Preparation</p>
+<h1 class="title">Experiments &amp; Logs</h1>
+<p class="subtitle lead">Runtime Data Collection and Performance Measurements</p>
 </div>
 
 
@@ -519,44 +532,113 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>This section describes how to expand the available storage of a compatible Jetson-based system using an <strong>NVMe SSD connected through an M.2 M-Key slot</strong>.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<p>The <strong>HAR Distributed Framework</strong> includes an experiment-management layer that records the information required to inspect predictions, timing behavior, and central-node power consumption during real-time execution.</p>
+<p>The current runtime implementation uses:</p>
+<pre class="text"><code>experiment_manager_node.py</code></pre>
+<p>to organize each experiment into an independent run directory.</p>
+<section id="experiment-logging-pipeline" class="level2">
+<h2 class="anchored" data-anchor-id="experiment-logging-pipeline">Experiment Logging Pipeline</h2>
+<p>The relationship between the distributed runtime and the generated experiment files is illustrated in <a href="#fig-experiment-logging" class="quarto-xref">Figure&nbsp;1</a>.</p>
+<div id="fig-experiment-logging" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-experiment-logging-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="assets/images/experiments_logs/experiment-logging-pipeline.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%">
 </div>
-<div class="callout-title-container flex-fill">
-Note
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-experiment-logging-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Experiment logging pipeline used by the distributed HAR framework.
+</figcaption>
+</figure>
 </div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Storage expansion is <strong>optional</strong>.</p>
-<p>If the Jetson device already provides sufficient storage for the operating system, framework dependencies, trained models, and experiment logs, this procedure can be skipped.</p>
-</div>
-</div>
-<section id="when-is-storage-expansion-useful" class="level2">
-<h2 class="anchored" data-anchor-id="when-is-storage-expansion-useful">When Is Storage Expansion Useful?</h2>
-<p>Storage expansion is useful when the onboard storage is not sufficient for:</p>
+<p>The experiment manager observes:</p>
 <ul>
-<li>The operating system</li>
-<li>Docker images and containers</li>
-<li>Python and machine learning dependencies</li>
-<li>Trained models</li>
-<li>Experiment logs</li>
-<li>Additional development resources</li>
+<li>The global prediction stream;</li>
+<li>The five local prediction streams;</li>
+<li>The experiment start/stop signal; and</li>
+<li>Power information available from the central Jetson.</li>
 </ul>
-<p>The procedure documented here moves the system root filesystem to an NVMe SSD while preserving the original root filesystem stored in the Jetson’s internal storage.</p>
+<p>Logging operates independently from the inference models and does not modify the local or central prediction process.</p>
 </section>
-<section id="requirements" class="level2">
-<h2 class="anchored" data-anchor-id="requirements">Requirements</h2>
-<p>The procedure requires:</p>
-<ul>
-<li>A Jetson-based system with an <strong>M.2 M-Key slot</strong></li>
-<li>An NVMe SSD</li>
-<li>An existing working Jetson operating system</li>
-<li>Sufficient access privileges to modify the storage configuration</li>
-</ul>
-<p>The procedure was originally performed on a <strong>reComputer platform</strong> using an NVMe SSD.</p>
+<section id="run-organization" class="level2">
+<h2 class="anchored" data-anchor-id="run-organization">Run Organization</h2>
+<p>By default, experiment data are stored under:</p>
+<p><code>~/har_runs/</code></p>
+<p>Each new run creates a timestamp-based directory using the format:</p>
+<p><code>YYYY-MM-DD_HH-MM-SS_run</code></p>
+<p>For example:</p>
+<pre class="text"><code>~/har_runs/
+└── 2026-08-30_14-32-15_run/ 
+    ├── inference.csv
+    ├── latency.csv
+    ├── power.csv
+    └── summary.json</code></pre>
+<p>A new directory is created when the experiment manager receives:</p>
+<p><code>/har/start = true</code></p>
+<p>The active files are closed and summarized when:</p>
+<p><code>/har/start = false</code></p>
+</section>
+<section id="inference.csv" class="level2">
+<h2 class="anchored" data-anchor-id="inference.csv"><code>inference.csv</code></h2>
+<p>The <code>inference.csv</code> file records the global prediction stream received by the experiment manager.</p>
+<p>The current implementation stores:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Column</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>run_id</code></td>
+<td>Identifier assigned to the experiment</td>
+</tr>
+<tr class="even">
+<td><code>t_session_sec</code></td>
+<td>Time elapsed since the beginning of the run</td>
+</tr>
+<tr class="odd">
+<td><code>t_rx_epoch_sec</code></td>
+<td>Epoch time at which the global prediction is received</td>
+</tr>
+<tr class="even">
+<td><code>sensor_id</code></td>
+<td>Identifier included in the global prediction message</td>
+</tr>
+<tr class="odd">
+<td><code>seq</code></td>
+<td>Global prediction sequence number</td>
+</tr>
+<tr class="even">
+<td><code>K</code></td>
+<td>Number of activity classes</td>
+</tr>
+<tr class="odd">
+<td><code>pred_label</code></td>
+<td>Predicted class obtained using <code>argmax</code></td>
+</tr>
+<tr class="even">
+<td><code>pred_conf</code></td>
+<td>Probability associated with the predicted class</td>
+</tr>
+<tr class="odd">
+<td><code>dropped_pct</code></td>
+<td>Degradation/drop indicator propagated by the central node</td>
+</tr>
+<tr class="even">
+<td><code>probs</code></td>
+<td>Complete global probability vector</td>
+</tr>
+</tbody>
+</table>
+<p>The predicted class is obtained as:</p>
+<pre class="text"><code>pred_label = argmax(probs)</code></pre>
+<p>For the current six-class HAR configuration:</p>
+<pre class="text"><code>probs = [p0, p1, p2, p3, p4, p5]</code></pre>
+<p>The activity-class mapping is documented under <a href="./models-data.html">Models &amp; Data</a>.</p>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -567,116 +649,182 @@ Important
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The Jetson must already boot correctly before performing this procedure.</p>
-<p>Storage expansion does not replace the operating system flashing procedure.</p>
+<p>The current <code>experiment_manager_node.py</code> does <strong>not</strong> write a <code>true_label</code> field to <code>inference.csv</code>.</p>
+<p>Therefore, classification accuracy cannot be computed from this file alone unless ground-truth labels are provided by another component or merged during post-processing.</p>
 </div>
 </div>
 </section>
-<section id="install-the-nvme-ssd" class="level2">
-<h2 class="anchored" data-anchor-id="install-the-nvme-ssd">1. Install the NVMe SSD</h2>
-<p>Power off the Jetson device and install the NVMe SSD in the available M.2 M-Key slot.</p>
-<p>Refer to the corresponding carrier-board hardware instructions for the exact installation procedure.</p>
-<p>The device used for the original procedure is shown below.</p>
-<div class="text-center">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/reComputeJ1020.webp" class="img-fluid figure-img" style="width:40.0%"></p>
-<figcaption>Example reComputer platform used for NVMe storage expansion.</figcaption>
-</figure>
-</div>
-</div>
-<p>After installing the SSD, power on the Jetson and verify that the device is detected by the operating system.</p>
+<section id="latency.csv" class="level2">
+<h2 class="anchored" data-anchor-id="latency.csv"><code>latency.csv</code></h2>
+<p>The <code>latency.csv</code> file contains timing information used to decompose the real-time response of the distributed system.</p>
+<p>The main fields are:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Column</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>run_id</code></td>
+<td>Experiment identifier</td>
+</tr>
+<tr class="even">
+<td><code>t_session_sec</code></td>
+<td>Time elapsed since experiment start</td>
+</tr>
+<tr class="odd">
+<td><code>t_rx_ns</code></td>
+<td>Time at which the global message reaches the experiment manager</td>
+</tr>
+<tr class="even">
+<td><code>t0_ns</code></td>
+<td>Reference time associated with the distributed input</td>
+</tr>
+<tr class="odd">
+<td><code>t_last_local_send_ns</code></td>
+<td>Latest local publication time contributing to the global prediction</td>
+</tr>
+<tr class="even">
+<td><code>t_send_ns_global</code></td>
+<td>Time at which the central prediction is transmitted</td>
+</tr>
+<tr class="odd">
+<td><code>L_local_ms</code></td>
+<td>Distributed local-processing interval</td>
+</tr>
+<tr class="even">
+<td><code>L_central_ms</code></td>
+<td>Central-processing interval</td>
+</tr>
+<tr class="odd">
+<td><code>L_net_global_ms</code></td>
+<td>Global-message transmission interval</td>
+</tr>
+<tr class="even">
+<td><code>L1_e2e_ms</code></td>
+<td>End-to-end latency</td>
+</tr>
+<tr class="odd">
+<td><code>L_local_chest_ms</code></td>
+<td>Latest measured chest-node local latency</td>
+</tr>
+<tr class="even">
+<td><code>L_local_left_knee_ms</code></td>
+<td>Latest measured left-knee local latency</td>
+</tr>
+<tr class="odd">
+<td><code>L_local_right_hand_ms</code></td>
+<td>Latest measured right-hand local latency</td>
+</tr>
+<tr class="even">
+<td><code>L_local_left_hand_ms</code></td>
+<td>Latest measured left-hand local latency</td>
+</tr>
+<tr class="odd">
+<td><code>L_local_right_knee_ms</code></td>
+<td>Latest measured right-knee local latency</td>
+</tr>
+<tr class="even">
+<td><code>L_local_mean_ms</code></td>
+<td>Mean of the available local-node latencies</td>
+</tr>
+<tr class="odd">
+<td><code>L_local_max_ms</code></td>
+<td>Maximum of the available local-node latencies</td>
+</tr>
+</tbody>
+</table>
 </section>
-<section id="prepare-the-ssd" class="level2">
-<h2 class="anchored" data-anchor-id="prepare-the-ssd">2. Prepare the SSD</h2>
-<p>Open the Ubuntu <strong>Disks</strong> utility.</p>
-<p>The SSD should appear in the list of available storage devices.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/disk.webp" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div>
-<p>Select the SSD and choose <strong>Format Disk</strong>.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/format_disk.webp" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div>
-<p>Use a <strong>GPT partition table</strong>.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/format_disk2.webp" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div>
-<p>Create a new partition using the available storage space.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/format_disk3.webp" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div>
-<p>Continue with the partition creation process.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/format_disk4.webp" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div>
-<p>Format the partition using the <strong>Ext4</strong> filesystem.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/format_disk5.webp" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div>
-<p>Once completed, the SSD is ready to receive a copy of the Jetson root filesystem.</p>
+<section id="latency-decomposition" class="level2">
+<h2 class="anchored" data-anchor-id="latency-decomposition">Latency Decomposition</h2>
+<p>The experiment manager derives the principal latency components directly from the timestamps carried by the distributed prediction messages.</p>
+<section id="local-processing" class="level3">
+<h3 class="anchored" data-anchor-id="local-processing">Local Processing</h3>
+<pre class="text"><code>L_local_ms =
+(t_last_local_send_ns - t0_ns) / 1e6</code></pre>
 </section>
-<section id="download-the-root-on-nvme-utility" class="level2">
-<h2 class="anchored" data-anchor-id="download-the-root-on-nvme-utility">3. Download the Root-on-NVMe Utility</h2>
-<p>Open a terminal and clone the <code>rootOnNVMe</code> repository:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/limengdu/rootOnNVMe.git</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> rootOnNVMe/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>This utility provides the scripts used to copy the existing root filesystem and configure the system to use the NVMe SSD.</p>
+<section id="central-processing" class="level3">
+<h3 class="anchored" data-anchor-id="central-processing">Central Processing</h3>
+<pre class="text"><code>L_central_ms =
+(t_send_ns_global - t_last_local_send_ns) / 1e6</code></pre>
 </section>
-<section id="copy-the-root-filesystem" class="level2">
-<h2 class="anchored" data-anchor-id="copy-the-root-filesystem">4. Copy the Root Filesystem</h2>
-<p>Execute:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./copy-rootfs-ssd.sh</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The script copies the existing root filesystem from the Jetson internal storage to the SSD.</p>
-<p>The execution time depends on the amount of data currently stored in the root filesystem.</p>
+<section id="final-network-transfer" class="level3">
+<h3 class="anchored" data-anchor-id="final-network-transfer">Final Network Transfer</h3>
+<pre class="text"><code>L_net_global_ms =
+(t_rx_ns - t_send_ns_global) / 1e6</code></pre>
 </section>
-<section id="configure-boot-from-nvme" class="level2">
-<h2 class="anchored" data-anchor-id="configure-boot-from-nvme">5. Configure Boot from NVMe</h2>
-<p>After the copy operation completes, execute:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./setup-service.sh</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>This configures the service required to use the SSD as the system root filesystem.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/terminal.webp" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
+<section id="end-to-end-latency" class="level3">
+<h3 class="anchored" data-anchor-id="end-to-end-latency">End-to-End Latency</h3>
+<pre class="text"><code>L1_e2e_ms =
+(t_rx_ns - t0_ns) / 1e6</code></pre>
+<p>These components make it possible to distinguish the time associated with distributed local processing, central processing, and delivery of the final global prediction.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-<p>Restart the Jetson after the configuration is complete.</p>
-</section>
-<section id="verification" class="level2">
-<h2 class="anchored" data-anchor-id="verification">Verification</h2>
-<p>After rebooting, verify that the system is using the NVMe SSD as the root filesystem.</p>
-<p>A useful command is:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">df</span> <span class="at">-h</span> /</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>You can also inspect available block devices using:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">lsblk</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The root filesystem should correspond to the NVMe storage device.</p>
-<p>The original implementation showed the expanded storage after reboot as illustrated below.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/terminal2.webp" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>L_local_ms</code> represents the interval up to the latest local prediction participating in the central output.</p>
+<p>The file also records the latest independently measured local latency for each sensing node, together with their mean and maximum values.</p>
+</div>
 </div>
 </section>
-<section id="nvme-device-path" class="level2">
-<h2 class="anchored" data-anchor-id="nvme-device-path">NVMe Device Path</h2>
-<p>The <code>rootOnNVMe</code> scripts assume the SSD partition is located at:</p>
-<pre class="text"><code>/dev/nvme0n1p1</code></pre>
-<p>Before running the scripts, verify the actual device path using:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> fdisk <span class="at">-l</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>or:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">lsblk</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="power.csv" class="level2">
+<h2 class="anchored" data-anchor-id="power.csv"><code>power.csv</code></h2>
+<p>When power monitoring is enabled, the experiment manager uses <code>jtop</code> from the <code>jetson-stats</code> package to sample power information from the central Jetson.</p>
+<p>The current implementation records:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Column</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>run_id</code></td>
+<td>Experiment identifier</td>
+</tr>
+<tr class="even">
+<td><code>t_session_sec</code></td>
+<td>Time elapsed since experiment start</td>
+</tr>
+<tr class="odd">
+<td><code>t_epoch_sec</code></td>
+<td>Epoch timestamp of the power measurement</td>
+</tr>
+<tr class="even">
+<td><code>power_tot_w</code></td>
+<td>Total power measurement</td>
+</tr>
+<tr class="odd">
+<td><code>power_tot_avg_w</code></td>
+<td>Average total power reported by <code>jtop</code></td>
+</tr>
+<tr class="even">
+<td><code>power_sys5v_w</code></td>
+<td>SYS5V power measurement when available</td>
+</tr>
+<tr class="odd">
+<td><code>raw_power_dict</code></td>
+<td>Complete power dictionary returned by <code>jtop</code></td>
+</tr>
+</tbody>
+</table>
+<p>The default sampling configuration is:</p>
+<pre class="text"><code>10 Hz</code></pre>
+<p>The available power rails depend on the Jetson platform.</p>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -687,56 +835,229 @@ Warning
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>If the SSD partition does not correspond to <code>/dev/nvme0n1p1</code>, the device path used by the <code>rootOnNVMe</code> scripts must be updated before continuing.</p>
-<p>The original procedure identifies the following files as containing the default path:</p>
-<pre class="text"><code>copy-rootfs-ssd.sh
-data/setssdroot.service
-data/setssdroot.sh</code></pre>
+<p>Power-rail names are hardware-dependent.</p>
+<p>Fields such as <code>SYS5V</code>, <code>VDD_IN</code>, or <code>POM_5V_IN</code> should not be assumed to exist on every Jetson model.</p>
+</div>
+</div>
+<p>If <code>jtop</code> is unavailable, the prediction and latency logs can still operate while power monitoring remains disabled.</p>
+</section>
+<section id="summary.json" class="level2">
+<h2 class="anchored" data-anchor-id="summary.json"><code>summary.json</code></h2>
+<p>When a run finishes, the experiment manager creates:</p>
+<pre class="text"><code>summary.json</code></pre>
+<p>The current summary includes:</p>
+<pre class="text"><code>run_id
+start_time_ros_sec
+rows_inference
+rows_latency
+rows_power
+power_backend
+notes</code></pre>
+<p>This file provides a compact description of the completed experiment and the number of samples written to the main logs.</p>
+</section>
+<section id="optional-local-edge-logs" class="level2">
+<h2 class="anchored" data-anchor-id="optional-local-edge-logs">Optional Local Edge Logs</h2>
+<p>The local edge implementations can also record sensor-level information independently from the central experiment manager.</p>
+<p>The confirmed edge scripts include optional CSV logging containing:</p>
+<ul>
+<li>raw sensor windows;</li>
+<li>scaled model-input windows;</li>
+<li>local prediction probabilities;</li>
+<li>sequence information; and</li>
+<li>local timing information.</li>
+</ul>
+<p>A typical filename follows a structure similar to:</p>
+<pre class="text"><code>&lt;sensor_id&gt;_run&lt;id&gt;_&lt;timestamp&gt;_raw_window_probs.csv</code></pre>
+<p>These files are primarily useful when debugging or validating the processing performed by an individual edge node.</p>
+<p>They are separate from the centralized experiment directory created by <code>experiment_manager_node.py</code>.</p>
+</section>
+<section id="synchronization-metrics" class="level2">
+<h2 class="anchored" data-anchor-id="synchronization-metrics">Synchronization Metrics</h2>
+<p>Synchronization quality is evaluated using the temporal dispersion among the local predictions included in the same fusion event.</p>
+<p>The primary metric is:</p>
+<pre class="text"><code>sync_span_ms</code></pre>
+<p>Conceptually:</p>
+<pre class="text"><code>sync_span_ms =
+latest local timestamp
+-
+earliest local timestamp</code></pre>
+<p>This value measures how temporally close the five local probability messages are when they are grouped for central fusion.</p>
+<p>The synchronization mechanism itself is documented in <a href="./communication-sync.html">Communication &amp; Synchronization</a>.</p>
+</section>
+<section id="synchronization-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="synchronization-analysis">Synchronization Analysis</h2>
+<p>The project also includes a synchronization-analysis script that processes:</p>
+<pre class="text"><code>central_sync_metrics.csv</code></pre>
+<p>The primary required field is:</p>
+<pre class="text"><code>sync_span_ms</code></pre>
+<p>When available, the analysis also considers:</p>
+<pre class="text"><code>fusion_mode
+window_ref_span_ms
+local_send_span_ms</code></pre>
+<p>The synchronization analysis calculates statistics including:</p>
+<pre class="text"><code>Number of samples
+Mean
+Standard deviation
+Minimum
+Median
+P90
+P95
+P99
+Maximum</code></pre>
+<p>and can generate a distribution of the synchronization span.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>sync_span_ms</code> is the primary synchronization metric.</p>
+<p><code>window_ref_span_ms</code> and <code>local_send_span_ms</code> are complementary diagnostic measurements and should not be interpreted as substitutes for the actual ATS acceptance criterion.</p>
 </div>
 </div>
 </section>
-<section id="recovery-behavior" class="level2">
-<h2 class="anchored" data-anchor-id="recovery-behavior">Recovery Behavior</h2>
-<p>The expansion procedure does <strong>not</strong> remove the original root filesystem stored in the internal eMMC.</p>
-<p>This provides a useful recovery mechanism.</p>
-<p>If the SSD is removed, the system can still boot from the original internal storage, assuming the original installation remains intact.</p>
+<section id="experiment-verification" class="level2">
+<h2 class="anchored" data-anchor-id="experiment-verification">Experiment Verification</h2>
+<p>After stopping a run, verify that the expected directory was created:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> ~/har_runs/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Inspect the most recent run:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> ~/har_runs/<span class="op">&lt;</span>RUN_ID<span class="op">&gt;</span>/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The expected files are:</p>
+<pre class="text"><code>inference.csv
+latency.csv
+power.csv
+summary.json</code></pre>
+<p>Inspect the first rows of a log using:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> ~/har_runs/<span class="op">&lt;</span>RUN_ID<span class="op">&gt;</span>/inference.csv</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>or:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> ~/har_runs/<span class="op">&lt;</span>RUN_ID<span class="op">&gt;</span>/latency.csv</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Verify that rows were recorded throughout the experiment.</p>
+</section>
+<section id="quick-data-inspection" class="level2">
+<h2 class="anchored" data-anchor-id="quick-data-inspection">Quick Data Inspection</h2>
+<p>The number of recorded global predictions can be inspected using:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> ~/har_runs/<span class="op">&lt;</span>RUN_ID<span class="op">&gt;</span>/inference.csv</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Similarly:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> ~/har_runs/<span class="op">&lt;</span>RUN_ID<span class="op">&gt;</span>/latency.csv</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Remember that the first row contains the CSV header.</p>
+</section>
+<section id="post-experiment-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="post-experiment-analysis">Post-Experiment Analysis</h2>
+<p>The generated logs support several categories of system-level analysis.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Analysis</th>
+<th>Primary Data</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Global prediction behavior</td>
+<td><code>inference.csv</code></td>
+</tr>
+<tr class="even">
+<td>End-to-end latency</td>
+<td><code>latency.csv</code></td>
+</tr>
+<tr class="odd">
+<td>Latency decomposition</td>
+<td><code>latency.csv</code></td>
+</tr>
+<tr class="even">
+<td>Per-node local latency</td>
+<td><code>latency.csv</code></td>
+</tr>
+<tr class="odd">
+<td>Central-node power behavior</td>
+<td><code>power.csv</code></td>
+</tr>
+<tr class="even">
+<td>Run metadata</td>
+<td><code>summary.json</code></td>
+</tr>
+<tr class="odd">
+<td>Temporal synchronization</td>
+<td>Synchronization metrics log</td>
+</tr>
+</tbody>
+</table>
+<p>Classification metrics additionally require ground-truth activity labels.</p>
+<p>These labels must be associated with the recorded prediction sequence before computing metrics such as:</p>
+<pre class="text"><code>Accuracy
+Precision
+Recall
+F1-score
+Confusion matrix</code></pre>
+</section>
+<section id="archived-experiment-logs" class="level2">
+<h2 class="anchored" data-anchor-id="archived-experiment-logs">Archived Experiment Logs</h2>
+<p>Some experimental datasets produced during development may use earlier filenames such as:</p>
+<pre class="text"><code>time_inference.csv
+time_latency.csv
+time_power.csv</code></pre>
+<p>The documentation on this page follows the <strong>current <code>experiment_manager_node.py</code> implementation</strong>, which writes:</p>
+<pre class="text"><code>inference.csv
+latency.csv
+power.csv
+summary.json</code></pre>
+<p>When analyzing archived experiments, always verify the available column names before applying the current post-processing workflow.</p>
 </section>
 <section id="troubleshooting" class="level2">
 <h2 class="anchored" data-anchor-id="troubleshooting">Troubleshooting</h2>
-<section id="ssd-is-not-detected" class="level3">
-<h3 class="anchored" data-anchor-id="ssd-is-not-detected">SSD Is Not Detected</h3>
-<p>Verify that:</p>
-<ul>
-<li>The SSD is correctly installed</li>
-<li>The carrier board supports the installed NVMe device</li>
-<li>The SSD is visible using <code>lsblk</code> or <code>sudo fdisk -l</code></li>
-<li>The M.2 slot supports NVMe storage</li>
-</ul>
-</section>
-<section id="system-does-not-boot-from-the-ssd" class="level3">
-<h3 class="anchored" data-anchor-id="system-does-not-boot-from-the-ssd">System Does Not Boot from the SSD</h3>
+<section id="run-directory-is-not-created" class="level3">
+<h3 class="anchored" data-anchor-id="run-directory-is-not-created">Run Directory Is Not Created</h3>
+<p>Verify that <code>experiment_manager_node.py</code> is running and receiving:</p>
+<pre class="text"><code>/har/start</code></pre>
 <p>Check:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="ex">rostopic</span> echo /har/start</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="inference.csv-is-empty" class="level3">
+<h3 class="anchored" data-anchor-id="inference.csv-is-empty"><code>inference.csv</code> Is Empty</h3>
+<p>Verify that the experiment manager receives:</p>
+<pre class="text"><code>/har/probs/global</code></pre>
+<p>using:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="ex">rostopic</span> echo /har/probs/global</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="latency.csv-contains-missing-values" class="level3">
+<h3 class="anchored" data-anchor-id="latency.csv-contains-missing-values"><code>latency.csv</code> Contains Missing Values</h3>
+<p>Check whether the global <code>Probs</code> message contains valid:</p>
+<pre class="text"><code>t0_ns
+t_last_local_send_ns
+t_send_ns</code></pre>
+<p>Missing timing information prevents the corresponding latency component from being calculated.</p>
+</section>
+<section id="power.csv-is-empty" class="level3">
+<h3 class="anchored" data-anchor-id="power.csv-is-empty"><code>power.csv</code> Is Empty</h3>
+<p>Verify that <code>jtop</code> is available:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="ex">jtop</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>and that power logging is enabled.</p>
+</section>
+<section id="classification-metrics-cannot-be-computed" class="level3">
+<h3 class="anchored" data-anchor-id="classification-metrics-cannot-be-computed">Classification Metrics Cannot Be Computed</h3>
+<p>Verify that a ground-truth label stream or labeled post-processing file is available.</p>
+<p>The current experiment-manager log contains the predicted class but does not independently determine the activity being performed by the participant.</p>
+</section>
+</section>
+<section id="related-documentation" class="level2">
+<h2 class="anchored" data-anchor-id="related-documentation">Related Documentation</h2>
 <ul>
-<li>That the root filesystem copy completed successfully</li>
-<li>That <code>setup-service.sh</code> executed without errors</li>
-<li>That the correct NVMe partition path is configured</li>
-<li>That the SSD contains a valid Ext4 filesystem</li>
+<li><a href="./running-framework.html"><strong>Running the Framework</strong></a> — experiment startup and shutdown procedure.</li>
+<li><a href="./communication-sync.html"><strong>Communication &amp; Synchronization</strong></a> — timestamps, ATS, ZOH, and distributed prediction exchange.</li>
+<li><a href="./models-data.html"><strong>Models &amp; Data</strong></a> — class mapping and model outputs.</li>
+<li><a href="./central-node.html"><strong>Central Node</strong></a> — global inference and central processing.</li>
+<li><a href="./extending-framework.html"><strong>Extending the Framework</strong></a> — adding new metrics, sensors, models, or experiment instrumentation.</li>
 </ul>
-</section>
-<section id="incorrect-nvme-device-path" class="level3">
-<h3 class="anchored" data-anchor-id="incorrect-nvme-device-path">Incorrect NVMe Device Path</h3>
-<p>Use:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">lsblk</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>to determine the actual SSD partition.</p>
-<p>Update the <code>rootOnNVMe</code> configuration if the partition differs from:</p>
-<pre class="text"><code>/dev/nvme0n1p1</code></pre>
-</section>
 </section>
 <section id="next-step" class="level2">
 <h2 class="anchored" data-anchor-id="next-step">Next Step</h2>
-<p>Once the Jetson hardware and storage are ready, continue with:</p>
-<p><a href="./software-environment.html"><strong>Software Environment</strong></a></p>
-<p>If no storage expansion was required, this page can be skipped entirely.</p>
+<p>Continue with:</p>
+<p><a href="./extending-framework.html"><strong>Extending the Framework</strong></a></p>
+<p>The next section describes how the existing implementation can be modified to support additional sensing nodes, alternative HAR models, new activity classes, different fusion strategies, and additional runtime measurements.</p>
 
 
 </section>
@@ -1163,7 +1484,7 @@ data/setssdroot.sh</code></pre>
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/blob/main/expansion-jetson-board.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/blob/main/experiments-logs.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <div style="text-align: right;">
 <p>Technical Documentation &amp; Reproducibility Resources<br> <small>Author: Jhonathan Rivas-Caicedo</small></p>

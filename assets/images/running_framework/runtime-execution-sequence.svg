@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="1300"
+   height="1050"
+   viewBox="0 0 1300 1050"
+   version="1.1"
+   id="svg21"
+   sodipodi:docname="runtime-execution-sequence.svg"
+   inkscape:version="1.4 (86a8ad7, 2024-10-11)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview21"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="0.38428571"
+     inkscape:cx="598.51301"
+     inkscape:cy="485.31598"
+     inkscape:window-width="1920"
+     inkscape:window-height="1009"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg21" />
+  <defs
+     id="defs1">
+    <marker
+       style="overflow:visible"
+       id="Triangle"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Triangle arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135" />
+    </marker>
+    <style
+       id="style1">
+      .title { font: 700 54px Arial, Helvetica, sans-serif; fill: #0f2f73; }
+      .subtitle { font: 400 24px Arial, Helvetica, sans-serif; fill: #52627d; }
+      .boxTitle { font: 700 27px Arial, Helvetica, sans-serif; fill: #183153; }
+      .boxSub { font: 400 19px Arial, Helvetica, sans-serif; fill: #56657d; }
+      .num { font: 700 22px Arial, Helvetica, sans-serif; fill: #ffffff; }
+      .step { fill: #f7faff; stroke: #4c79d8; stroke-width: 3; }
+      .start { fill: #eefaf4; stroke: #1f8a5b; stroke-width: 3.5; }
+      .run { fill: #fff8eb; stroke: #d39b27; stroke-width: 3.5; }
+      .line { stroke: #356ac3; stroke-width: 5; fill: none; }
+      .badge { fill: #356ac3; }
+      .note { font: 400 20px Arial, Helvetica, sans-serif; fill: #5a6782; }
+    </style>
+    <marker
+       id="arrow"
+       markerWidth="12"
+       markerHeight="12"
+       refX="10"
+       refY="6"
+       orient="auto">
+      <path
+         d="M 0,0 12,6 0,12 Z"
+         fill="#356ac3"
+         id="path1" />
+    </marker>
+    <filter
+       id="shadow"
+       x="-0.0035"
+       y="-0.016666667"
+       width="1.007"
+       height="1.0333333">
+      <feDropShadow
+         dx="0"
+         dy="4"
+         stdDeviation="6"
+         flood-color="#000"
+         flood-opacity="0.09" />
+    </filter>
+  </defs>
+  <text
+     x="648"
+     y="68"
+     text-anchor="middle"
+     class="title"
+     id="text1"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:54px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Runtime Execution Sequence</text>
+  <text
+     x="648"
+     y="108"
+     text-anchor="middle"
+     class="subtitle"
+     id="text2"
+     style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:24px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Recommended order for starting the distributed HAR implementation</text>
+  <!-- vertical spine -->
+  <line
+     x1="648"
+     y1="180"
+     x2="648"
+     y2="875"
+     class="line"
+     id="line2" />
+  <!-- Step 1 -->
+  <circle
+     cx="648"
+     cy="195"
+     r="27"
+     class="badge"
+     id="circle2" />
+  <text
+     x="648"
+     y="203"
+     text-anchor="middle"
+     class="num"
+     id="text3"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:22px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">1</text>
+  <rect
+     x="63"
+     y="145"
+     width="500"
+     height="105"
+     rx="24"
+     class="step"
+     filter="url(#shadow)"
+     id="rect3" />
+  <text
+     x="313"
+     y="188"
+     text-anchor="middle"
+     class="boxTitle"
+     id="text4"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:27px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Verify Infrastructure</text>
+  <text
+     x="313"
+     y="220"
+     text-anchor="middle"
+     class="boxSub"
+     id="text5"
+     style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:19px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Network, ROS environment, Chrony, and sensors</text>
+  <line
+     x1="619.14075"
+     y1="193.00484"
+     x2="579.78009"
+     y2="193.00484"
+     class="line"
+     marker-end="url(#arrow)"
+     id="line5"
+     style="marker-end:url(#Triangle)" />
+  <!-- Step 2 -->
+  <circle
+     cx="648"
+     cy="325"
+     r="27"
+     class="badge"
+     id="circle5" />
+  <text
+     x="648"
+     y="333"
+     text-anchor="middle"
+     class="num"
+     id="text6"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:22px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">2</text>
+  <rect
+     x="733"
+     y="275"
+     width="500"
+     height="105"
+     rx="24"
+     class="step"
+     filter="url(#shadow)"
+     id="rect6" />
+  <text
+     x="983"
+     y="318"
+     text-anchor="middle"
+     class="boxTitle"
+     id="text7"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:27px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Start ROS Master</text>
+  <text
+     x="983"
+     y="350"
+     text-anchor="middle"
+     class="boxSub"
+     id="text8"
+     style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:19px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Central Jetson provides the ROS coordination point</text>
+  <line
+     x1="676.93433"
+     y1="323.02884"
+     x2="716.50281"
+     y2="323.02884"
+     class="line"
+     marker-end="url(#arrow)"
+     id="line8"
+     style="marker-end:url(#Triangle)" />
+  <!-- Step 3 -->
+  <circle
+     cx="648"
+     cy="455"
+     r="27"
+     class="badge"
+     id="circle8" />
+  <text
+     x="648"
+     y="463"
+     text-anchor="middle"
+     class="num"
+     id="text9"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:22px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">3</text>
+  <rect
+     x="63"
+     y="405"
+     width="500"
+     height="105"
+     rx="24"
+     class="step"
+     filter="url(#shadow)"
+     id="rect9" />
+  <text
+     x="313"
+     y="448"
+     text-anchor="middle"
+     class="boxTitle"
+     id="text10"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:27px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Start Central Components</text>
+  <text
+     x="313"
+     y="480"
+     text-anchor="middle"
+     class="boxSub"
+     id="text11"
+     style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:19px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Fusion node and experiment-management services</text>
+  <line
+     x1="619.14075"
+     y1="455"
+     x2="579.78009"
+     y2="455"
+     class="line"
+     marker-end="url(#arrow)"
+     id="line11"
+     style="marker-end:url(#Triangle)" />
+  <!-- Step 4 -->
+  <circle
+     cx="648"
+     cy="585"
+     r="27"
+     class="badge"
+     id="circle11" />
+  <text
+     x="648"
+     y="593"
+     text-anchor="middle"
+     class="num"
+     id="text12"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:22px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">4</text>
+  <rect
+     x="733"
+     y="535"
+     width="500"
+     height="105"
+     rx="24"
+     class="step"
+     filter="url(#shadow)"
+     id="rect12" />
+  <text
+     x="983"
+     y="578"
+     text-anchor="middle"
+     class="boxTitle"
+     id="text13"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:27px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Start the Five Edge Nodes</text>
+  <text
+     x="983"
+     y="610"
+     text-anchor="middle"
+     class="boxSub"
+     id="text14"
+     style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:19px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Connect BLE sensors, load models, and wait for data</text>
+  <line
+     x1="676.93433"
+     y1="585"
+     x2="716.50281"
+     y2="585"
+     class="line"
+     marker-end="url(#arrow)"
+     id="line14"
+     style="marker-end:url(#Triangle)" />
+  <!-- Step 5 -->
+  <circle
+     cx="648"
+     cy="715"
+     r="27"
+     class="badge"
+     id="circle14" />
+  <text
+     x="648"
+     y="723"
+     text-anchor="middle"
+     class="num"
+     id="text15"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:22px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">5</text>
+  <rect
+     x="63"
+     y="665"
+     width="500"
+     height="105"
+     rx="24"
+     class="step"
+     filter="url(#shadow)"
+     id="rect15" />
+  <text
+     x="313"
+     y="708"
+     text-anchor="middle"
+     class="boxTitle"
+     id="text16"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:27px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Verify ROS Streams</text>
+  <text
+     x="313"
+     y="740"
+     text-anchor="middle"
+     class="boxSub"
+     id="text17"
+     style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:19px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Confirm all local probability topics are available</text>
+  <line
+     x1="619.14075"
+     y1="716.99512"
+     x2="579.78009"
+     y2="716.99512"
+     class="line"
+     marker-end="url(#arrow)"
+     id="line17"
+     style="marker-end:url(#Triangle)" />
+  <!-- Step 6 -->
+  <circle
+     cx="648"
+     cy="845"
+     r="27"
+     class="badge"
+     id="circle17" />
+  <text
+     x="648"
+     y="853"
+     text-anchor="middle"
+     class="num"
+     id="text18"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:22px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">6</text>
+  <rect
+     x="733"
+     y="795"
+     width="500"
+     height="105"
+     rx="24"
+     class="run"
+     filter="url(#shadow)"
+     id="rect18" />
+  <text
+     x="983"
+     y="838"
+     text-anchor="middle"
+     class="boxTitle"
+     id="text19"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:27px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Start the Experiment</text>
+  <text
+     x="983"
+     y="870"
+     text-anchor="middle"
+     class="boxSub"
+     id="text20"
+     style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:19px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Publish the start signal and begin global inference</text>
+  <line
+     x1="676.93433"
+     y1="846.97119"
+     x2="716.50281"
+     y2="846.97119"
+     class="line"
+     marker-end="url(#arrow)"
+     id="line20"
+     style="marker-end:url(#Triangle)" />
+  <rect
+     x="148"
+     y="945"
+     width="1000"
+     height="60"
+     rx="18"
+     class="start"
+     id="rect20" />
+  <text
+     x="648"
+     y="982"
+     text-anchor="middle"
+     class="note"
+     id="text21"
+     style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:20px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Only begin the experiment after all five local streams and the central processing path have been verified.</text>
+</svg>

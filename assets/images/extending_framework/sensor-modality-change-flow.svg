@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="800"
+   height="980"
+   viewBox="0 0 800 980"
+   version="1.1"
+   id="svg12"
+   sodipodi:docname="sensor-modality-change-flow.svg"
+   inkscape:version="1.4 (86a8ad7, 2024-10-11)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview12"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="0.29114039"
+     inkscape:cx="-266.1946"
+     inkscape:cy="551.28042"
+     inkscape:window-width="1920"
+     inkscape:window-height="1009"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg12" />
+  <defs
+     id="defs1">
+    <marker
+       style="overflow:visible"
+       id="Triangle"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Triangle arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135" />
+    </marker>
+    <marker
+       id="arrow"
+       markerWidth="12"
+       markerHeight="12"
+       refX="10"
+       refY="6"
+       orient="auto"
+       markerUnits="strokeWidth">
+      <path
+         d="M 0,0 12,6 0,12 Z"
+         fill="#3f5f7d"
+         id="path1" />
+    </marker>
+    <filter
+       id="shadow"
+       x="-0.00234375"
+       y="-0.014285714"
+       width="1.0046875"
+       height="1.0285714">
+      <feDropShadow
+         dx="0"
+         dy="4"
+         stdDeviation="6"
+         flood-color="#000000"
+         flood-opacity="0.10" />
+    </filter>
+  </defs>
+  <text
+     x="396"
+     y="66"
+     text-anchor="middle"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="34"
+     font-weight="700"
+     fill="#17324d"
+     id="text1"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:34px;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-anchor:middle;fill:#17324d">Sensor Modality Change Impact</text>
+  <text
+     x="396"
+     y="105"
+     text-anchor="middle"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="18"
+     fill="#5e7184"
+     id="text2"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18px;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-anchor:middle;fill:#5e7184">Components that must remain consistent when changing the edge-node input representation</text>
+  <g
+     filter="url(#shadow)"
+     id="g2"
+     transform="translate(-204)">
+    <rect
+       x="280"
+       y="155"
+       rx="22"
+       ry="22"
+       width="640"
+       height="105"
+       fill="#f6f9fc"
+       stroke="#274f73"
+       stroke-width="2.5"
+       id="rect2" />
+  </g>
+  <circle
+     cx="136"
+     cy="207.5"
+     r="28"
+     fill="#e7f0f8"
+     stroke="#274f73"
+     stroke-width="2"
+     id="circle2" />
+  <text
+     x="136"
+     y="216"
+     text-anchor="middle"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="22"
+     font-weight="700"
+     fill="#274f73"
+     id="text3"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:22px;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">1</text>
+  <text
+     x="396"
+     y="217"
+     text-anchor="middle"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="27"
+     font-weight="700"
+     fill="#17324d"
+     id="text4"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:27px;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Sensor Acquisition</text>
+  <line
+     x1="396"
+     y1="260"
+     x2="396"
+     y2="317.73465"
+     stroke="#3f5f7d"
+     stroke-width="3.99084"
+     marker-end="url(#arrow)"
+     id="line4"
+     style="marker-end:url(#Triangle)" />
+  <g
+     filter="url(#shadow)"
+     id="g4"
+     transform="translate(-204)">
+    <rect
+       x="280"
+       y="330"
+       rx="22"
+       ry="22"
+       width="640"
+       height="105"
+       fill="#f6f9fc"
+       stroke="#274f73"
+       stroke-width="2.5"
+       id="rect4" />
+  </g>
+  <circle
+     cx="136"
+     cy="382.5"
+     r="28"
+     fill="#e7f0f8"
+     stroke="#274f73"
+     stroke-width="2"
+     id="circle4" />
+  <text
+     x="136"
+     y="391"
+     text-anchor="middle"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="22"
+     font-weight="700"
+     fill="#274f73"
+     id="text5"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:22px;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">2</text>
+  <text
+     x="396"
+     y="392"
+     text-anchor="middle"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="27"
+     font-weight="700"
+     fill="#17324d"
+     id="text6"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:27px;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Channel Selection</text>
+  <line
+     x1="396"
+     y1="434.19934"
+     x2="396"
+     y2="491.93396"
+     stroke="#3f5f7d"
+     stroke-width="3.99084"
+     marker-end="url(#arrow)"
+     id="line6"
+     style="marker-end:url(#Triangle)" />
+  <g
+     filter="url(#shadow)"
+     id="g6"
+     transform="translate(-204)">
+    <rect
+       x="280"
+       y="505"
+       rx="22"
+       ry="22"
+       width="640"
+       height="105"
+       fill="#f6f9fc"
+       stroke="#274f73"
+       stroke-width="2.5"
+       id="rect6" />
+  </g>
+  <circle
+     cx="136"
+     cy="557.5"
+     r="28"
+     fill="#e7f0f8"
+     stroke="#274f73"
+     stroke-width="2"
+     id="circle6" />
+  <text
+     x="136"
+     y="566"
+     text-anchor="middle"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="22"
+     font-weight="700"
+     fill="#274f73"
+     id="text7"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:22px;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">3</text>
+  <text
+     x="396"
+     y="567"
+     text-anchor="middle"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="27"
+     font-weight="700"
+     fill="#17324d"
+     id="text8"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:27px;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Scaler</text>
+  <line
+     x1="396"
+     y1="608.39868"
+     x2="396"
+     y2="666.1333"
+     stroke="#3f5f7d"
+     stroke-width="3.99084"
+     marker-end="url(#arrow)"
+     id="line8"
+     style="marker-end:url(#Triangle)" />
+  <g
+     filter="url(#shadow)"
+     id="g8"
+     transform="translate(-204)">
+    <rect
+       x="280"
+       y="680"
+       rx="22"
+       ry="22"
+       width="640"
+       height="105"
+       fill="#f6f9fc"
+       stroke="#274f73"
+       stroke-width="2.5"
+       id="rect8" />
+  </g>
+  <circle
+     cx="136"
+     cy="732.5"
+     r="28"
+     fill="#e7f0f8"
+     stroke="#274f73"
+     stroke-width="2"
+     id="circle8" />
+  <text
+     x="136"
+     y="741"
+     text-anchor="middle"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="22"
+     font-weight="700"
+     fill="#274f73"
+     id="text9"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:22px;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">4</text>
+  <text
+     x="396"
+     y="742"
+     text-anchor="middle"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="27"
+     font-weight="700"
+     fill="#17324d"
+     id="text10"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:27px;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Local Model Input Dimension</text>
+  <line
+     x1="396"
+     y1="782.59802"
+     x2="396"
+     y2="840.33264"
+     stroke="#3f5f7d"
+     stroke-width="3.99084"
+     marker-end="url(#arrow)"
+     id="line10"
+     style="marker-end:url(#Triangle)" />
+  <g
+     filter="url(#shadow)"
+     id="g10"
+     transform="translate(-204)">
+    <rect
+       x="280"
+       y="855"
+       rx="22"
+       ry="22"
+       width="640"
+       height="105"
+       fill="#eef5fb"
+       stroke="#17324d"
+       stroke-width="3"
+       id="rect10" />
+  </g>
+  <circle
+     cx="136"
+     cy="907.5"
+     r="28"
+     fill="#dfeaf4"
+     stroke="#17324d"
+     stroke-width="2"
+     id="circle10" />
+  <text
+     x="136"
+     y="916"
+     text-anchor="middle"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="22"
+     font-weight="700"
+     fill="#17324d"
+     id="text11"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:22px;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">5</text>
+  <text
+     x="396"
+     y="917"
+     text-anchor="middle"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="27"
+     font-weight="700"
+     fill="#17324d"
+     id="text12"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:27px;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Trained Parameters</text>
+</svg>

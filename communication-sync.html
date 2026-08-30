@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Storage Expansion – HAR Distributed Framework</title>
+<title>Communication &amp; Synchronization – HAR Distributed Framework</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -327,7 +327,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./flash-jetson-board.html">Setup</a></li><li class="breadcrumb-item"><a href="./expansion-jetson-board.html">Storage Expansion</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./edge-nodes.html">Framework</a></li><li class="breadcrumb-item"><a href="./communication-sync.html">Communication &amp; Synchronization</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -382,7 +382,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./expansion-jetson-board.html" class="sidebar-item-text sidebar-link active">
+  <a href="./expansion-jetson-board.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Storage Expansion</span></a>
   </div>
 </li>
@@ -429,7 +429,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./communication-sync.html" class="sidebar-item-text sidebar-link">
+  <a href="./communication-sync.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Communication &amp; Synchronization</span></a>
   </div>
 </li>
@@ -475,34 +475,48 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#when-is-storage-expansion-useful" id="toc-when-is-storage-expansion-useful" class="nav-link active" data-scroll-target="#when-is-storage-expansion-useful">When Is Storage Expansion Useful?</a></li>
-  <li><a href="#requirements" id="toc-requirements" class="nav-link" data-scroll-target="#requirements">Requirements</a></li>
-  <li><a href="#install-the-nvme-ssd" id="toc-install-the-nvme-ssd" class="nav-link" data-scroll-target="#install-the-nvme-ssd">1. Install the NVMe SSD</a></li>
-  <li><a href="#prepare-the-ssd" id="toc-prepare-the-ssd" class="nav-link" data-scroll-target="#prepare-the-ssd">2. Prepare the SSD</a></li>
-  <li><a href="#download-the-root-on-nvme-utility" id="toc-download-the-root-on-nvme-utility" class="nav-link" data-scroll-target="#download-the-root-on-nvme-utility">3. Download the Root-on-NVMe Utility</a></li>
-  <li><a href="#copy-the-root-filesystem" id="toc-copy-the-root-filesystem" class="nav-link" data-scroll-target="#copy-the-root-filesystem">4. Copy the Root Filesystem</a></li>
-  <li><a href="#configure-boot-from-nvme" id="toc-configure-boot-from-nvme" class="nav-link" data-scroll-target="#configure-boot-from-nvme">5. Configure Boot from NVMe</a></li>
-  <li><a href="#verification" id="toc-verification" class="nav-link" data-scroll-target="#verification">Verification</a></li>
-  <li><a href="#nvme-device-path" id="toc-nvme-device-path" class="nav-link" data-scroll-target="#nvme-device-path">NVMe Device Path</a></li>
-  <li><a href="#recovery-behavior" id="toc-recovery-behavior" class="nav-link" data-scroll-target="#recovery-behavior">Recovery Behavior</a></li>
+  <li><a href="#communication-architecture" id="toc-communication-architecture" class="nav-link active" data-scroll-target="#communication-architecture">Communication Architecture</a></li>
+  <li><a href="#prediction-message" id="toc-prediction-message" class="nav-link" data-scroll-target="#prediction-message">Prediction Message</a>
+  <ul class="collapse">
+  <li><a href="#message-fields" id="toc-message-fields" class="nav-link" data-scroll-target="#message-fields">Message Fields</a></li>
+  </ul></li>
+  <li><a href="#local-publication" id="toc-local-publication" class="nav-link" data-scroll-target="#local-publication">Local Publication</a></li>
+  <li><a href="#central-reception" id="toc-central-reception" class="nav-link" data-scroll-target="#central-reception">Central Reception</a></li>
+  <li><a href="#approximate-time-synchronization" id="toc-approximate-time-synchronization" class="nav-link" data-scroll-target="#approximate-time-synchronization">Approximate Time Synchronization</a></li>
+  <li><a href="#synchronization-span" id="toc-synchronization-span" class="nav-link" data-scroll-target="#synchronization-span">Synchronization Span</a></li>
+  <li><a href="#missing-or-delayed-predictions" id="toc-missing-or-delayed-predictions" class="nav-link" data-scroll-target="#missing-or-delayed-predictions">Missing or Delayed Predictions</a></li>
+  <li><a href="#zero-order-hold-fallback" id="toc-zero-order-hold-fallback" class="nav-link" data-scroll-target="#zero-order-hold-fallback">Zero-Order Hold Fallback</a></li>
+  <li><a href="#watchdog-mechanism" id="toc-watchdog-mechanism" class="nav-link" data-scroll-target="#watchdog-mechanism">Watchdog Mechanism</a></li>
+  <li><a href="#central-fusion-trigger" id="toc-central-fusion-trigger" class="nav-link" data-scroll-target="#central-fusion-trigger">Central Fusion Trigger</a></li>
+  <li><a href="#global-prediction-output" id="toc-global-prediction-output" class="nav-link" data-scroll-target="#global-prediction-output">Global Prediction Output</a></li>
+  <li><a href="#start-and-stop-control" id="toc-start-and-stop-control" class="nav-link" data-scroll-target="#start-and-stop-control">Start and Stop Control</a></li>
+  <li><a href="#verification" id="toc-verification" class="nav-link" data-scroll-target="#verification">Verification</a>
+  <ul class="collapse">
+  <li><a href="#verify-edge-topics" id="toc-verify-edge-topics" class="nav-link" data-scroll-target="#verify-edge-topics">Verify Edge Topics</a></li>
+  <li><a href="#inspect-a-local-prediction" id="toc-inspect-a-local-prediction" class="nav-link" data-scroll-target="#inspect-a-local-prediction">Inspect a Local Prediction</a></li>
+  <li><a href="#check-publication-rate" id="toc-check-publication-rate" class="nav-link" data-scroll-target="#check-publication-rate">Check Publication Rate</a></li>
+  <li><a href="#verify-global-output" id="toc-verify-global-output" class="nav-link" data-scroll-target="#verify-global-output">Verify Global Output</a></li>
+  </ul></li>
   <li><a href="#troubleshooting" id="toc-troubleshooting" class="nav-link" data-scroll-target="#troubleshooting">Troubleshooting</a>
   <ul class="collapse">
-  <li><a href="#ssd-is-not-detected" id="toc-ssd-is-not-detected" class="nav-link" data-scroll-target="#ssd-is-not-detected">SSD Is Not Detected</a></li>
-  <li><a href="#system-does-not-boot-from-the-ssd" id="toc-system-does-not-boot-from-the-ssd" class="nav-link" data-scroll-target="#system-does-not-boot-from-the-ssd">System Does Not Boot from the SSD</a></li>
-  <li><a href="#incorrect-nvme-device-path" id="toc-incorrect-nvme-device-path" class="nav-link" data-scroll-target="#incorrect-nvme-device-path">Incorrect NVMe Device Path</a></li>
+  <li><a href="#one-edge-topic-is-missing" id="toc-one-edge-topic-is-missing" class="nav-link" data-scroll-target="#one-edge-topic-is-missing">One Edge Topic Is Missing</a></li>
+  <li><a href="#topic-exists-but-messages-do-not-arrive" id="toc-topic-exists-but-messages-do-not-arrive" class="nav-link" data-scroll-target="#topic-exists-but-messages-do-not-arrive">Topic Exists but Messages Do Not Arrive</a></li>
+  <li><a href="#synchronization-does-not-trigger" id="toc-synchronization-does-not-trigger" class="nav-link" data-scroll-target="#synchronization-does-not-trigger">Synchronization Does Not Trigger</a></li>
+  <li><a href="#system-remains-in-fallback-mode" id="toc-system-remains-in-fallback-mode" class="nav-link" data-scroll-target="#system-remains-in-fallback-mode">System Remains in Fallback Mode</a></li>
   </ul></li>
+  <li><a href="#related-documentation" id="toc-related-documentation" class="nav-link" data-scroll-target="#related-documentation">Related Documentation</a></li>
   <li><a href="#next-step" id="toc-next-step" class="nav-link" data-scroll-target="#next-step">Next Step</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/blob/main/expansion-jetson-board.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/blob/main/communication-sync.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./flash-jetson-board.html">Setup</a></li><li class="breadcrumb-item"><a href="./expansion-jetson-board.html">Storage Expansion</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./edge-nodes.html">Framework</a></li><li class="breadcrumb-item"><a href="./communication-sync.html">Communication &amp; Synchronization</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Storage Expansion</h1>
-<p class="subtitle lead">Optional Jetson Preparation</p>
+<h1 class="title">Communication &amp; Synchronization</h1>
+<p class="subtitle lead">Prediction Exchange and Temporal Coordination</p>
 </div>
 
 
@@ -519,7 +533,175 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>This section describes how to expand the available storage of a compatible Jetson-based system using an <strong>NVMe SSD connected through an M.2 M-Key slot</strong>.</p>
+<p>The <strong>HAR Distributed Framework</strong> uses ROS Noetic to exchange local activity predictions between the five edge nodes and the central node.</p>
+<p>Communication occurs at the <strong>prediction level</strong>: each edge node publishes the probability vector generated by its local HAR model together with metadata required for identification, timing, and synchronization.</p>
+<p>Before continuing, the distributed network and device clocks should already be configured as described in <a href="./network-time-sync.html">Network &amp; Time Synchronization</a>.</p>
+<section id="communication-architecture" class="level2">
+<h2 class="anchored" data-anchor-id="communication-architecture">Communication Architecture</h2>
+<p>Each edge node publishes its local prediction through a dedicated ROS topic.</p>
+<p>The central node subscribes to all five prediction streams and coordinates the incoming messages before central fusion.</p>
+<p>The distributed prediction topics are:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Edge Node</th>
+<th>ROS Topic</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Chest</td>
+<td><code>/har/probs/chest</code></td>
+</tr>
+<tr class="even">
+<td>Left Hand</td>
+<td><code>/har/probs/left_hand</code></td>
+</tr>
+<tr class="odd">
+<td>Right Hand</td>
+<td><code>/har/probs/right_hand</code></td>
+</tr>
+<tr class="even">
+<td>Left Knee</td>
+<td><code>/har/probs/left_knee</code></td>
+</tr>
+<tr class="odd">
+<td>Right Knee</td>
+<td><code>/har/probs/right_knee</code></td>
+</tr>
+</tbody>
+</table>
+<p>The central node generates the global prediction through:</p>
+<p><code>/har/probs/global</code></p>
+<p>A visualization-oriented output is also available through:</p>
+<p><code>/har/probs/global_ui</code></p>
+</section>
+<section id="prediction-message" class="level2">
+<h2 class="anchored" data-anchor-id="prediction-message">Prediction Message</h2>
+<p>Local predictions are exchanged using the custom ROS message:</p>
+<p><code>har_msgs/Probs</code></p>
+<p>The message contains both classification results and metadata required by the distributed runtime.</p>
+<p>The implemented message structure includes:</p>
+<table class="caption-top table">
+<tbody>
+<tr class="odd">
+<td><code>std_msgs/Header</code></td>
+<td>header</td>
+</tr>
+<tr class="even">
+<td><code>string</code></td>
+<td>sensor_id</td>
+</tr>
+<tr class="odd">
+<td><code>uint32</code></td>
+<td>seq</td>
+</tr>
+<tr class="even">
+<td><code>uint64</code></td>
+<td>t0_ns</td>
+</tr>
+<tr class="odd">
+<td><code>uint64</code></td>
+<td>t_send_ns</td>
+</tr>
+<tr class="even">
+<td><code>uint8</code></td>
+<td>K</td>
+</tr>
+<tr class="odd">
+<td><code>float32[]</code></td>
+<td>probs</td>
+</tr>
+<tr class="even">
+<td><code>float32</code></td>
+<td>dropped_pct</td>
+</tr>
+</tbody>
+</table>
+<section id="message-fields" class="level3">
+<h3 class="anchored" data-anchor-id="message-fields">Message Fields</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Field</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>header</code></td>
+<td>ROS message header and timestamp</td>
+</tr>
+<tr class="even">
+<td><code>sensor_id</code></td>
+<td>Identifies the originating sensing node</td>
+</tr>
+<tr class="odd">
+<td><code>seq</code></td>
+<td>Local prediction sequence number</td>
+</tr>
+<tr class="even">
+<td><code>t0_ns</code></td>
+<td>Initial timestamp associated with the prediction pipeline</td>
+</tr>
+<tr class="odd">
+<td><code>t_send_ns</code></td>
+<td>Time at which the local prediction is transmitted</td>
+</tr>
+<tr class="even">
+<td><code>K</code></td>
+<td>Number of activity classes</td>
+</tr>
+<tr class="odd">
+<td><code>probs[]</code></td>
+<td>Activity probability vector</td>
+</tr>
+<tr class="even">
+<td><code>dropped_pct</code></td>
+<td>Packet/data-drop information when applicable</td>
+</tr>
+</tbody>
+</table>
+<p>The probability vector contains the local model output:</p>
+<pre class="text"><code>[p0, p1, p2, p3, p4, p5]</code></pre>
+<p>The interpretation of the six classes is documented under <a href="./models-data.html"><strong>Models &amp; Data</strong></a>.</p>
+</section>
+</section>
+<section id="local-publication" class="level2">
+<h2 class="anchored" data-anchor-id="local-publication">Local Publication</h2>
+<p>After completing local inference, each edge node:</p>
+<ol type="1">
+<li>Generates the activity probability vector</li>
+<li>Assigns the corresponding sensor identifier</li>
+<li>Updates the sequence number</li>
+<li>Records timing information</li>
+<li>Packages the information into <code>har_msgs/Probs</code></li>
+<li>Publishes the message to its node-specific ROS topic</li>
+</ol>
+<p>The central node therefore receives five independent prediction streams.</p>
+</section>
+<section id="central-reception" class="level2">
+<h2 class="anchored" data-anchor-id="central-reception">Central Reception</h2>
+<p>The central node subscribes to:</p>
+<p><code>/har/probs/chest</code><br>
+<code>/har/probs/left_hand</code><br>
+<code>/har/probs/right_hand</code><br>
+<code>/har/probs/left_knee</code><br>
+<code>/har/probs/right_knee</code></p>
+<p>Because these messages are produced on physically independent devices, they do not necessarily arrive at exactly the same time.</p>
+<p>The synchronization layer determines which predictions can be combined before the central fusion model is executed.</p>
+</section>
+<section id="approximate-time-synchronization" class="level2">
+<h2 class="anchored" data-anchor-id="approximate-time-synchronization">Approximate Time Synchronization</h2>
+<p>Under normal operating conditions, the central node uses ROS:</p>
+<pre class="text"><code>ApproximateTimeSynchronizer</code></pre>
+<p>to group predictions that are sufficiently close in time.</p>
+<p>The implemented configuration uses:</p>
+<pre class="text"><code>Synchronization tolerance (slop): 0.05 s
+Queue size: 10</code></pre>
+<p>Therefore, messages whose timestamps fall within approximately:</p>
+<pre class="text"><code>50 ms</code></pre>
+<p>can be considered part of the same synchronized prediction set.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -530,33 +712,50 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Storage expansion is <strong>optional</strong>.</p>
-<p>If the Jetson device already provides sufficient storage for the operating system, framework dependencies, trained models, and experiment logs, this procedure can be skipped.</p>
+<p>Approximate synchronization does not require the five predictions to have identical timestamps.</p>
+<p>Instead, it allows a controlled temporal tolerance between independently generated messages.</p>
 </div>
 </div>
-<section id="when-is-storage-expansion-useful" class="level2">
-<h2 class="anchored" data-anchor-id="when-is-storage-expansion-useful">When Is Storage Expansion Useful?</h2>
-<p>Storage expansion is useful when the onboard storage is not sufficient for:</p>
-<ul>
-<li>The operating system</li>
-<li>Docker images and containers</li>
-<li>Python and machine learning dependencies</li>
-<li>Trained models</li>
-<li>Experiment logs</li>
-<li>Additional development resources</li>
-</ul>
-<p>The procedure documented here moves the system root filesystem to an NVMe SSD while preserving the original root filesystem stored in the Jetson’s internal storage.</p>
+<p>When compatible predictions from all required nodes are available, the synchronized set is forwarded to the central fusion process.</p>
 </section>
-<section id="requirements" class="level2">
-<h2 class="anchored" data-anchor-id="requirements">Requirements</h2>
-<p>The procedure requires:</p>
+<section id="synchronization-span" class="level2">
+<h2 class="anchored" data-anchor-id="synchronization-span">Synchronization Span</h2>
+<p>For each synchronized prediction set, the framework can measure the temporal difference between the earliest and latest participating prediction.</p>
+<p>Conceptually:</p>
+<p><code>sync_span = latest_timestamp - earliest_timestamp</code></p>
+<p>This measurement provides an indication of how closely aligned the distributed predictions are before fusion.</p>
+<p>The resulting synchronization metrics are documented under <a href="./experiments-logs.html"><strong>Experiments &amp; Logs</strong></a>.</p>
+</section>
+<section id="missing-or-delayed-predictions" class="level2">
+<h2 class="anchored" data-anchor-id="missing-or-delayed-predictions">Missing or Delayed Predictions</h2>
+<p>A distributed wearable system cannot assume that every prediction will always arrive on time.</p>
+<p>Temporary problems may include:</p>
 <ul>
-<li>A Jetson-based system with an <strong>M.2 M-Key slot</strong></li>
-<li>An NVMe SSD</li>
-<li>An existing working Jetson operating system</li>
-<li>Sufficient access privileges to modify the storage configuration</li>
+<li>Communication delay;</li>
+<li>BLE interruptions;</li>
+<li>Local inference delays;</li>
+<li>Packet loss;</li>
+<li>Temporary sensor disconnection; or</li>
+<li>Edge-node interruption.</li>
 </ul>
-<p>The procedure was originally performed on a <strong>reComputer platform</strong> using an NVMe SSD.</p>
+<p>To avoid stopping the complete HAR pipeline whenever one stream becomes temporarily unavailable, the framework includes a fallback mechanism.</p>
+</section>
+<section id="zero-order-hold-fallback" class="level2">
+<h2 class="anchored" data-anchor-id="zero-order-hold-fallback">Zero-Order Hold Fallback</h2>
+<p>When a current prediction from one node is temporarily unavailable, the system can reuse the most recent valid prediction from that node.</p>
+<p>This strategy follows a <strong>Zero-Order Hold (ZOH)</strong> approach.</p>
+<p>The decision process used by the ZOH fallback mechanism is illustrated in <a href="#fig-zoh-fallback" class="quarto-xref">Figure&nbsp;1</a>.</p>
+<div id="fig-zoh-fallback" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-zoh-fallback-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="assets/images/framework/communication_sync/zoh-fallback.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:85.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-zoh-fallback-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Zero-Order Hold fallback behavior when a current edge-node prediction is unavailable.
+</figcaption>
+</figure>
+</div>
+<p>The fallback allows the central fusion process to continue operating during short communication interruptions.</p>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -567,176 +766,136 @@ Important
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The Jetson must already boot correctly before performing this procedure.</p>
-<p>Storage expansion does not replace the operating system flashing procedure.</p>
+<p>ZOH does not generate a new prediction.</p>
+<p>It temporarily reuses the last valid probability vector received from the affected node.</p>
 </div>
 </div>
 </section>
-<section id="install-the-nvme-ssd" class="level2">
-<h2 class="anchored" data-anchor-id="install-the-nvme-ssd">1. Install the NVMe SSD</h2>
-<p>Power off the Jetson device and install the NVMe SSD in the available M.2 M-Key slot.</p>
-<p>Refer to the corresponding carrier-board hardware instructions for the exact installation procedure.</p>
-<p>The device used for the original procedure is shown below.</p>
-<div class="text-center">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/reComputeJ1020.webp" class="img-fluid figure-img" style="width:40.0%"></p>
-<figcaption>Example reComputer platform used for NVMe storage expansion.</figcaption>
+<section id="watchdog-mechanism" class="level2">
+<h2 class="anchored" data-anchor-id="watchdog-mechanism">Watchdog Mechanism</h2>
+<p>A watchdog mechanism monitors the availability of the distributed prediction streams. Its role is to determine whether each edge node is actively providing sufficiently recent predictions.</p>
+<p>When all nodes are operating normally, the central system uses approximate synchronized prediction sets. If one or more nodes become unavailable, the framework can transition to the fallback mechanism.</p>
+<p>When valid communication is restored, the system returns to normal synchronized operation. The transition between normal synchronized operation and the fallback mechanism is illustrated in <a href="#fig-sync-recovery" class="quarto-xref">Figure&nbsp;2</a>.</p>
+<div id="fig-sync-recovery" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-sync-recovery-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="assets/images/framework/communication_sync/synchronization-recovery-flow.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:95.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sync-recovery-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Synchronization, watchdog, ZOH fallback, and recovery behavior of the central node.
+</figcaption>
 </figure>
 </div>
-</div>
-<p>After installing the SSD, power on the Jetson and verify that the device is detected by the operating system.</p>
 </section>
-<section id="prepare-the-ssd" class="level2">
-<h2 class="anchored" data-anchor-id="prepare-the-ssd">2. Prepare the SSD</h2>
-<p>Open the Ubuntu <strong>Disks</strong> utility.</p>
-<p>The SSD should appear in the list of available storage devices.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/disk.webp" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div>
-<p>Select the SSD and choose <strong>Format Disk</strong>.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/format_disk.webp" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div>
-<p>Use a <strong>GPT partition table</strong>.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/format_disk2.webp" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div>
-<p>Create a new partition using the available storage space.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/format_disk3.webp" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div>
-<p>Continue with the partition creation process.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/format_disk4.webp" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div>
-<p>Format the partition using the <strong>Ext4</strong> filesystem.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/format_disk5.webp" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div>
-<p>Once completed, the SSD is ready to receive a copy of the Jetson root filesystem.</p>
+<section id="central-fusion-trigger" class="level2">
+<h2 class="anchored" data-anchor-id="central-fusion-trigger">Central Fusion Trigger</h2>
+<p>Central fusion is executed once a valid set of local probability vectors is available.</p>
+<p>This set may originate from:</p>
+<ul>
+<li>A normally synchronized ATS event; or</li>
+<li>The fallback mechanism when temporary prediction loss occurs.</li>
+</ul>
+<p>The resulting input contains one probability vector from each sensing location.</p>
+<p>The fusion model itself is documented under <a href="./models-data.html"><strong>Models &amp; Data</strong></a>.</p>
 </section>
-<section id="download-the-root-on-nvme-utility" class="level2">
-<h2 class="anchored" data-anchor-id="download-the-root-on-nvme-utility">3. Download the Root-on-NVMe Utility</h2>
-<p>Open a terminal and clone the <code>rootOnNVMe</code> repository:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/limengdu/rootOnNVMe.git</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> rootOnNVMe/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>This utility provides the scripts used to copy the existing root filesystem and configure the system to use the NVMe SSD.</p>
+<section id="global-prediction-output" class="level2">
+<h2 class="anchored" data-anchor-id="global-prediction-output">Global Prediction Output</h2>
+<p>After central fusion, the system publishes the resulting global prediction.</p>
+<p>The primary output topic is:</p>
+<p><code>/har/probs/global</code></p>
+<p>A visualization-specific output is also provided through:</p>
+<p><code>/har/probs/global_ui</code></p>
+<p>These outputs can be consumed by logging tools, visualization components, or other applications connected to the HAR framework.</p>
 </section>
-<section id="copy-the-root-filesystem" class="level2">
-<h2 class="anchored" data-anchor-id="copy-the-root-filesystem">4. Copy the Root Filesystem</h2>
-<p>Execute:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./copy-rootfs-ssd.sh</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The script copies the existing root filesystem from the Jetson internal storage to the SSD.</p>
-<p>The execution time depends on the amount of data currently stored in the root filesystem.</p>
-</section>
-<section id="configure-boot-from-nvme" class="level2">
-<h2 class="anchored" data-anchor-id="configure-boot-from-nvme">5. Configure Boot from NVMe</h2>
-<p>After the copy operation completes, execute:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./setup-service.sh</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>This configures the service required to use the SSD as the system root filesystem.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/terminal.webp" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div>
-<p>Restart the Jetson after the configuration is complete.</p>
+<section id="start-and-stop-control" class="level2">
+<h2 class="anchored" data-anchor-id="start-and-stop-control">Start and Stop Control</h2>
+<p>The real-time framework also includes ROS-based execution control.</p>
+<p>The visualization layer can publish:</p>
+<p><code>/har/start_ui</code></p>
+<p>which is used to control the system-level start signal:</p>
+<p><code>/har/start</code></p>
+<p>The complete operational procedure is documented under <a href="./running-framework.html"><strong>Running the Framework</strong></a>.</p>
 </section>
 <section id="verification" class="level2">
 <h2 class="anchored" data-anchor-id="verification">Verification</h2>
-<p>After rebooting, verify that the system is using the NVMe SSD as the root filesystem.</p>
-<p>A useful command is:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">df</span> <span class="at">-h</span> /</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>You can also inspect available block devices using:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">lsblk</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The root filesystem should correspond to the NVMe storage device.</p>
-<p>The original implementation showed the expanded storage after reboot as illustrated below.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/terminal2.webp" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div>
+<p>Before running a full experiment, verify the communication layer incrementally.</p>
+<section id="verify-edge-topics" class="level3">
+<h3 class="anchored" data-anchor-id="verify-edge-topics">Verify Edge Topics</h3>
+<p>From the ROS environment, check:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">rostopic</span> list</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The expected local prediction topics should be visible.</p>
 </section>
-<section id="nvme-device-path" class="level2">
-<h2 class="anchored" data-anchor-id="nvme-device-path">NVMe Device Path</h2>
-<p>The <code>rootOnNVMe</code> scripts assume the SSD partition is located at:</p>
-<pre class="text"><code>/dev/nvme0n1p1</code></pre>
-<p>Before running the scripts, verify the actual device path using:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> fdisk <span class="at">-l</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>or:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">lsblk</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Warning
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>If the SSD partition does not correspond to <code>/dev/nvme0n1p1</code>, the device path used by the <code>rootOnNVMe</code> scripts must be updated before continuing.</p>
-<p>The original procedure identifies the following files as containing the default path:</p>
-<pre class="text"><code>copy-rootfs-ssd.sh
-data/setssdroot.service
-data/setssdroot.sh</code></pre>
-</div>
-</div>
+<section id="inspect-a-local-prediction" class="level3">
+<h3 class="anchored" data-anchor-id="inspect-a-local-prediction">Inspect a Local Prediction</h3>
+<p>For example:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">rostopic</span> echo /har/probs/chest</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Verify that:</p>
+<ul>
+<li><code>sensor_id</code> is correct;</li>
+<li>sequence numbers are increasing;</li>
+<li>timestamps are being generated;</li>
+<li><code>K</code> has the expected value; and</li>
+<li><code>probs</code> contains the expected number of elements.</li>
+</ul>
 </section>
-<section id="recovery-behavior" class="level2">
-<h2 class="anchored" data-anchor-id="recovery-behavior">Recovery Behavior</h2>
-<p>The expansion procedure does <strong>not</strong> remove the original root filesystem stored in the internal eMMC.</p>
-<p>This provides a useful recovery mechanism.</p>
-<p>If the SSD is removed, the system can still boot from the original internal storage, assuming the original installation remains intact.</p>
+<section id="check-publication-rate" class="level3">
+<h3 class="anchored" data-anchor-id="check-publication-rate">Check Publication Rate</h3>
+<p>For example:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">rostopic</span> hz /har/probs/chest</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Repeat the test for the remaining edge nodes.</p>
+</section>
+<section id="verify-global-output" class="level3">
+<h3 class="anchored" data-anchor-id="verify-global-output">Verify Global Output</h3>
+<p>Once the five distributed inputs are available:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">rostopic</span> echo /har/probs/global</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>A valid global prediction indicates that reception, synchronization, and fusion are operating together.</p>
+</section>
 </section>
 <section id="troubleshooting" class="level2">
 <h2 class="anchored" data-anchor-id="troubleshooting">Troubleshooting</h2>
-<section id="ssd-is-not-detected" class="level3">
-<h3 class="anchored" data-anchor-id="ssd-is-not-detected">SSD Is Not Detected</h3>
-<p>Verify that:</p>
+<section id="one-edge-topic-is-missing" class="level3">
+<h3 class="anchored" data-anchor-id="one-edge-topic-is-missing">One Edge Topic Is Missing</h3>
+<p>Verify the corresponding edge node under <a href="./edge-nodes.html">Edge Nodes</a>.</p>
+<p>Confirm that local inference is running and that prediction messages are being published.</p>
+</section>
+<section id="topic-exists-but-messages-do-not-arrive" class="level3">
+<h3 class="anchored" data-anchor-id="topic-exists-but-messages-do-not-arrive">Topic Exists but Messages Do Not Arrive</h3>
+<p>Verify the base ROS network configuration described in <a href="./network-time-sync.html">Network &amp; Time Synchronization</a>.</p>
+</section>
+<section id="synchronization-does-not-trigger" class="level3">
+<h3 class="anchored" data-anchor-id="synchronization-does-not-trigger">Synchronization Does Not Trigger</h3>
+<p>Check that:</p>
 <ul>
-<li>The SSD is correctly installed</li>
-<li>The carrier board supports the installed NVMe device</li>
-<li>The SSD is visible using <code>lsblk</code> or <code>sudo fdisk -l</code></li>
-<li>The M.2 slot supports NVMe storage</li>
+<li>all required prediction streams are active;</li>
+<li>timestamps are valid;</li>
+<li>device clocks are synchronized;</li>
+<li>prediction timing is within the configured synchronization tolerance; and</li>
+<li>the synchronization queue is receiving all streams.</li>
 </ul>
 </section>
-<section id="system-does-not-boot-from-the-ssd" class="level3">
-<h3 class="anchored" data-anchor-id="system-does-not-boot-from-the-ssd">System Does Not Boot from the SSD</h3>
-<p>Check:</p>
+<section id="system-remains-in-fallback-mode" class="level3">
+<h3 class="anchored" data-anchor-id="system-remains-in-fallback-mode">System Remains in Fallback Mode</h3>
+<p>Verify that all five edge nodes have resumed publishing current predictions.</p>
+<p>The watchdog should return the system to normal synchronized operation once all required streams are healthy again.</p>
+</section>
+</section>
+<section id="related-documentation" class="level2">
+<h2 class="anchored" data-anchor-id="related-documentation">Related Documentation</h2>
+<p>Use the following sections for information intentionally kept outside this page:</p>
 <ul>
-<li>That the root filesystem copy completed successfully</li>
-<li>That <code>setup-service.sh</code> executed without errors</li>
-<li>That the correct NVMe partition path is configured</li>
-<li>That the SSD contains a valid Ext4 filesystem</li>
+<li><a href="./network-time-sync.html"><strong>Network &amp; Time Synchronization</strong></a> — IP configuration, ROS networking, and Chrony.</li>
+<li><a href="./edge-nodes.html"><strong>Edge Nodes</strong></a> — generation of local predictions.</li>
+<li><a href="./central-node.html"><strong>Central Node</strong></a> — fusion and global inference.</li>
+<li><a href="./models-data.html"><strong>Models &amp; Data</strong></a> — model architecture, inputs, and class mapping.</li>
+<li><a href="./running-framework.html"><strong>Running the Framework</strong></a> — startup and shutdown commands.</li>
+<li><a href="./experiments-logs.html"><strong>Experiments &amp; Logs</strong></a> — synchronization, latency, and timing metrics.</li>
 </ul>
-</section>
-<section id="incorrect-nvme-device-path" class="level3">
-<h3 class="anchored" data-anchor-id="incorrect-nvme-device-path">Incorrect NVMe Device Path</h3>
-<p>Use:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">lsblk</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>to determine the actual SSD partition.</p>
-<p>Update the <code>rootOnNVMe</code> configuration if the partition differs from:</p>
-<pre class="text"><code>/dev/nvme0n1p1</code></pre>
-</section>
 </section>
 <section id="next-step" class="level2">
 <h2 class="anchored" data-anchor-id="next-step">Next Step</h2>
-<p>Once the Jetson hardware and storage are ready, continue with:</p>
-<p><a href="./software-environment.html"><strong>Software Environment</strong></a></p>
-<p>If no storage expansion was required, this page can be skipped entirely.</p>
+<p>Continue with:</p>
+<p><a href="./models-data.html"><strong>Models &amp; Data</strong></a></p>
+<p>The next section documents the signal configuration, model inputs, local HAR models, central fusion model, activity classes, and trained model resources used by the framework.</p>
 
 
 </section>
@@ -1163,7 +1322,7 @@ data/setssdroot.sh</code></pre>
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/blob/main/expansion-jetson-board.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/blob/main/communication-sync.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <div style="text-align: right;">
 <p>Technical Documentation &amp; Reproducibility Resources<br> <small>Author: Jhonathan Rivas-Caicedo</small></p>

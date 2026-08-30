@@ -1,19 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://WearNET.github.io/HAR-Distributed-Framework/system-overview.html</loc>
-    <lastmod>2026-08-26T20:23:05.504Z</lastmod>
+    <loc>https://WearNET.github.io/HAR-Distributed-Framework/troubleshooting.html</loc>
+    <lastmod>2026-08-30T21:03:21.791Z</lastmod>
+  </url>
+  <url>
+    <loc>https://WearNET.github.io/HAR-Distributed-Framework/experiments-logs.html</loc>
+    <lastmod>2026-08-30T21:00:52.467Z</lastmod>
+  </url>
+  <url>
+    <loc>https://WearNET.github.io/HAR-Distributed-Framework/models-data.html</loc>
+    <lastmod>2026-08-30T20:58:04.990Z</lastmod>
+  </url>
+  <url>
+    <loc>https://WearNET.github.io/HAR-Distributed-Framework/central-node.html</loc>
+    <lastmod>2026-08-30T20:53:00.825Z</lastmod>
+  </url>
+  <url>
+    <loc>https://WearNET.github.io/HAR-Distributed-Framework/wearable-sensors.html</loc>
+    <lastmod>2026-08-30T20:46:35.146Z</lastmod>
+  </url>
+  <url>
+    <loc>https://WearNET.github.io/HAR-Distributed-Framework/software-environment.html</loc>
+    <lastmod>2026-08-30T20:43:03.293Z</lastmod>
   </url>
   <url>
     <loc>https://WearNET.github.io/HAR-Distributed-Framework/flash-jetson-board.html</loc>
-    <lastmod>2026-08-25T17:03:04.477Z</lastmod>
+    <lastmod>2026-08-28T16:45:15.388Z</lastmod>
   </url>
   <url>
-    <loc>https://WearNET.github.io/HAR-Distributed-Framework/expansion-jetson-board.html</loc>
-    <lastmod>2026-08-25T17:03:04.476Z</lastmod>
+    <loc>https://WearNET.github.io/HAR-Distributed-Framework/getting-started.html</loc>
+    <lastmod>2026-08-30T20:33:03.561Z</lastmod>
   </url>
   <url>
     <loc>https://WearNET.github.io/HAR-Distributed-Framework/index.html</loc>
-    <lastmod>2026-08-26T20:40:41.239Z</lastmod>
+    <lastmod>2026-08-28T15:51:25.320Z</lastmod>
+  </url>
+  <url>
+    <loc>https://WearNET.github.io/HAR-Distributed-Framework/system-overview.html</loc>
+    <lastmod>2026-08-30T20:38:50.583Z</lastmod>
+  </url>
+  <url>
+    <loc>https://WearNET.github.io/HAR-Distributed-Framework/expansion-jetson-board.html</loc>
+    <lastmod>2026-08-30T20:39:57.836Z</lastmod>
+  </url>
+  <url>
+    <loc>https://WearNET.github.io/HAR-Distributed-Framework/network-time-sync.html</loc>
+    <lastmod>2026-08-30T20:44:35.945Z</lastmod>
+  </url>
+  <url>
+    <loc>https://WearNET.github.io/HAR-Distributed-Framework/edge-nodes.html</loc>
+    <lastmod>2026-08-30T20:50:29.191Z</lastmod>
+  </url>
+  <url>
+    <loc>https://WearNET.github.io/HAR-Distributed-Framework/communication-sync.html</loc>
+    <lastmod>2026-08-30T20:54:44.515Z</lastmod>
+  </url>
+  <url>
+    <loc>https://WearNET.github.io/HAR-Distributed-Framework/running-framework.html</loc>
+    <lastmod>2026-08-30T20:59:23.215Z</lastmod>
+  </url>
+  <url>
+    <loc>https://WearNET.github.io/HAR-Distributed-Framework/extending-framework.html</loc>
+    <lastmod>2026-08-30T21:01:56.624Z</lastmod>
   </url>
 </urlset>

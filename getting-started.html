@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Storage Expansion – HAR Distributed Framework</title>
+<title>Getting Started – HAR Distributed Framework</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -327,7 +327,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./flash-jetson-board.html">Setup</a></li><li class="breadcrumb-item"><a href="./expansion-jetson-board.html">Storage Expansion</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./getting-started.html">Getting Started</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -355,7 +355,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./getting-started.html" class="sidebar-item-text sidebar-link">
+  <a href="./getting-started.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Getting Started</span></a>
   </div>
 </li>
@@ -382,7 +382,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./expansion-jetson-board.html" class="sidebar-item-text sidebar-link active">
+  <a href="./expansion-jetson-board.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Storage Expansion</span></a>
   </div>
 </li>
@@ -475,34 +475,36 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#when-is-storage-expansion-useful" id="toc-when-is-storage-expansion-useful" class="nav-link active" data-scroll-target="#when-is-storage-expansion-useful">When Is Storage Expansion Useful?</a></li>
-  <li><a href="#requirements" id="toc-requirements" class="nav-link" data-scroll-target="#requirements">Requirements</a></li>
-  <li><a href="#install-the-nvme-ssd" id="toc-install-the-nvme-ssd" class="nav-link" data-scroll-target="#install-the-nvme-ssd">1. Install the NVMe SSD</a></li>
-  <li><a href="#prepare-the-ssd" id="toc-prepare-the-ssd" class="nav-link" data-scroll-target="#prepare-the-ssd">2. Prepare the SSD</a></li>
-  <li><a href="#download-the-root-on-nvme-utility" id="toc-download-the-root-on-nvme-utility" class="nav-link" data-scroll-target="#download-the-root-on-nvme-utility">3. Download the Root-on-NVMe Utility</a></li>
-  <li><a href="#copy-the-root-filesystem" id="toc-copy-the-root-filesystem" class="nav-link" data-scroll-target="#copy-the-root-filesystem">4. Copy the Root Filesystem</a></li>
-  <li><a href="#configure-boot-from-nvme" id="toc-configure-boot-from-nvme" class="nav-link" data-scroll-target="#configure-boot-from-nvme">5. Configure Boot from NVMe</a></li>
-  <li><a href="#verification" id="toc-verification" class="nav-link" data-scroll-target="#verification">Verification</a></li>
-  <li><a href="#nvme-device-path" id="toc-nvme-device-path" class="nav-link" data-scroll-target="#nvme-device-path">NVMe Device Path</a></li>
-  <li><a href="#recovery-behavior" id="toc-recovery-behavior" class="nav-link" data-scroll-target="#recovery-behavior">Recovery Behavior</a></li>
-  <li><a href="#troubleshooting" id="toc-troubleshooting" class="nav-link" data-scroll-target="#troubleshooting">Troubleshooting</a>
+  <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link active" data-scroll-target="#prerequisites">Prerequisites</a>
   <ul class="collapse">
-  <li><a href="#ssd-is-not-detected" id="toc-ssd-is-not-detected" class="nav-link" data-scroll-target="#ssd-is-not-detected">SSD Is Not Detected</a></li>
-  <li><a href="#system-does-not-boot-from-the-ssd" id="toc-system-does-not-boot-from-the-ssd" class="nav-link" data-scroll-target="#system-does-not-boot-from-the-ssd">System Does Not Boot from the SSD</a></li>
-  <li><a href="#incorrect-nvme-device-path" id="toc-incorrect-nvme-device-path" class="nav-link" data-scroll-target="#incorrect-nvme-device-path">Incorrect NVMe Device Path</a></li>
+  <li><a href="#hardware" id="toc-hardware" class="nav-link" data-scroll-target="#hardware">Hardware</a></li>
+  <li><a href="#software" id="toc-software" class="nav-link" data-scroll-target="#software">Software</a></li>
   </ul></li>
-  <li><a href="#next-step" id="toc-next-step" class="nav-link" data-scroll-target="#next-step">Next Step</a></li>
+  <li><a href="#repository" id="toc-repository" class="nav-link" data-scroll-target="#repository">Repository</a></li>
+  <li><a href="#recommended-setup-order" id="toc-recommended-setup-order" class="nav-link" data-scroll-target="#recommended-setup-order">Recommended Setup Order</a>
+  <ul class="collapse">
+  <li><a href="#prepare-the-jetson-boards" id="toc-prepare-the-jetson-boards" class="nav-link" data-scroll-target="#prepare-the-jetson-boards">1. Prepare the Jetson Boards</a></li>
+  <li><a href="#configure-storage" id="toc-configure-storage" class="nav-link" data-scroll-target="#configure-storage">2. Configure Storage</a></li>
+  <li><a href="#configure-the-software-environment" id="toc-configure-the-software-environment" class="nav-link" data-scroll-target="#configure-the-software-environment">3. Configure the Software Environment</a></li>
+  <li><a href="#configure-network-and-time-synchronization" id="toc-configure-network-and-time-synchronization" class="nav-link" data-scroll-target="#configure-network-and-time-synchronization">4. Configure Network and Time Synchronization</a></li>
+  <li><a href="#configure-the-wearable-sensors" id="toc-configure-the-wearable-sensors" class="nav-link" data-scroll-target="#configure-the-wearable-sensors">5. Configure the Wearable Sensors</a></li>
+  <li><a href="#deploy-the-framework" id="toc-deploy-the-framework" class="nav-link" data-scroll-target="#deploy-the-framework">6. Deploy the Framework</a></li>
+  <li><a href="#run-the-system" id="toc-run-the-system" class="nav-link" data-scroll-target="#run-the-system">7. Run the System</a></li>
+  </ul></li>
+  <li><a href="#setup-workflow" id="toc-setup-workflow" class="nav-link" data-scroll-target="#setup-workflow">Setup Workflow</a></li>
+  <li><a href="#verification-before-continuing" id="toc-verification-before-continuing" class="nav-link" data-scroll-target="#verification-before-continuing">Verification Before Continuing</a></li>
+  <li><a href="#next-steps" id="toc-next-steps" class="nav-link" data-scroll-target="#next-steps">Next Steps</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/blob/main/expansion-jetson-board.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/blob/main/getting-started.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./flash-jetson-board.html">Setup</a></li><li class="breadcrumb-item"><a href="./expansion-jetson-board.html">Storage Expansion</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Storage Expansion</h1>
-<p class="subtitle lead">Optional Jetson Preparation</p>
+<h1 class="title">Getting Started</h1>
+<p class="subtitle lead">Preparing the HAR Distributed Framework</p>
 </div>
 
 
@@ -519,224 +521,171 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>This section describes how to expand the available storage of a compatible Jetson-based system using an <strong>NVMe SSD connected through an M.2 M-Key slot</strong>.</p>
-<div class="callout callout-style-default callout-note callout-titled">
+<p>This section provides the recommended starting point for reproducing and running the <strong>HAR Distributed Framework</strong>.</p>
+<p>It summarizes the resources required to prepare the system and defines the order in which the different components should be configured.</p>
+<p>For an explanation of how the distributed architecture works, see the <a href="./system-overview.html">System Overview</a>.</p>
+<section id="prerequisites" class="level2">
+<h2 class="anchored" data-anchor-id="prerequisites">Prerequisites</h2>
+<p>Before deploying the framework, the following resources are required.</p>
+<section id="hardware" class="level3">
+<h3 class="anchored" data-anchor-id="hardware">Hardware</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Component</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Wearable inertial sensors</td>
+<td>Human motion acquisition</td>
+</tr>
+<tr class="even">
+<td>NVIDIA Jetson edge devices</td>
+<td>Local HAR inference</td>
+</tr>
+<tr class="odd">
+<td>NVIDIA Jetson central device</td>
+<td>Prediction synchronization and fusion</td>
+</tr>
+<tr class="even">
+<td>Local network infrastructure</td>
+<td>Communication between computing nodes</td>
+</tr>
+<tr class="odd">
+<td>Storage devices</td>
+<td>Operating system, models, software, and experiment logs</td>
+</tr>
+</tbody>
+</table>
+<p>The exact hardware configuration used in the implementation is documented throughout the <strong>Setup</strong> section.</p>
+</section>
+<section id="software" class="level3">
+<h3 class="anchored" data-anchor-id="software">Software</h3>
+<p>The distributed system requires a Linux-based NVIDIA Jetson environment together with the software components used for:</p>
+<ul>
+<li>Containerized Execution</li>
+<li>Distributed Communication</li>
+<li>Neural Network Inference</li>
+<li>Sensor Acquisition</li>
+<li>Clock Synchronization</li>
+<li>Experiment Monitoring</li>
+</ul>
+<p>The exact software versions and configuration procedures are documented in <strong>Software Environment</strong>.</p>
+</section>
+</section>
+<section id="repository" class="level2">
+<h2 class="anchored" data-anchor-id="repository">Repository</h2>
+<p>The source code and supporting resources are maintained in:</p>
+<p><a href="https://github.com/WearNET/HAR-Distributed-Framework"><strong>WearNET/HAR-Distributed-Framework</strong></a></p>
+<p>Clone the repository on the development system using:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/WearNET/HAR-Distributed-Framework.git</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> HAR-Distributed-Framework</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The repository contains the resources required for the distributed implementation, including framework code, configuration files, model-related resources, experimental utilities, and technical documentation.</p>
+<p>A detailed repository structure will be provided later in the <strong>Framework</strong> section where each software component is introduced.</p>
+</section>
+<section id="recommended-setup-order" class="level2">
+<h2 class="anchored" data-anchor-id="recommended-setup-order">Recommended Setup Order</h2>
+<p>If the system is being reproduced from unconfigured hardware, prepare the environment in the following order: Steps 1 and 2 are optional; that is, if you need to flash your Jetson and expand the device’s storage, you must do so. Otherwise, if you already have a Jetson running Ubuntu 20.04, you don’t need to do this again.</p>
+<section id="prepare-the-jetson-boards" class="level3">
+<h3 class="anchored" data-anchor-id="prepare-the-jetson-boards">1. Prepare the Jetson Boards</h3>
+<p>Install the appropriate NVIDIA Jetson operating environment.</p>
+<p><a href="./flash-jetson-board.html"><strong>Flash Jetson Boards →</strong></a></p>
+</section>
+<section id="configure-storage" class="level3">
+<h3 class="anchored" data-anchor-id="configure-storage">2. Configure Storage</h3>
+<p>Prepare additional storage when required by the Jetson platform.</p>
+<p><a href="./expansion-jetson-board.html"><strong>Storage Expansion →</strong></a></p>
+</section>
+<section id="configure-the-software-environment" class="level3">
+<h3 class="anchored" data-anchor-id="configure-the-software-environment">3. Configure the Software Environment</h3>
+<p>Install and configure the runtime components required by the framework.</p>
+<p>This includes the container environment, communication middleware, Python environment, and machine learning dependencies.</p>
+<p><a href="./software-environment.html"><strong>Software Environment →</strong></a>.</p>
+</section>
+<section id="configure-network-and-time-synchronization" class="level3">
+<h3 class="anchored" data-anchor-id="configure-network-and-time-synchronization">4. Configure Network and Time Synchronization</h3>
+<p>Connect the distributed devices to the local network and configure a common time reference between nodes.</p>
+<p><a href="./network-time-sync.html"><strong>Network &amp; Time Synchronization →</strong></a></p>
+</section>
+<section id="configure-the-wearable-sensors" class="level3">
+<h3 class="anchored" data-anchor-id="configure-the-wearable-sensors">5. Configure the Wearable Sensors</h3>
+<p>Prepare the wearable sensing devices and verify communication with their corresponding edge nodes.</p>
+<p><a href="./wearable-sensors.html"><strong>Wearable Sensor Setup →</strong></a></p>
+</section>
+<section id="deploy-the-framework" class="level3">
+<h3 class="anchored" data-anchor-id="deploy-the-framework">6. Deploy the Framework</h3>
+<p>Configure the software components responsible for:</p>
+<ul>
+<li>Edge Inference</li>
+<li>Central Processing</li>
+<li>Distributed Communication</li>
+<li>Prediction Synchronization</li>
+<li>Model Deployment</li>
+</ul>
+<p>These components are documented under <strong>Framework</strong>.</p>
+</section>
+<section id="run-the-system" class="level3">
+<h3 class="anchored" data-anchor-id="run-the-system">7. Run the System</h3>
+<p>Once the hardware and software configuration is complete, follow the execution procedure provided in:</p>
+<p><a href="./running-framework.html"><strong>Running the Framework →</strong></a>.</p>
+</section>
+</section>
+<section id="setup-workflow" class="level2">
+<h2 class="anchored" data-anchor-id="setup-workflow">Setup Workflow</h2>
+<p>The recommended preparation sequence for reproducing the framework is summarized in <a href="#fig-setup-workflow" class="quarto-xref">Figure&nbsp;1</a>.</p>
+<div id="fig-setup-workflow" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-setup-workflow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="assets/images/getting-started/setup-workflow.svg" class="quarto-figure quarto-figure-center figure-img" style="width:80.0%;height:80.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-setup-workflow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Recommended setup workflow for preparing and deploying the HAR Distributed Framework.
+</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Note
+Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Storage expansion is <strong>optional</strong>.</p>
-<p>If the Jetson device already provides sufficient storage for the operating system, framework dependencies, trained models, and experiment logs, this procedure can be skipped.</p>
+<p>The procedures in the <strong>Setup</strong> section are primarily intended for initial system configuration.</p>
+<p>Once the devices are correctly prepared, normal experiments should begin directly from <strong>Running the Framework</strong> without repeating the complete installation process.</p>
 </div>
 </div>
-<section id="when-is-storage-expansion-useful" class="level2">
-<h2 class="anchored" data-anchor-id="when-is-storage-expansion-useful">When Is Storage Expansion Useful?</h2>
-<p>Storage expansion is useful when the onboard storage is not sufficient for:</p>
+</section>
+<section id="verification-before-continuing" class="level2">
+<h2 class="anchored" data-anchor-id="verification-before-continuing">Verification Before Continuing</h2>
+<p>Before deploying the framework, verify that:</p>
 <ul>
-<li>The operating system</li>
-<li>Docker images and containers</li>
-<li>Python and machine learning dependencies</li>
-<li>Trained models</li>
-<li>Experiment logs</li>
-<li>Additional development resources</li>
+<li>All computing devices boot correctly;</li>
+<li>Sufficient storage is available;</li>
+<li>All devices can communicate through the local network;</li>
+<li>The required software environment is installed;</li>
+<li>Wearable sensors can connect to their assigned edge devices; and</li>
+<li>The framework repository is available on the required systems.</li>
 </ul>
-<p>The procedure documented here moves the system root filesystem to an NVMe SSD while preserving the original root filesystem stored in the Jetson’s internal storage.</p>
+<p>Detailed validation commands are provided in the corresponding setup pages.</p>
 </section>
-<section id="requirements" class="level2">
-<h2 class="anchored" data-anchor-id="requirements">Requirements</h2>
-<p>The procedure requires:</p>
+<section id="next-steps" class="level2">
+<h2 class="anchored" data-anchor-id="next-steps">Next Steps</h2>
+<p>Continue according to the current state of your system:</p>
 <ul>
-<li>A Jetson-based system with an <strong>M.2 M-Key slot</strong></li>
-<li>An NVMe SSD</li>
-<li>An existing working Jetson operating system</li>
-<li>Sufficient access privileges to modify the storage configuration</li>
+<li><strong>Starting from an unconfigured Jetson:</strong> begin with <a href="./flash-jetson-board.html">Flashing Jetson Boards</a>.</li>
+<li><strong>Jetson already configured but storage needs preparation:</strong> continue with <a href="./expansion-jetson-board.html">Storage Expansion</a>.</li>
+<li><strong>Hardware already prepared:</strong> continue with <a href="./software-environment.html">Software Environment</a>.</li>
+<li><strong>Complete system already configured:</strong> go directly to <a href="./running-framework.html">Running the Framework</a>.</li>
 </ul>
-<p>The procedure was originally performed on a <strong>reComputer platform</strong> using an NVMe SSD.</p>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Important
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>The Jetson must already boot correctly before performing this procedure.</p>
-<p>Storage expansion does not replace the operating system flashing procedure.</p>
-</div>
-</div>
-</section>
-<section id="install-the-nvme-ssd" class="level2">
-<h2 class="anchored" data-anchor-id="install-the-nvme-ssd">1. Install the NVMe SSD</h2>
-<p>Power off the Jetson device and install the NVMe SSD in the available M.2 M-Key slot.</p>
-<p>Refer to the corresponding carrier-board hardware instructions for the exact installation procedure.</p>
-<p>The device used for the original procedure is shown below.</p>
-<div class="text-center">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/reComputeJ1020.webp" class="img-fluid figure-img" style="width:40.0%"></p>
-<figcaption>Example reComputer platform used for NVMe storage expansion.</figcaption>
-</figure>
-</div>
-</div>
-<p>After installing the SSD, power on the Jetson and verify that the device is detected by the operating system.</p>
-</section>
-<section id="prepare-the-ssd" class="level2">
-<h2 class="anchored" data-anchor-id="prepare-the-ssd">2. Prepare the SSD</h2>
-<p>Open the Ubuntu <strong>Disks</strong> utility.</p>
-<p>The SSD should appear in the list of available storage devices.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/disk.webp" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div>
-<p>Select the SSD and choose <strong>Format Disk</strong>.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/format_disk.webp" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div>
-<p>Use a <strong>GPT partition table</strong>.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/format_disk2.webp" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div>
-<p>Create a new partition using the available storage space.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/format_disk3.webp" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div>
-<p>Continue with the partition creation process.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/format_disk4.webp" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div>
-<p>Format the partition using the <strong>Ext4</strong> filesystem.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/format_disk5.webp" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div>
-<p>Once completed, the SSD is ready to receive a copy of the Jetson root filesystem.</p>
-</section>
-<section id="download-the-root-on-nvme-utility" class="level2">
-<h2 class="anchored" data-anchor-id="download-the-root-on-nvme-utility">3. Download the Root-on-NVMe Utility</h2>
-<p>Open a terminal and clone the <code>rootOnNVMe</code> repository:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/limengdu/rootOnNVMe.git</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> rootOnNVMe/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>This utility provides the scripts used to copy the existing root filesystem and configure the system to use the NVMe SSD.</p>
-</section>
-<section id="copy-the-root-filesystem" class="level2">
-<h2 class="anchored" data-anchor-id="copy-the-root-filesystem">4. Copy the Root Filesystem</h2>
-<p>Execute:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./copy-rootfs-ssd.sh</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The script copies the existing root filesystem from the Jetson internal storage to the SSD.</p>
-<p>The execution time depends on the amount of data currently stored in the root filesystem.</p>
-</section>
-<section id="configure-boot-from-nvme" class="level2">
-<h2 class="anchored" data-anchor-id="configure-boot-from-nvme">5. Configure Boot from NVMe</h2>
-<p>After the copy operation completes, execute:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./setup-service.sh</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>This configures the service required to use the SSD as the system root filesystem.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/terminal.webp" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div>
-<p>Restart the Jetson after the configuration is complete.</p>
-</section>
-<section id="verification" class="level2">
-<h2 class="anchored" data-anchor-id="verification">Verification</h2>
-<p>After rebooting, verify that the system is using the NVMe SSD as the root filesystem.</p>
-<p>A useful command is:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">df</span> <span class="at">-h</span> /</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>You can also inspect available block devices using:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">lsblk</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The root filesystem should correspond to the NVMe storage device.</p>
-<p>The original implementation showed the expanded storage after reboot as illustrated below.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/terminal2.webp" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div>
-</section>
-<section id="nvme-device-path" class="level2">
-<h2 class="anchored" data-anchor-id="nvme-device-path">NVMe Device Path</h2>
-<p>The <code>rootOnNVMe</code> scripts assume the SSD partition is located at:</p>
-<pre class="text"><code>/dev/nvme0n1p1</code></pre>
-<p>Before running the scripts, verify the actual device path using:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> fdisk <span class="at">-l</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>or:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">lsblk</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Warning
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>If the SSD partition does not correspond to <code>/dev/nvme0n1p1</code>, the device path used by the <code>rootOnNVMe</code> scripts must be updated before continuing.</p>
-<p>The original procedure identifies the following files as containing the default path:</p>
-<pre class="text"><code>copy-rootfs-ssd.sh
-data/setssdroot.service
-data/setssdroot.sh</code></pre>
-</div>
-</div>
-</section>
-<section id="recovery-behavior" class="level2">
-<h2 class="anchored" data-anchor-id="recovery-behavior">Recovery Behavior</h2>
-<p>The expansion procedure does <strong>not</strong> remove the original root filesystem stored in the internal eMMC.</p>
-<p>This provides a useful recovery mechanism.</p>
-<p>If the SSD is removed, the system can still boot from the original internal storage, assuming the original installation remains intact.</p>
-</section>
-<section id="troubleshooting" class="level2">
-<h2 class="anchored" data-anchor-id="troubleshooting">Troubleshooting</h2>
-<section id="ssd-is-not-detected" class="level3">
-<h3 class="anchored" data-anchor-id="ssd-is-not-detected">SSD Is Not Detected</h3>
-<p>Verify that:</p>
-<ul>
-<li>The SSD is correctly installed</li>
-<li>The carrier board supports the installed NVMe device</li>
-<li>The SSD is visible using <code>lsblk</code> or <code>sudo fdisk -l</code></li>
-<li>The M.2 slot supports NVMe storage</li>
-</ul>
-</section>
-<section id="system-does-not-boot-from-the-ssd" class="level3">
-<h3 class="anchored" data-anchor-id="system-does-not-boot-from-the-ssd">System Does Not Boot from the SSD</h3>
-<p>Check:</p>
-<ul>
-<li>That the root filesystem copy completed successfully</li>
-<li>That <code>setup-service.sh</code> executed without errors</li>
-<li>That the correct NVMe partition path is configured</li>
-<li>That the SSD contains a valid Ext4 filesystem</li>
-</ul>
-</section>
-<section id="incorrect-nvme-device-path" class="level3">
-<h3 class="anchored" data-anchor-id="incorrect-nvme-device-path">Incorrect NVMe Device Path</h3>
-<p>Use:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">lsblk</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>to determine the actual SSD partition.</p>
-<p>Update the <code>rootOnNVMe</code> configuration if the partition differs from:</p>
-<pre class="text"><code>/dev/nvme0n1p1</code></pre>
-</section>
-</section>
-<section id="next-step" class="level2">
-<h2 class="anchored" data-anchor-id="next-step">Next Step</h2>
-<p>Once the Jetson hardware and storage are ready, continue with:</p>
-<p><a href="./software-environment.html"><strong>Software Environment</strong></a></p>
-<p>If no storage expansion was required, this page can be skipped entirely.</p>
 
 
 </section>
@@ -1163,7 +1112,7 @@ data/setssdroot.sh</code></pre>
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/blob/main/expansion-jetson-board.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/blob/main/getting-started.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <div style="text-align: right;">
 <p>Technical Documentation &amp; Reproducibility Resources<br> <small>Author: Jhonathan Rivas-Caicedo</small></p>

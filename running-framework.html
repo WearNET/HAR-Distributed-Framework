@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Storage Expansion – HAR Distributed Framework</title>
+<title>Running the Framework – HAR Distributed Framework</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -327,7 +327,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./flash-jetson-board.html">Setup</a></li><li class="breadcrumb-item"><a href="./expansion-jetson-board.html">Storage Expansion</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./running-framework.html">Running the Framework</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -382,7 +382,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./expansion-jetson-board.html" class="sidebar-item-text sidebar-link active">
+  <a href="./expansion-jetson-board.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Storage Expansion</span></a>
   </div>
 </li>
@@ -443,7 +443,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./running-framework.html" class="sidebar-item-text sidebar-link">
+  <a href="./running-framework.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Running the Framework</span></a>
   </div>
 </li>
@@ -475,34 +475,49 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#when-is-storage-expansion-useful" id="toc-when-is-storage-expansion-useful" class="nav-link active" data-scroll-target="#when-is-storage-expansion-useful">When Is Storage Expansion Useful?</a></li>
-  <li><a href="#requirements" id="toc-requirements" class="nav-link" data-scroll-target="#requirements">Requirements</a></li>
-  <li><a href="#install-the-nvme-ssd" id="toc-install-the-nvme-ssd" class="nav-link" data-scroll-target="#install-the-nvme-ssd">1. Install the NVMe SSD</a></li>
-  <li><a href="#prepare-the-ssd" id="toc-prepare-the-ssd" class="nav-link" data-scroll-target="#prepare-the-ssd">2. Prepare the SSD</a></li>
-  <li><a href="#download-the-root-on-nvme-utility" id="toc-download-the-root-on-nvme-utility" class="nav-link" data-scroll-target="#download-the-root-on-nvme-utility">3. Download the Root-on-NVMe Utility</a></li>
-  <li><a href="#copy-the-root-filesystem" id="toc-copy-the-root-filesystem" class="nav-link" data-scroll-target="#copy-the-root-filesystem">4. Copy the Root Filesystem</a></li>
-  <li><a href="#configure-boot-from-nvme" id="toc-configure-boot-from-nvme" class="nav-link" data-scroll-target="#configure-boot-from-nvme">5. Configure Boot from NVMe</a></li>
-  <li><a href="#verification" id="toc-verification" class="nav-link" data-scroll-target="#verification">Verification</a></li>
-  <li><a href="#nvme-device-path" id="toc-nvme-device-path" class="nav-link" data-scroll-target="#nvme-device-path">NVMe Device Path</a></li>
-  <li><a href="#recovery-behavior" id="toc-recovery-behavior" class="nav-link" data-scroll-target="#recovery-behavior">Recovery Behavior</a></li>
+  <li><a href="#runtime-sequence" id="toc-runtime-sequence" class="nav-link active" data-scroll-target="#runtime-sequence">Runtime Sequence</a></li>
+  <li><a href="#verify-the-distributed-infrastructure" id="toc-verify-the-distributed-infrastructure" class="nav-link" data-scroll-target="#verify-the-distributed-infrastructure">1. Verify the Distributed Infrastructure</a></li>
+  <li><a href="#start-the-ros-master-required" id="toc-start-the-ros-master-required" class="nav-link" data-scroll-target="#start-the-ros-master-required">2. Start the ROS Master (Required)</a></li>
+  <li><a href="#prepare-the-ros-workspace" id="toc-prepare-the-ros-workspace" class="nav-link" data-scroll-target="#prepare-the-ros-workspace">3. Prepare the ROS Workspace</a></li>
+  <li><a href="#start-the-central-har-node" id="toc-start-the-central-har-node" class="nav-link" data-scroll-target="#start-the-central-har-node">4. Start the Central HAR Node</a></li>
+  <li><a href="#start-the-experiment-manager" id="toc-start-the-experiment-manager" class="nav-link" data-scroll-target="#start-the-experiment-manager">5. Start the Experiment Manager</a></li>
+  <li><a href="#start-the-edge-nodes" id="toc-start-the-edge-nodes" class="nav-link" data-scroll-target="#start-the-edge-nodes">6. Start the Edge Nodes</a>
+  <ul class="collapse">
+  <li><a href="#chest-node" id="toc-chest-node" class="nav-link" data-scroll-target="#chest-node">Chest Node</a></li>
+  <li><a href="#left-hand-node" id="toc-left-hand-node" class="nav-link" data-scroll-target="#left-hand-node">Left Hand Node</a></li>
+  <li><a href="#right-hand-node" id="toc-right-hand-node" class="nav-link" data-scroll-target="#right-hand-node">Right Hand Node</a></li>
+  <li><a href="#left-knee-node" id="toc-left-knee-node" class="nav-link" data-scroll-target="#left-knee-node">Left Knee Node</a></li>
+  <li><a href="#right-knee-node" id="toc-right-knee-node" class="nav-link" data-scroll-target="#right-knee-node">Right Knee Node</a></li>
+  </ul></li>
+  <li><a href="#verify-the-local-nodes" id="toc-verify-the-local-nodes" class="nav-link" data-scroll-target="#verify-the-local-nodes">7. Verify the Local Nodes</a></li>
+  <li><a href="#verify-the-prediction-topics" id="toc-verify-the-prediction-topics" class="nav-link" data-scroll-target="#verify-the-prediction-topics">8. Verify the Prediction Topics</a></li>
+  <li><a href="#verify-local-prediction-streams" id="toc-verify-local-prediction-streams" class="nav-link" data-scroll-target="#verify-local-prediction-streams">9. Verify Local Prediction Streams</a></li>
+  <li><a href="#start-the-har-pipeline" id="toc-start-the-har-pipeline" class="nav-link" data-scroll-target="#start-the-har-pipeline">10. Start the HAR Pipeline</a></li>
+  <li><a href="#verify-global-inference" id="toc-verify-global-inference" class="nav-link" data-scroll-target="#verify-global-inference">11. Verify Global Inference</a></li>
+  <li><a href="#unity-based-execution-control" id="toc-unity-based-execution-control" class="nav-link" data-scroll-target="#unity-based-execution-control">12. Unity-Based Execution Control</a></li>
+  <li><a href="#stop-the-experiment" id="toc-stop-the-experiment" class="nav-link" data-scroll-target="#stop-the-experiment">13. Stop the Experiment</a></li>
+  <li><a href="#shut-down-the-runtime" id="toc-shut-down-the-runtime" class="nav-link" data-scroll-target="#shut-down-the-runtime">14. Shut Down the Runtime</a></li>
+  <li><a href="#runtime-verification-checklist" id="toc-runtime-verification-checklist" class="nav-link" data-scroll-target="#runtime-verification-checklist">Runtime Verification Checklist</a></li>
   <li><a href="#troubleshooting" id="toc-troubleshooting" class="nav-link" data-scroll-target="#troubleshooting">Troubleshooting</a>
   <ul class="collapse">
-  <li><a href="#ssd-is-not-detected" id="toc-ssd-is-not-detected" class="nav-link" data-scroll-target="#ssd-is-not-detected">SSD Is Not Detected</a></li>
-  <li><a href="#system-does-not-boot-from-the-ssd" id="toc-system-does-not-boot-from-the-ssd" class="nav-link" data-scroll-target="#system-does-not-boot-from-the-ssd">System Does Not Boot from the SSD</a></li>
-  <li><a href="#incorrect-nvme-device-path" id="toc-incorrect-nvme-device-path" class="nav-link" data-scroll-target="#incorrect-nvme-device-path">Incorrect NVMe Device Path</a></li>
+  <li><a href="#a-local-node-cannot-connect-to-its-sensor" id="toc-a-local-node-cannot-connect-to-its-sensor" class="nav-link" data-scroll-target="#a-local-node-cannot-connect-to-its-sensor">A Local Node Cannot Connect to Its Sensor</a></li>
+  <li><a href="#a-local-model-does-not-load" id="toc-a-local-model-does-not-load" class="nav-link" data-scroll-target="#a-local-model-does-not-load">A Local Model Does Not Load</a></li>
+  <li><a href="#local-topics-are-missing" id="toc-local-topics-are-missing" class="nav-link" data-scroll-target="#local-topics-are-missing">Local Topics Are Missing</a></li>
+  <li><a href="#all-local-topics-exist-but-global-predictions-are-missing" id="toc-all-local-topics-exist-but-global-predictions-are-missing" class="nav-link" data-scroll-target="#all-local-topics-exist-but-global-predictions-are-missing">All Local Topics Exist but Global Predictions Are Missing</a></li>
+  <li><a href="#experiment-files-are-not-created" id="toc-experiment-files-are-not-created" class="nav-link" data-scroll-target="#experiment-files-are-not-created">Experiment Files Are Not Created</a></li>
   </ul></li>
   <li><a href="#next-step" id="toc-next-step" class="nav-link" data-scroll-target="#next-step">Next Step</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/blob/main/expansion-jetson-board.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/blob/main/running-framework.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./flash-jetson-board.html">Setup</a></li><li class="breadcrumb-item"><a href="./expansion-jetson-board.html">Storage Expansion</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Storage Expansion</h1>
-<p class="subtitle lead">Optional Jetson Preparation</p>
+<h1 class="title">Running the Framework</h1>
+<p class="subtitle lead">Starting and Operating the Distributed HAR System</p>
 </div>
 
 
@@ -519,44 +534,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>This section describes how to expand the available storage of a compatible Jetson-based system using an <strong>NVMe SSD connected through an M.2 M-Key slot</strong>.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<p>This section describes the recommended procedure for starting and verifying the complete <strong>HAR Distributed Framework</strong>.</p>
+<p>At this stage, the Jetson devices, software environment, network configuration, clock synchronization, and wearable sensors should already be prepared.</p>
+<section id="runtime-sequence" class="level2">
+<h2 class="anchored" data-anchor-id="runtime-sequence">Runtime Sequence</h2>
+<p>The recommended startup sequence is illustrated in <a href="#fig-runtime-sequence" class="quarto-xref">Figure&nbsp;1</a>.</p>
+<div id="fig-runtime-sequence" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-runtime-sequence-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="assets/images/running_framework/runtime-execution-sequence.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:95.0%">
 </div>
-<div class="callout-title-container flex-fill">
-Note
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-runtime-sequence-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Recommended runtime execution sequence for the distributed HAR framework.
+</figcaption>
+</figure>
 </div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Storage expansion is <strong>optional</strong>.</p>
-<p>If the Jetson device already provides sufficient storage for the operating system, framework dependencies, trained models, and experiment logs, this procedure can be skipped.</p>
-</div>
-</div>
-<section id="when-is-storage-expansion-useful" class="level2">
-<h2 class="anchored" data-anchor-id="when-is-storage-expansion-useful">When Is Storage Expansion Useful?</h2>
-<p>Storage expansion is useful when the onboard storage is not sufficient for:</p>
-<ul>
-<li>The operating system</li>
-<li>Docker images and containers</li>
-<li>Python and machine learning dependencies</li>
-<li>Trained models</li>
-<li>Experiment logs</li>
-<li>Additional development resources</li>
-</ul>
-<p>The procedure documented here moves the system root filesystem to an NVMe SSD while preserving the original root filesystem stored in the Jetson’s internal storage.</p>
+<p>The system should be started incrementally rather than launching all components simultaneously.</p>
+<p>This makes it easier to identify problems associated with ROS communication, wearable sensors, model loading, or distributed synchronization.</p>
 </section>
-<section id="requirements" class="level2">
-<h2 class="anchored" data-anchor-id="requirements">Requirements</h2>
-<p>The procedure requires:</p>
-<ul>
-<li>A Jetson-based system with an <strong>M.2 M-Key slot</strong></li>
-<li>An NVMe SSD</li>
-<li>An existing working Jetson operating system</li>
-<li>Sufficient access privileges to modify the storage configuration</li>
-</ul>
-<p>The procedure was originally performed on a <strong>reComputer platform</strong> using an NVMe SSD.</p>
+<section id="verify-the-distributed-infrastructure" class="level2">
+<h2 class="anchored" data-anchor-id="verify-the-distributed-infrastructure">1. Verify the Distributed Infrastructure</h2>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -567,176 +564,325 @@ Important
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The Jetson must already boot correctly before performing this procedure.</p>
-<p>Storage expansion does not replace the operating system flashing procedure.</p>
+<p>If you already have all the ROS and Chrony settings configured, <strong>you can skip this step</strong>.</p>
 </div>
 </div>
+<p>Before launching the inference components, verify that all Jetson devices can communicate with the central node.</p>
+<p>From each edge device:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ping</span> <span class="op">&lt;</span>CENTRAL_IP<span class="op">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Verify the ROS configuration:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$ROS_MASTER_URI</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$ROS_IP</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Clock synchronization should also be confirmed:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">chronyc</span> tracking</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>and:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">chronyc</span> sources <span class="at">-v</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Detailed configuration is documented in <a href="./network-time-sync.html">Network &amp; Time Synchronization</a>.</p>
 </section>
-<section id="install-the-nvme-ssd" class="level2">
-<h2 class="anchored" data-anchor-id="install-the-nvme-ssd">1. Install the NVMe SSD</h2>
-<p>Power off the Jetson device and install the NVMe SSD in the available M.2 M-Key slot.</p>
-<p>Refer to the corresponding carrier-board hardware instructions for the exact installation procedure.</p>
-<p>The device used for the original procedure is shown below.</p>
-<div class="text-center">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/reComputeJ1020.webp" class="img-fluid figure-img" style="width:40.0%"></p>
-<figcaption>Example reComputer platform used for NVMe storage expansion.</figcaption>
-</figure>
-</div>
-</div>
-<p>After installing the SSD, power on the Jetson and verify that the device is detected by the operating system.</p>
+<section id="start-the-ros-master-required" class="level2">
+<h2 class="anchored" data-anchor-id="start-the-ros-master-required">2. Start the ROS Master (Required)</h2>
+<p>The central Jetson acts as the ROS master.</p>
+<p>On the central device:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">roscore</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Keep this process running during the complete experiment.</p>
+<p>From another terminal or edge node, verify access using:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">rostopic</span> list</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="prepare-the-ssd" class="level2">
-<h2 class="anchored" data-anchor-id="prepare-the-ssd">2. Prepare the SSD</h2>
-<p>Open the Ubuntu <strong>Disks</strong> utility.</p>
-<p>The SSD should appear in the list of available storage devices.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/disk.webp" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div>
-<p>Select the SSD and choose <strong>Format Disk</strong>.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/format_disk.webp" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div>
-<p>Use a <strong>GPT partition table</strong>.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/format_disk2.webp" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div>
-<p>Create a new partition using the available storage space.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/format_disk3.webp" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div>
-<p>Continue with the partition creation process.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/format_disk4.webp" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div>
-<p>Format the partition using the <strong>Ext4</strong> filesystem.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/format_disk5.webp" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div>
-<p>Once completed, the SSD is ready to receive a copy of the Jetson root filesystem.</p>
-</section>
-<section id="download-the-root-on-nvme-utility" class="level2">
-<h2 class="anchored" data-anchor-id="download-the-root-on-nvme-utility">3. Download the Root-on-NVMe Utility</h2>
-<p>Open a terminal and clone the <code>rootOnNVMe</code> repository:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/limengdu/rootOnNVMe.git</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> rootOnNVMe/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>This utility provides the scripts used to copy the existing root filesystem and configure the system to use the NVMe SSD.</p>
-</section>
-<section id="copy-the-root-filesystem" class="level2">
-<h2 class="anchored" data-anchor-id="copy-the-root-filesystem">4. Copy the Root Filesystem</h2>
-<p>Execute:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./copy-rootfs-ssd.sh</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The script copies the existing root filesystem from the Jetson internal storage to the SSD.</p>
-<p>The execution time depends on the amount of data currently stored in the root filesystem.</p>
-</section>
-<section id="configure-boot-from-nvme" class="level2">
-<h2 class="anchored" data-anchor-id="configure-boot-from-nvme">5. Configure Boot from NVMe</h2>
-<p>After the copy operation completes, execute:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./setup-service.sh</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>This configures the service required to use the SSD as the system root filesystem.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/terminal.webp" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div>
-<p>Restart the Jetson after the configuration is complete.</p>
-</section>
-<section id="verification" class="level2">
-<h2 class="anchored" data-anchor-id="verification">Verification</h2>
-<p>After rebooting, verify that the system is using the NVMe SSD as the root filesystem.</p>
-<p>A useful command is:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">df</span> <span class="at">-h</span> /</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>You can also inspect available block devices using:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">lsblk</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The root filesystem should correspond to the NVMe storage device.</p>
-<p>The original implementation showed the expanded storage after reboot as illustrated below.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/terminal2.webp" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div>
-</section>
-<section id="nvme-device-path" class="level2">
-<h2 class="anchored" data-anchor-id="nvme-device-path">NVMe Device Path</h2>
-<p>The <code>rootOnNVMe</code> scripts assume the SSD partition is located at:</p>
-<pre class="text"><code>/dev/nvme0n1p1</code></pre>
-<p>Before running the scripts, verify the actual device path using:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> fdisk <span class="at">-l</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>or:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">lsblk</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="callout callout-style-default callout-warning callout-titled">
+<section id="prepare-the-ros-workspace" class="level2">
+<h2 class="anchored" data-anchor-id="prepare-the-ros-workspace">3. Prepare the ROS Workspace</h2>
+<div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Warning
+Important
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>If the SSD partition does not correspond to <code>/dev/nvme0n1p1</code>, the device path used by the <code>rootOnNVMe</code> scripts must be updated before continuing.</p>
-<p>The original procedure identifies the following files as containing the default path:</p>
-<pre class="text"><code>copy-rootfs-ssd.sh
-data/setssdroot.service
-data/setssdroot.sh</code></pre>
+<p>If you already have all the ROS workspace configured, <strong>you can skip this step</strong>.</p>
+</div>
+</div>
+<p>On every device, load the ROS environment used by the framework.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> /opt/ros/noetic/setup.bash</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>If the custom <code>har_msgs</code> package is contained in a Catkin workspace, also source the workspace:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> <span class="op">&lt;</span>CATKIN_WS<span class="op">&gt;</span>/devel/setup.bash</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The exact workspace path depends on the installation.</p>
+<p>Verify that the custom probability message is available:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">rosmsg</span> show har_msgs/Probs</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>A valid output confirms that the ROS environment can locate the custom message definition.</p>
+</section>
+<section id="start-the-central-har-node" class="level2">
+<h2 class="anchored" data-anchor-id="start-the-central-har-node">4. Start the Central HAR Node</h2>
+<p>The central fusion implementation is provided by:</p>
+<p><code>central_node_ros_main.py</code></p>
+<p>From the directory containing the script and the trained central model:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> central_node_ros_main.py</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The central implementation loads:</p>
+<p><code>nn_central_fold1.pth</code></p>
+<p>and initializes the ROS node:</p>
+<p><code>/central_har_node</code></p>
+<p>At startup, the central node waits for the system-level execution signal:</p>
+<p><code>/har/start</code></p>
+<p>The node initially prefers synchronized operation using Approximate Time Synchronization and automatically manages fallback behavior if the distributed streams become unavailable.</p>
+<p>Verify that the central node exists:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">rosnode</span> list</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="start-the-experiment-manager" class="level2">
+<h2 class="anchored" data-anchor-id="start-the-experiment-manager">5. Start the Experiment Manager</h2>
+<p>The experiment manager is implemented by:</p>
+<p><code>experiment_manager_node.py</code></p>
+<p>Start it from the central Jetson:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> experiment_manager_node.py</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The node listens to:</p>
+<p><code>/har/start</code></p>
+<p>and:</p>
+<p><code>/har/probs/global</code></p>
+<p>It also subscribes to the five local prediction streams.</p>
+<p>When an experiment begins, the manager creates a run directory under:</p>
+<p><code>~/har_runs/</code></p>
+<p>using a run identifier based on the current date and time.</p>
+<p>The generated experiment files are documented in <a href="./experiments-logs.html"><strong>Experiments &amp; Logs</strong></a>.</p>
+</section>
+<section id="start-the-edge-nodes" class="level2">
+<h2 class="anchored" data-anchor-id="start-the-edge-nodes">6. Start the Edge Nodes</h2>
+<p>Each wearable sensing location runs an independent Python process.</p>
+<p>The confirmed local scripts include:</p>
+<pre class="text"><code>chest_node_ros.py
+left_hand_node_ros.py
+right_hand_node_ros.py
+left_knee_node_ros.py
+right_knee_node_ros.py</code></pre>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Use the actual filenames distributed with the implementation.</p>
+</div>
+</div>
+<section id="chest-node" class="level3">
+<h3 class="anchored" data-anchor-id="chest-node">Chest Node</h3>
+<p>On the Jetson assigned to the chest sensor:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> chest_node_ros.py</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The implementation connects to the assigned MetaMotionRL sensor, loads the local CNN-LSTM model and scaler, and prepares the ROS publishers.</p>
+</section>
+<section id="left-hand-node" class="level3">
+<h3 class="anchored" data-anchor-id="left-hand-node">Left Hand Node</h3>
+<p>On the corresponding edge Jetson:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> left_hand_node_ros.py</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="right-hand-node" class="level3">
+<h3 class="anchored" data-anchor-id="right-hand-node">Right Hand Node</h3>
+<p>On the corresponding edge Jetson:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> right_hand_node_ros.py</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="left-knee-node" class="level3">
+<h3 class="anchored" data-anchor-id="left-knee-node">Left Knee Node</h3>
+<p>On the corresponding edge Jetson:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> left_knee_node_ros.py</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="right-knee-node" class="level3">
+<h3 class="anchored" data-anchor-id="right-knee-node">Right Knee Node</h3>
+<p>On the corresponding edge Jetson:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> right_knee_node_ros.py</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Each local node should remain running after establishing the BLE connection.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Start and verify one local node at a time.</p>
+<p>Do not continue to the experiment stage until all five wearable sensors are connected and the five local ROS nodes are running.</p>
 </div>
 </div>
 </section>
-<section id="recovery-behavior" class="level2">
-<h2 class="anchored" data-anchor-id="recovery-behavior">Recovery Behavior</h2>
-<p>The expansion procedure does <strong>not</strong> remove the original root filesystem stored in the internal eMMC.</p>
-<p>This provides a useful recovery mechanism.</p>
-<p>If the SSD is removed, the system can still boot from the original internal storage, assuming the original installation remains intact.</p>
+</section>
+<section id="verify-the-local-nodes" class="level2">
+<h2 class="anchored" data-anchor-id="verify-the-local-nodes">7. Verify the Local Nodes</h2>
+<p>Check the active ROS nodes:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ex">rosnode</span> list</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The distributed implementation should expose the five local inference roles:</p>
+<pre class="text"><code>/chest_node
+/left_hand_node
+/right_hand_node
+/left_knee_node
+/right_knee_node</code></pre>
+<p>The central node should also appear as:</p>
+<p><code>/central_har_node</code></p>
+</section>
+<section id="verify-the-prediction-topics" class="level2">
+<h2 class="anchored" data-anchor-id="verify-the-prediction-topics">8. Verify the Prediction Topics</h2>
+<p>Before sending the start signal, inspect the available topics:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="ex">rostopic</span> list</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The local prediction channels are:</p>
+<pre class="text"><code>/har/probs/chest
+/har/probs/left_hand
+/har/probs/right_hand
+/har/probs/left_knee
+/har/probs/right_knee</code></pre>
+<p>The global prediction channel is:</p>
+<p><code>/har/probs/global</code></p>
+<p>Additional visualization and control topics include:</p>
+<pre class="text"><code>/har/probs/global_ui
+/har/start
+/har/start_ui</code></pre>
+<p>The communication architecture is documented in <a href="./communication-sync.html">Communication &amp; Synchronization</a>.</p>
+</section>
+<section id="verify-local-prediction-streams" class="level2">
+<h2 class="anchored" data-anchor-id="verify-local-prediction-streams">9. Verify Local Prediction Streams</h2>
+<p>Before starting a formal experiment, verify that each edge stream is available.</p>
+<p>For example:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="ex">rostopic</span> echo /har/probs/chest</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>and:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="ex">rostopic</span> hz /har/probs/chest</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Repeat the verification for all five nodes.</p>
+<p>A complete deployment should provide active streams from:</p>
+<pre class="text"><code>Chest
+Left Hand
+Right Hand
+Left Knee
+Right Knee</code></pre>
+</section>
+<section id="start-the-har-pipeline" class="level2">
+<h2 class="anchored" data-anchor-id="start-the-har-pipeline">10. Start the HAR Pipeline</h2>
+<p>The local and central inference components wait for the system-level control topic:</p>
+<p><code>/har/start</code></p>
+<p>A <code>True</code> value activates the inference pipeline.</p>
+<p>To start the experiment, simply enter the ROS Master’s IP address and port into the GUI. Once all the nodes both local and central are running, click the <code>Start</code>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/images/running_framework/App_GUI.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+<p>For command-line testing, the signal can be published manually, <strong>this is not recommended, unless you do not want to run the graphical interface</strong>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="ex">rostopic</span> pub <span class="at">-1</span> /har/start std_msgs/Bool <span class="st">"data: true"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Once the start signal is received:</p>
+<ol type="1">
+<li>The local nodes begin processing sensor windows;</li>
+<li>Local CNN-LSTM inference generates probability vectors;</li>
+<li>Predictions are transmitted to the central node;</li>
+<li>The central node synchronizes the distributed streams;</li>
+<li>The fusion model generates the global prediction; and</li>
+<li>The experiment manager begins recording runtime information.</li>
+</ol>
+</section>
+<section id="verify-global-inference" class="level2">
+<h2 class="anchored" data-anchor-id="verify-global-inference">11. Verify Global Inference</h2>
+<p>Monitor the central output:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="ex">rostopic</span> echo /har/probs/global</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Check its rate using:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="ex">rostopic</span> hz /har/probs/global</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>A valid global message should contain a six-class probability vector generated by the central fusion model.</p>
+<p>If local topics are active but no global prediction is produced, troubleshoot the synchronization and central-processing stages.</p>
+</section>
+<section id="unity-based-execution-control" class="level2">
+<h2 class="anchored" data-anchor-id="unity-based-execution-control">12. Unity-Based Execution Control</h2>
+<p>The implemented visualization architecture also supports external start and stop commands through:</p>
+<p><code>/har/start_ui</code></p>
+<p>The Unity interface sends the user-interface command to the experiment-control layer, which provides the system-level:</p>
+<p><code>/har/start</code></p>
+<p>Signal consumed by the local and central inference nodes. The visualization receives the global HAR output through:</p>
+<p><code>/har/probs/global_ui</code></p>
+<p>This allows the complete experiment to be operated from the graphical interface without modifying the local inference processes.</p>
+</section>
+<section id="stop-the-experiment" class="level2">
+<h2 class="anchored" data-anchor-id="stop-the-experiment">13. Stop the Experiment</h2>
+<p>To stop the inference pipeline just press the stop button in the GUI:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/images/running_framework/App_GUI_Stop.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+<p>Or if you want to do it manually via the terminal, <strong>only if the graphical interface is not being used</strong>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="ex">rostopic</span> pub <span class="at">-1</span> /har/start std_msgs/Bool <span class="st">"data: false"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The edge nodes stop generating new inference outputs and the central node stops publishing global predictions. To stop each of the local nodes as well as the central node, you must press the key combination <code>CTRL+C</code></p>
+<p>The experiment manager closes the active experiment files and writes the corresponding run summary.</p>
+</section>
+<section id="shut-down-the-runtime" class="level2">
+<h2 class="anchored" data-anchor-id="shut-down-the-runtime">14. Shut Down the Runtime</h2>
+<p>After stopping the experiment:</p>
+<ol type="1">
+<li>Verify that the experiment files were saved;</li>
+<li>Stop the local Python processes;</li>
+<li>Stop the central processing components;</li>
+<li>Disconnect the wearable sensors if required; and</li>
+<li>Terminate <code>roscore</code> after all ROS processes have finished.</li>
+</ol>
+<p>Use <code>Ctrl+C</code> to terminate foreground ROS or Python processes safely.</p>
+</section>
+<section id="runtime-verification-checklist" class="level2">
+<h2 class="anchored" data-anchor-id="runtime-verification-checklist">Runtime Verification Checklist</h2>
+<p>Before collecting experimental data, confirm:</p>
+<pre class="text"><code>[ ] ROS master running
+
+[ ] Central HAR node running
+[ ] Experiment manager running
+
+[ ] Chest edge node running
+[ ] Left Hand edge node running
+[ ] Right Hand edge node running
+[ ] Left Knee edge node running
+[ ] Right Knee edge node running
+
+[ ] Five wearable sensors connected
+
+[ ] Five local probability topics active
+[ ] Global prediction topic available
+
+[ ] Chrony synchronization healthy
+
+[ ] Start/stop control working
+[ ] Experiment logging enabled</code></pre>
 </section>
 <section id="troubleshooting" class="level2">
 <h2 class="anchored" data-anchor-id="troubleshooting">Troubleshooting</h2>
-<section id="ssd-is-not-detected" class="level3">
-<h3 class="anchored" data-anchor-id="ssd-is-not-detected">SSD Is Not Detected</h3>
+<section id="a-local-node-cannot-connect-to-its-sensor" class="level3">
+<h3 class="anchored" data-anchor-id="a-local-node-cannot-connect-to-its-sensor">A Local Node Cannot Connect to Its Sensor</h3>
+<p>Return to <a href="./wearable-sensors.html">Wearable Sensor Setup</a> and verify the BLE device, Bluetooth interface, and sensor assignment.</p>
+</section>
+<section id="a-local-model-does-not-load" class="level3">
+<h3 class="anchored" data-anchor-id="a-local-model-does-not-load">A Local Model Does Not Load</h3>
+<p>Verify that the model and scaler files are located in the directory expected by the corresponding Python script.</p>
+<p>The deployed model configuration is documented under <a href="./models-data.html">Models &amp; Data</a>.</p>
+</section>
+<section id="local-topics-are-missing" class="level3">
+<h3 class="anchored" data-anchor-id="local-topics-are-missing">Local Topics Are Missing</h3>
 <p>Verify that:</p>
 <ul>
-<li>The SSD is correctly installed</li>
-<li>The carrier board supports the installed NVMe device</li>
-<li>The SSD is visible using <code>lsblk</code> or <code>sudo fdisk -l</code></li>
-<li>The M.2 slot supports NVMe storage</li>
+<li>The local Python process is running;</li>
+<li>ROS environment variables are correct;</li>
+<li><code>har_msgs</code> is available;</li>
+<li>The edge node can reach the ROS master; and</li>
+<li>The sensor connection completed successfully.</li>
 </ul>
 </section>
-<section id="system-does-not-boot-from-the-ssd" class="level3">
-<h3 class="anchored" data-anchor-id="system-does-not-boot-from-the-ssd">System Does Not Boot from the SSD</h3>
-<p>Check:</p>
-<ul>
-<li>That the root filesystem copy completed successfully</li>
-<li>That <code>setup-service.sh</code> executed without errors</li>
-<li>That the correct NVMe partition path is configured</li>
-<li>That the SSD contains a valid Ext4 filesystem</li>
-</ul>
+<section id="all-local-topics-exist-but-global-predictions-are-missing" class="level3">
+<h3 class="anchored" data-anchor-id="all-local-topics-exist-but-global-predictions-are-missing">All Local Topics Exist but Global Predictions Are Missing</h3>
+<p>Verify the central node and synchronization behavior under <a href="./communication-sync.html">Communication &amp; Synchronization</a>.</p>
 </section>
-<section id="incorrect-nvme-device-path" class="level3">
-<h3 class="anchored" data-anchor-id="incorrect-nvme-device-path">Incorrect NVMe Device Path</h3>
-<p>Use:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">lsblk</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>to determine the actual SSD partition.</p>
-<p>Update the <code>rootOnNVMe</code> configuration if the partition differs from:</p>
-<pre class="text"><code>/dev/nvme0n1p1</code></pre>
+<section id="experiment-files-are-not-created" class="level3">
+<h3 class="anchored" data-anchor-id="experiment-files-are-not-created">Experiment Files Are Not Created</h3>
+<p>Verify that <code>experiment_manager_node.py</code> is running and receiving the <code>/har/start</code> signal.</p>
+<p>The default experiment directory used by the implementation is:</p>
+<p><code>~/har_runs/</code></p>
 </section>
 </section>
 <section id="next-step" class="level2">
 <h2 class="anchored" data-anchor-id="next-step">Next Step</h2>
-<p>Once the Jetson hardware and storage are ready, continue with:</p>
-<p><a href="./software-environment.html"><strong>Software Environment</strong></a></p>
-<p>If no storage expansion was required, this page can be skipped entirely.</p>
+<p>Continue with:</p>
+<p><a href="./experiments-logs.html"><strong>Experiments &amp; Logs</strong></a></p>
+<p>The next section documents the experiment directory structure, generated CSV files, recorded fields, timing measurements, and analysis workflow.</p>
 
 
 </section>
@@ -1163,7 +1309,7 @@ data/setssdroot.sh</code></pre>
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/blob/main/expansion-jetson-board.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/blob/main/running-framework.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <div style="text-align: right;">
 <p>Technical Documentation &amp; Reproducibility Resources<br> <small>Author: Jhonathan Rivas-Caicedo</small></p>

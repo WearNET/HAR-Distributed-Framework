@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Storage Expansion – HAR Distributed Framework</title>
+<title>Network &amp; Time Synchronization – HAR Distributed Framework</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -327,7 +327,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./flash-jetson-board.html">Setup</a></li><li class="breadcrumb-item"><a href="./expansion-jetson-board.html">Storage Expansion</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./flash-jetson-board.html">Setup</a></li><li class="breadcrumb-item"><a href="./network-time-sync.html">Network &amp; Time Synchronization</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -382,7 +382,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./expansion-jetson-board.html" class="sidebar-item-text sidebar-link active">
+  <a href="./expansion-jetson-board.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Storage Expansion</span></a>
   </div>
 </li>
@@ -394,7 +394,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./network-time-sync.html" class="sidebar-item-text sidebar-link">
+  <a href="./network-time-sync.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Network &amp; Time Synchronization</span></a>
   </div>
 </li>
@@ -475,34 +475,40 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#when-is-storage-expansion-useful" id="toc-when-is-storage-expansion-useful" class="nav-link active" data-scroll-target="#when-is-storage-expansion-useful">When Is Storage Expansion Useful?</a></li>
-  <li><a href="#requirements" id="toc-requirements" class="nav-link" data-scroll-target="#requirements">Requirements</a></li>
-  <li><a href="#install-the-nvme-ssd" id="toc-install-the-nvme-ssd" class="nav-link" data-scroll-target="#install-the-nvme-ssd">1. Install the NVMe SSD</a></li>
-  <li><a href="#prepare-the-ssd" id="toc-prepare-the-ssd" class="nav-link" data-scroll-target="#prepare-the-ssd">2. Prepare the SSD</a></li>
-  <li><a href="#download-the-root-on-nvme-utility" id="toc-download-the-root-on-nvme-utility" class="nav-link" data-scroll-target="#download-the-root-on-nvme-utility">3. Download the Root-on-NVMe Utility</a></li>
-  <li><a href="#copy-the-root-filesystem" id="toc-copy-the-root-filesystem" class="nav-link" data-scroll-target="#copy-the-root-filesystem">4. Copy the Root Filesystem</a></li>
-  <li><a href="#configure-boot-from-nvme" id="toc-configure-boot-from-nvme" class="nav-link" data-scroll-target="#configure-boot-from-nvme">5. Configure Boot from NVMe</a></li>
-  <li><a href="#verification" id="toc-verification" class="nav-link" data-scroll-target="#verification">Verification</a></li>
-  <li><a href="#nvme-device-path" id="toc-nvme-device-path" class="nav-link" data-scroll-target="#nvme-device-path">NVMe Device Path</a></li>
-  <li><a href="#recovery-behavior" id="toc-recovery-behavior" class="nav-link" data-scroll-target="#recovery-behavior">Recovery Behavior</a></li>
+  <li><a href="#network-roles" id="toc-network-roles" class="nav-link active" data-scroll-target="#network-roles">Network Roles</a></li>
+  <li><a href="#verify-network-connectivity" id="toc-verify-network-connectivity" class="nav-link" data-scroll-target="#verify-network-connectivity">Verify Network Connectivity</a></li>
+  <li><a href="#ros-multi-machine-configuration" id="toc-ros-multi-machine-configuration" class="nav-link" data-scroll-target="#ros-multi-machine-configuration">ROS Multi-Machine Configuration</a>
+  <ul class="collapse">
+  <li><a href="#central-node" id="toc-central-node" class="nav-link" data-scroll-target="#central-node">Central Node</a></li>
+  <li><a href="#edge-nodes" id="toc-edge-nodes" class="nav-link" data-scroll-target="#edge-nodes">Edge Nodes</a></li>
+  </ul></li>
+  <li><a href="#container-network-configuration" id="toc-container-network-configuration" class="nav-link" data-scroll-target="#container-network-configuration">Container Network Configuration</a></li>
+  <li><a href="#verify-ros-communication" id="toc-verify-ros-communication" class="nav-link" data-scroll-target="#verify-ros-communication">Verify ROS Communication</a></li>
+  <li><a href="#why-clock-synchronization-is-required" id="toc-why-clock-synchronization-is-required" class="nav-link" data-scroll-target="#why-clock-synchronization-is-required">Why Clock Synchronization Is Required</a></li>
+  <li><a href="#chrony-architecture" id="toc-chrony-architecture" class="nav-link" data-scroll-target="#chrony-architecture">Chrony Architecture</a></li>
+  <li><a href="#install-chrony" id="toc-install-chrony" class="nav-link" data-scroll-target="#install-chrony">Install Chrony</a></li>
+  <li><a href="#configure-the-central-node" id="toc-configure-the-central-node" class="nav-link" data-scroll-target="#configure-the-central-node">Configure the Central Node</a></li>
+  <li><a href="#configure-the-edge-nodes" id="toc-configure-the-edge-nodes" class="nav-link" data-scroll-target="#configure-the-edge-nodes">Configure the Edge Nodes</a></li>
+  <li><a href="#verify-clock-synchronization" id="toc-verify-clock-synchronization" class="nav-link" data-scroll-target="#verify-clock-synchronization">Verify Clock Synchronization</a></li>
+  <li><a href="#recommended-verification-order" id="toc-recommended-verification-order" class="nav-link" data-scroll-target="#recommended-verification-order">Recommended Verification Order</a></li>
   <li><a href="#troubleshooting" id="toc-troubleshooting" class="nav-link" data-scroll-target="#troubleshooting">Troubleshooting</a>
   <ul class="collapse">
-  <li><a href="#ssd-is-not-detected" id="toc-ssd-is-not-detected" class="nav-link" data-scroll-target="#ssd-is-not-detected">SSD Is Not Detected</a></li>
-  <li><a href="#system-does-not-boot-from-the-ssd" id="toc-system-does-not-boot-from-the-ssd" class="nav-link" data-scroll-target="#system-does-not-boot-from-the-ssd">System Does Not Boot from the SSD</a></li>
-  <li><a href="#incorrect-nvme-device-path" id="toc-incorrect-nvme-device-path" class="nav-link" data-scroll-target="#incorrect-nvme-device-path">Incorrect NVMe Device Path</a></li>
+  <li><a href="#edge-node-cannot-reach-the-ros-master" id="toc-edge-node-cannot-reach-the-ros-master" class="nav-link" data-scroll-target="#edge-node-cannot-reach-the-ros-master">Edge Node Cannot Reach the ROS Master</a></li>
+  <li><a href="#ros-works-locally-but-not-across-devices" id="toc-ros-works-locally-but-not-across-devices" class="nav-link" data-scroll-target="#ros-works-locally-but-not-across-devices">ROS Works Locally but Not Across Devices</a></li>
+  <li><a href="#chrony-does-not-synchronize" id="toc-chrony-does-not-synchronize" class="nav-link" data-scroll-target="#chrony-does-not-synchronize">Chrony Does Not Synchronize</a></li>
   </ul></li>
   <li><a href="#next-step" id="toc-next-step" class="nav-link" data-scroll-target="#next-step">Next Step</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/blob/main/expansion-jetson-board.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/blob/main/network-time-sync.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./flash-jetson-board.html">Setup</a></li><li class="breadcrumb-item"><a href="./expansion-jetson-board.html">Storage Expansion</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./flash-jetson-board.html">Setup</a></li><li class="breadcrumb-item"><a href="./network-time-sync.html">Network &amp; Time Synchronization</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Storage Expansion</h1>
-<p class="subtitle lead">Optional Jetson Preparation</p>
+<h1 class="title">Network &amp; Time Synchronization</h1>
+<p class="subtitle lead">Distributed Connectivity and Clock Configuration</p>
 </div>
 
 
@@ -519,7 +525,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>This section describes how to expand the available storage of a compatible Jetson-based system using an <strong>NVMe SSD connected through an M.2 M-Key slot</strong>.</p>
+<p>The <strong>HAR Distributed Framework</strong> operates across multiple independent computing devices. Before deploying the HAR software, all Jetson nodes must be able to communicate through the local network and share a common time reference.</p>
+<p>This section covers the basic network and clock configuration required by the distributed system.</p>
+<section id="network-roles" class="level2">
+<h2 class="anchored" data-anchor-id="network-roles">Network Roles</h2>
+<p>The distributed deployment uses one central node and multiple edge nodes connected to the same local network.</p>
+<p>The central node provides two important services:</p>
+<ul>
+<li>The ROS master used by the distributed ROS environment</li>
+<li>The reference clock used to synchronize the edge devices.</li>
+</ul>
+<p>The edge nodes connect to the central node through the local network.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -530,33 +546,84 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Storage expansion is <strong>optional</strong>.</p>
-<p>If the Jetson device already provides sufficient storage for the operating system, framework dependencies, trained models, and experiment logs, this procedure can be skipped.</p>
+<p>The specific IP addresses depend on the deployment.</p>
+<p>Throughout this documentation, placeholders such as <code>&lt;CENTRAL_IP&gt;</code> and <code>&lt;EDGE_IP&gt;</code> are used when an address is installation-specific.</p>
 </div>
 </div>
-<section id="when-is-storage-expansion-useful" class="level2">
-<h2 class="anchored" data-anchor-id="when-is-storage-expansion-useful">When Is Storage Expansion Useful?</h2>
-<p>Storage expansion is useful when the onboard storage is not sufficient for:</p>
-<ul>
-<li>The operating system</li>
-<li>Docker images and containers</li>
-<li>Python and machine learning dependencies</li>
-<li>Trained models</li>
-<li>Experiment logs</li>
-<li>Additional development resources</li>
-</ul>
-<p>The procedure documented here moves the system root filesystem to an NVMe SSD while preserving the original root filesystem stored in the Jetson’s internal storage.</p>
 </section>
-<section id="requirements" class="level2">
-<h2 class="anchored" data-anchor-id="requirements">Requirements</h2>
-<p>The procedure requires:</p>
-<ul>
-<li>A Jetson-based system with an <strong>M.2 M-Key slot</strong></li>
-<li>An NVMe SSD</li>
-<li>An existing working Jetson operating system</li>
-<li>Sufficient access privileges to modify the storage configuration</li>
-</ul>
-<p>The procedure was originally performed on a <strong>reComputer platform</strong> using an NVMe SSD.</p>
+<section id="verify-network-connectivity" class="level2">
+<h2 class="anchored" data-anchor-id="verify-network-connectivity">Verify Network Connectivity</h2>
+<p>Before configuring ROS or Chrony, verify that every device is connected to the same local network.</p>
+<p>Check the IP addresses of a Jetson using:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hostname</span> <span class="at">-I</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>or:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ip</span> addr</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>From each edge node, verify connectivity to the central device:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ping</span> <span class="op">&lt;</span>CENTRAL_IP<span class="op">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Similarly, the central node should be able to reach each edge device:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ping</span> <span class="op">&lt;</span>EDGE_IP<span class="op">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The distributed configuration should not continue until bidirectional network connectivity is available.</p>
+</section>
+<section id="ros-multi-machine-configuration" class="level2">
+<h2 class="anchored" data-anchor-id="ros-multi-machine-configuration">ROS Multi-Machine Configuration</h2>
+<p><strong>ROS Noetic</strong> uses a master process to coordinate communication between nodes.</p>
+<p>In the implemented framework, the distributed devices use the central Jetson as the ROS master.</p>
+<section id="central-node" class="level3">
+<h3 class="anchored" data-anchor-id="central-node">Central Node</h3>
+<p>On the central node, configure:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">ROS_MASTER_URI</span><span class="op">=</span>http://<span class="op">&lt;</span>CENTRAL_IP<span class="op">&gt;</span>:11311</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">ROS_IP</span><span class="op">=&lt;</span>CENTRAL_IP<span class="op">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The ROS master can then be started using:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">roscore</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="edge-nodes" class="level3">
+<h3 class="anchored" data-anchor-id="edge-nodes">Edge Nodes</h3>
+<p>Each edge node must point to the same ROS master:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">ROS_MASTER_URI</span><span class="op">=</span>http://<span class="op">&lt;</span>CENTRAL_IP<span class="op">&gt;</span>:11311</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">ROS_IP</span><span class="op">=&lt;</span>EDGE_IP<span class="op">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>For example, each edge device uses its own address for <code>ROS_IP</code> while keeping the central address in <code>ROS_MASTER_URI</code>.</p>
+<p>The general configuration is therefore:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Device</th>
+<th><code>ROS_MASTER_URI</code></th>
+<th><code>ROS_IP</code></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Central Node</td>
+<td>Central IP</td>
+<td>Central IP</td>
+</tr>
+<tr class="even">
+<td>Chest Node</td>
+<td>Central IP</td>
+<td>Chest Node IP</td>
+</tr>
+<tr class="odd">
+<td>Left Hand Node</td>
+<td>Central IP</td>
+<td>Left Hand Node IP</td>
+</tr>
+<tr class="even">
+<td>Right Hand Node</td>
+<td>Central IP</td>
+<td>Right Hand Node IP</td>
+</tr>
+<tr class="odd">
+<td>Left Knee Node</td>
+<td>Central IP</td>
+<td>Left Knee Node IP</td>
+</tr>
+<tr class="even">
+<td>Right Knee Node</td>
+<td>Central IP</td>
+<td>Right Knee Node IP</td>
+</tr>
+</tbody>
+</table>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -567,116 +634,92 @@ Important
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The Jetson must already boot correctly before performing this procedure.</p>
-<p>Storage expansion does not replace the operating system flashing procedure.</p>
+<p><code>ROS_IP</code> must identify the device on which the ROS process is running.</p>
+<p>Do not assign the central node IP as <code>ROS_IP</code> on the edge devices.</p>
 </div>
 </div>
 </section>
-<section id="install-the-nvme-ssd" class="level2">
-<h2 class="anchored" data-anchor-id="install-the-nvme-ssd">1. Install the NVMe SSD</h2>
-<p>Power off the Jetson device and install the NVMe SSD in the available M.2 M-Key slot.</p>
-<p>Refer to the corresponding carrier-board hardware instructions for the exact installation procedure.</p>
-<p>The device used for the original procedure is shown below.</p>
-<div class="text-center">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/reComputeJ1020.webp" class="img-fluid figure-img" style="width:40.0%"></p>
-<figcaption>Example reComputer platform used for NVMe storage expansion.</figcaption>
-</figure>
-</div>
-</div>
-<p>After installing the SSD, power on the Jetson and verify that the device is detected by the operating system.</p>
 </section>
-<section id="prepare-the-ssd" class="level2">
-<h2 class="anchored" data-anchor-id="prepare-the-ssd">2. Prepare the SSD</h2>
-<p>Open the Ubuntu <strong>Disks</strong> utility.</p>
-<p>The SSD should appear in the list of available storage devices.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/disk.webp" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div>
-<p>Select the SSD and choose <strong>Format Disk</strong>.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/format_disk.webp" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div>
-<p>Use a <strong>GPT partition table</strong>.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/format_disk2.webp" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div>
-<p>Create a new partition using the available storage space.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/format_disk3.webp" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div>
-<p>Continue with the partition creation process.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/format_disk4.webp" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div>
-<p>Format the partition using the <strong>Ext4</strong> filesystem.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/format_disk5.webp" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div>
-<p>Once completed, the SSD is ready to receive a copy of the Jetson root filesystem.</p>
+<section id="container-network-configuration" class="level2">
+<h2 class="anchored" data-anchor-id="container-network-configuration">Container Network Configuration</h2>
+<p>The HAR framework executes its ROS components inside Docker containers.</p>
+<p>The ROS networking variables must therefore also be available inside the corresponding container.</p>
+<p>The required environment variables are:</p>
+<pre class="text"><code>ROS_MASTER_URI
+ROS_IP</code></pre>
+<p>The central and edge containers must preserve the same network relationships described above.</p>
+<p>Detailed container startup commands are documented later under <a href="./running-framework.html"><strong>Running the Framework</strong></a>.</p>
 </section>
-<section id="download-the-root-on-nvme-utility" class="level2">
-<h2 class="anchored" data-anchor-id="download-the-root-on-nvme-utility">3. Download the Root-on-NVMe Utility</h2>
-<p>Open a terminal and clone the <code>rootOnNVMe</code> repository:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/limengdu/rootOnNVMe.git</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> rootOnNVMe/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>This utility provides the scripts used to copy the existing root filesystem and configure the system to use the NVMe SSD.</p>
-</section>
-<section id="copy-the-root-filesystem" class="level2">
-<h2 class="anchored" data-anchor-id="copy-the-root-filesystem">4. Copy the Root Filesystem</h2>
-<p>Execute:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./copy-rootfs-ssd.sh</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The script copies the existing root filesystem from the Jetson internal storage to the SSD.</p>
-<p>The execution time depends on the amount of data currently stored in the root filesystem.</p>
-</section>
-<section id="configure-boot-from-nvme" class="level2">
-<h2 class="anchored" data-anchor-id="configure-boot-from-nvme">5. Configure Boot from NVMe</h2>
-<p>After the copy operation completes, execute:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./setup-service.sh</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>This configures the service required to use the SSD as the system root filesystem.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/terminal.webp" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
+<section id="verify-ros-communication" class="level2">
+<h2 class="anchored" data-anchor-id="verify-ros-communication">Verify ROS Communication</h2>
+<p>After starting <code>roscore</code> on the central device, verify the ROS environment from an edge node.</p>
+<p>Check the master address:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$ROS_MASTER_URI</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Check the local ROS address:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$ROS_IP</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Then test access to the distributed ROS environment:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">rostopic</span> list</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>If the edge device can retrieve the topic list from the central ROS master, basic ROS connectivity is working.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-<p>Restart the Jetson after the configuration is complete.</p>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Network connectivity using <code>ping</code> does not guarantee that ROS is configured correctly.</p>
+<p>Always verify ROS communication independently after confirming IP connectivity.</p>
+</div>
+</div>
 </section>
-<section id="verification" class="level2">
-<h2 class="anchored" data-anchor-id="verification">Verification</h2>
-<p>After rebooting, verify that the system is using the NVMe SSD as the root filesystem.</p>
-<p>A useful command is:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">df</span> <span class="at">-h</span> /</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>You can also inspect available block devices using:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">lsblk</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The root filesystem should correspond to the NVMe storage device.</p>
-<p>The original implementation showed the expanded storage after reboot as illustrated below.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/terminal2.webp" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<section id="why-clock-synchronization-is-required" class="level2">
+<h2 class="anchored" data-anchor-id="why-clock-synchronization-is-required">Why Clock Synchronization Is Required</h2>
+<p>The distributed nodes generate predictions independently.</p>
+<p>Because timestamps originate from different physical devices, their system clocks must be aligned before timing information can be compared reliably.</p>
+<p>Clock synchronization is required for:</p>
+<ul>
+<li>Prediction timestamp comparison</li>
+<li>Distributed message alignment</li>
+<li>Communication latency analysis</li>
+<li>Synchronization measurements</li>
+<li>End-to-end timing evaluation</li>
+</ul>
+<p>The framework uses <strong>Chrony</strong> to maintain a common time reference across the distributed devices.</p>
+</section>
+<section id="chrony-architecture" class="level2">
+<h2 class="anchored" data-anchor-id="chrony-architecture">Chrony Architecture</h2>
+<p>The central Jetson acts as the local time reference for the distributed system.</p>
+<p>Each edge node synchronizes its system clock against the central Jetson using <strong>Chrony</strong>, ensuring that timestamps generated on different devices can be compared consistently during synchronization and latency analysis.</p>
+<p>The role of Chrony in the distributed architecture is illustrated in <a href="#fig-chrony-role" class="quarto-xref">Figure&nbsp;1</a>.</p>
+<div id="fig-chrony-role" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-chrony-role-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="assets/images/network_time_sync/chrony-role-diagram.svg" class="img-fluid quarto-figure quarto-figure-center figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-chrony-role-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Chrony synchronization architecture used by the distributed HAR framework.
+</figcaption>
 </figure>
 </div>
 </section>
-<section id="nvme-device-path" class="level2">
-<h2 class="anchored" data-anchor-id="nvme-device-path">NVMe Device Path</h2>
-<p>The <code>rootOnNVMe</code> scripts assume the SSD partition is located at:</p>
-<pre class="text"><code>/dev/nvme0n1p1</code></pre>
-<p>Before running the scripts, verify the actual device path using:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> fdisk <span class="at">-l</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>or:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">lsblk</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="install-chrony" class="level2">
+<h2 class="anchored" data-anchor-id="install-chrony">Install Chrony</h2>
+<p>Install Chrony on the required devices using:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt update</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install chrony</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The main configuration file is:</p>
+<pre class="text"><code>/etc/chrony/chrony.conf</code></pre>
+</section>
+<section id="configure-the-central-node" class="level2">
+<h2 class="anchored" data-anchor-id="configure-the-central-node">Configure the Central Node</h2>
+<p>The central node must allow the edge devices on the local network to use it as a time source.</p>
+<p>A deployment-specific Chrony configuration may include:</p>
+<pre class="text"><code>allow &lt;LOCAL_SUBNET&gt;
+local stratum 10</code></pre>
+<p>For example, <code>&lt;LOCAL_SUBNET&gt;</code> should correspond to the subnet used by the distributed Jetson network.</p>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -687,56 +730,90 @@ Warning
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>If the SSD partition does not correspond to <code>/dev/nvme0n1p1</code>, the device path used by the <code>rootOnNVMe</code> scripts must be updated before continuing.</p>
-<p>The original procedure identifies the following files as containing the default path:</p>
-<pre class="text"><code>copy-rootfs-ssd.sh
-data/setssdroot.service
-data/setssdroot.sh</code></pre>
+<p>Do not copy a subnet value from another deployment.</p>
+<p>Use the subnet assigned to the local network hosting the HAR system.</p>
 </div>
 </div>
+<p>Restart Chrony after modifying the configuration:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> systemctl restart chrony</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="recovery-behavior" class="level2">
-<h2 class="anchored" data-anchor-id="recovery-behavior">Recovery Behavior</h2>
-<p>The expansion procedure does <strong>not</strong> remove the original root filesystem stored in the internal eMMC.</p>
-<p>This provides a useful recovery mechanism.</p>
-<p>If the SSD is removed, the system can still boot from the original internal storage, assuming the original installation remains intact.</p>
+<section id="configure-the-edge-nodes" class="level2">
+<h2 class="anchored" data-anchor-id="configure-the-edge-nodes">Configure the Edge Nodes</h2>
+<p>Each edge node should use the central Jetson as its time source.</p>
+<p>In <code>/etc/chrony/chrony.conf</code>, configure the central node address as:</p>
+<pre class="text"><code>server &lt;CENTRAL_IP&gt; iburst</code></pre>
+<p>Restart Chrony:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> systemctl restart chrony</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Repeat this configuration on every edge device.</p>
+</section>
+<section id="verify-clock-synchronization" class="level2">
+<h2 class="anchored" data-anchor-id="verify-clock-synchronization">Verify Clock Synchronization</h2>
+<p>Check the current synchronization status using:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">chronyc</span> tracking</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Inspect the available time sources using:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ex">chronyc</span> sources <span class="at">-v</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The central Jetson should appear as the synchronization source on each edge device.</p>
+<p>A healthy Chrony configuration should indicate that the device is synchronized and that the central node is being used as the active time source.</p>
+</section>
+<section id="recommended-verification-order" class="level2">
+<h2 class="anchored" data-anchor-id="recommended-verification-order">Recommended Verification Order</h2>
+<p>Verify the distributed infrastructure in this order:</p>
+<ol type="1">
+<li>Confirm that every device has a valid local IP address.</li>
+<li>Verify bidirectional connectivity using <code>ping</code>.</li>
+<li>Confirm <code>ROS_MASTER_URI</code> and <code>ROS_IP</code>.</li>
+<li>Start the ROS master on the central node.</li>
+<li>Verify ROS access from each edge node.</li>
+<li>Verify Chrony connectivity.</li>
+<li>Confirm clock synchronization using <code>chronyc tracking</code>.</li>
+<li>Confirm the active time source using <code>chronyc sources -v</code>.</li>
+</ol>
+<p>Only after network communication and clock synchronization are working should the distributed HAR components be started.</p>
 </section>
 <section id="troubleshooting" class="level2">
 <h2 class="anchored" data-anchor-id="troubleshooting">Troubleshooting</h2>
-<section id="ssd-is-not-detected" class="level3">
-<h3 class="anchored" data-anchor-id="ssd-is-not-detected">SSD Is Not Detected</h3>
+<section id="edge-node-cannot-reach-the-ros-master" class="level3">
+<h3 class="anchored" data-anchor-id="edge-node-cannot-reach-the-ros-master">Edge Node Cannot Reach the ROS Master</h3>
+<p>Verify:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ping</span> <span class="op">&lt;</span>CENTRAL_IP<span class="op">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>and:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$ROS_MASTER_URI</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$ROS_IP</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Confirm that <code>roscore</code> is running on the central node.</p>
+</section>
+<section id="ros-works-locally-but-not-across-devices" class="level3">
+<h3 class="anchored" data-anchor-id="ros-works-locally-but-not-across-devices">ROS Works Locally but Not Across Devices</h3>
+<p>Check that:</p>
+<ul>
+<li>The devices are on the same reachable network</li>
+<li><code>ROS_MASTER_URI</code> points to the central node</li>
+<li><code>ROS_IP</code> corresponds to the current device</li>
+<li>The relevant ports are not blocked</li>
+<li>The Docker network configuration allows communication with the host network</li>
+</ul>
+</section>
+<section id="chrony-does-not-synchronize" class="level3">
+<h3 class="anchored" data-anchor-id="chrony-does-not-synchronize">Chrony Does Not Synchronize</h3>
+<p>Check:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="ex">chronyc</span> sources <span class="at">-v</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>and:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="ex">chronyc</span> tracking</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Verify that:</p>
 <ul>
-<li>The SSD is correctly installed</li>
-<li>The carrier board supports the installed NVMe device</li>
-<li>The SSD is visible using <code>lsblk</code> or <code>sudo fdisk -l</code></li>
-<li>The M.2 slot supports NVMe storage</li>
+<li>The central node is reachable;</li>
+<li>The edge node uses the correct central IP;</li>
+<li>The central Chrony configuration allows clients from the local subnet; and</li>
+<li>The Chrony service is running.</li>
 </ul>
-</section>
-<section id="system-does-not-boot-from-the-ssd" class="level3">
-<h3 class="anchored" data-anchor-id="system-does-not-boot-from-the-ssd">System Does Not Boot from the SSD</h3>
-<p>Check:</p>
-<ul>
-<li>That the root filesystem copy completed successfully</li>
-<li>That <code>setup-service.sh</code> executed without errors</li>
-<li>That the correct NVMe partition path is configured</li>
-<li>That the SSD contains a valid Ext4 filesystem</li>
-</ul>
-</section>
-<section id="incorrect-nvme-device-path" class="level3">
-<h3 class="anchored" data-anchor-id="incorrect-nvme-device-path">Incorrect NVMe Device Path</h3>
-<p>Use:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">lsblk</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>to determine the actual SSD partition.</p>
-<p>Update the <code>rootOnNVMe</code> configuration if the partition differs from:</p>
-<pre class="text"><code>/dev/nvme0n1p1</code></pre>
+<p>Check the service using:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> systemctl status chrony</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 </section>
 <section id="next-step" class="level2">
 <h2 class="anchored" data-anchor-id="next-step">Next Step</h2>
-<p>Once the Jetson hardware and storage are ready, continue with:</p>
-<p><a href="./software-environment.html"><strong>Software Environment</strong></a></p>
-<p>If no storage expansion was required, this page can be skipped entirely.</p>
+<p>Once network communication and clock synchronization are working correctly, continue with:</p>
+<p><a href="./wearable-sensors.html"><strong>Wearable Sensor Setup</strong></a></p>
+<p>This prepares the MetaMotionRL devices and verifies communication between each wearable sensor and its corresponding edge computing node.</p>
 
 
 </section>
@@ -1163,7 +1240,7 @@ data/setssdroot.sh</code></pre>
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/blob/main/expansion-jetson-board.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/blob/main/network-time-sync.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <div style="text-align: right;">
 <p>Technical Documentation &amp; Reproducibility Resources<br> <small>Author: Jhonathan Rivas-Caicedo</small></p>

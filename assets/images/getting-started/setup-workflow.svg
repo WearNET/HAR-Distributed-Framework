@@ -1,0 +1,472 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="1442"
+   height="1484"
+   viewBox="0 0 1442 1484"
+   version="1.1"
+   id="svg8"
+   sodipodi:docname="setup-workflow.svg"
+   inkscape:version="1.4 (86a8ad7, 2024-10-11)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview8"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="0.35355339"
+     inkscape:cx="633.56767"
+     inkscape:cy="1107.3292"
+     inkscape:window-width="2880"
+     inkscape:window-height="1514"
+     inkscape:window-x="2870"
+     inkscape:window-y="9"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg8" />
+  <defs
+     id="defs1">
+    <marker
+       style="overflow:visible"
+       id="Triangle"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Triangle arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135" />
+    </marker>
+    <style
+       id="style1">
+      .title { font: 700 72px Arial, Helvetica, sans-serif; fill: #0f2f73; }
+      .label { font: 700 36px Arial, Helvetica, sans-serif; fill: #1d3357; }
+      .box { fill: #ffffff; stroke: #2563eb; stroke-width: 4; }
+      .arrow { stroke: #2563eb; stroke-width: 6; fill: none; }
+    </style>
+    <marker
+       id="arrowhead"
+       markerWidth="8"
+       markerHeight="8"
+       refX="10"
+       refY="6"
+       orient="auto"
+       markerUnits="strokeWidth">
+      <path
+         d="M 0,0 12,6 0,12 Z"
+         fill="#2563eb"
+         id="path1" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Triangle-2"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Triangle arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135-45" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Triangle-7"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Triangle arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135-1" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Triangle-27"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Triangle arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135-6" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Triangle-3"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Triangle arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135-2" />
+    </marker>
+    <marker
+       id="arrowhead2"
+       markerWidth="12"
+       markerHeight="12"
+       refX="10"
+       refY="6"
+       orient="auto">
+      <path
+         d="M 0,0 12,6 0,12 Z"
+         fill="#6b8fd6"
+         id="path2" />
+    </marker>
+    <marker
+       id="marker1"
+       markerWidth="12"
+       markerHeight="12"
+       refX="10"
+       refY="6"
+       orient="auto">
+      <path
+         d="M 0,0 12,6 0,12 Z"
+         fill="#6b8fd6"
+         id="path1-9" />
+    </marker>
+    <marker
+       id="marker3"
+       markerWidth="12"
+       markerHeight="12"
+       refX="10"
+       refY="6"
+       orient="auto">
+      <path
+         d="M 0,0 12,6 0,12 Z"
+         fill="#6b8fd6"
+         id="path3" />
+    </marker>
+    <marker
+       id="arrowhead-4"
+       markerWidth="12"
+       markerHeight="12"
+       refX="10"
+       refY="6"
+       orient="auto">
+      <path
+         d="M 0,0 12,6 0,12 Z"
+         fill="#2563eb"
+         id="path4" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Triangle-2-1"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Triangle arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135-45-4" />
+    </marker>
+  </defs>
+  <!-- Boxes -->
+  <rect
+     x="627.16888"
+     y="565.89417"
+     width="646.45325"
+     height="115.04918"
+     rx="16.161331"
+     class="box"
+     id="rect4" />
+  <text
+     x="950"
+     y="639"
+     text-anchor="middle"
+     class="label"
+     id="text4"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:36px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Software Environment</text>
+  <rect
+     x="627.16888"
+     y="775.98395"
+     width="646.45325"
+     height="115.04918"
+     rx="16.161331"
+     class="box"
+     id="rect5" />
+  <text
+     x="950"
+     y="849"
+     text-anchor="middle"
+     class="label"
+     id="text5"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:36px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Network &amp; Time Synchronization</text>
+  <rect
+     x="627.16888"
+     y="986.07379"
+     width="646.45325"
+     height="115.04918"
+     rx="16.161331"
+     class="box"
+     id="rect6" />
+  <text
+     x="950"
+     y="1059"
+     text-anchor="middle"
+     class="label"
+     id="text6"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:36px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Wearable Sensor Setup</text>
+  <rect
+     x="627.16888"
+     y="1196.1636"
+     width="646.45325"
+     height="115.04918"
+     rx="16.161331"
+     class="box"
+     id="rect7" />
+  <text
+     x="950"
+     y="1269"
+     text-anchor="middle"
+     class="label"
+     id="text7"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:36px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Framework Deployment</text>
+  <rect
+     x="627.16888"
+     y="1406.2534"
+     width="646.45325"
+     height="75.032074"
+     rx="16.161331"
+     class="box"
+     id="rect8" />
+  <text
+     x="950"
+     y="1455"
+     text-anchor="middle"
+     class="label"
+     id="text8"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:36px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Run the Framework</text>
+  <line
+     x1="950.39551"
+     y1="682.60638"
+     x2="950.39551"
+     y2="754.3147"
+     class="arrow"
+     marker-end="url(#arrowhead)"
+     id="line2-5"
+     style="fill:none;stroke:#2563eb;stroke-width:5.68056;stroke-miterlimit:4;stroke-dasharray:none;marker-end:url(#Triangle-2)" />
+  <line
+     x1="950.39551"
+     y1="892.53955"
+     x2="950.39551"
+     y2="964.24786"
+     class="arrow"
+     marker-end="url(#arrowhead)"
+     id="line2-1"
+     style="fill:none;stroke:#2563eb;stroke-width:5.68056;stroke-miterlimit:4;stroke-dasharray:none;marker-end:url(#Triangle-7)" />
+  <line
+     x1="950.39551"
+     y1="1102.4728"
+     x2="950.39551"
+     y2="1174.1812"
+     class="arrow"
+     marker-end="url(#arrowhead)"
+     id="line2-14"
+     style="fill:none;stroke:#2563eb;stroke-width:5.68056;stroke-miterlimit:4;stroke-dasharray:none;marker-end:url(#Triangle-27)" />
+  <line
+     x1="950.39551"
+     y1="1312.406"
+     x2="950.39551"
+     y2="1384.1143"
+     class="arrow"
+     marker-end="url(#arrowhead)"
+     id="line2-2"
+     style="fill:none;stroke:#2563eb;stroke-width:5.68056;stroke-miterlimit:4;stroke-dasharray:none;marker-end:url(#Triangle-3)" />
+  <path
+     d="M 672.47435,317.88886 H 259.92203 v 135.47976"
+     class="branch"
+     marker-end="url(#arrowhead2)"
+     id="path6"
+     style="fill:none;stroke:#6b8fd6;stroke-width:5;stroke-dasharray:none;marker-end:url(#Triangle)" />
+  <g
+     id="g1"
+     transform="translate(966.98791,142)">
+    <polygon
+       points="980,420 700,525 420,420 700,315 "
+       class="decision"
+       id="polygon3"
+       style="fill:#eef5ff;stroke:#2563eb;stroke-width:4"
+       transform="translate(-716.59241,-244.0066)" />
+    <text
+       x="-16.592482"
+       y="165.99341"
+       text-anchor="middle"
+       class="label"
+       id="text4-8"
+       style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:36px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#1d3357">Is the Jetson ready?</text>
+    <text
+       x="-16.592482"
+       y="202.99339"
+       text-anchor="middle"
+       class="small"
+       id="text5-8"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:24px;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#42526e">Compatible OS and sufficient storage</text>
+  </g>
+  <text
+     x="1330.4075"
+     y="289.99341"
+     text-anchor="middle"
+     class="small"
+     id="text6-2"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:24px;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#42526e">Yes</text>
+  <text
+     x="552.40747"
+     y="289.99341"
+     text-anchor="middle"
+     class="small"
+     id="text7-4"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:24px;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#42526e">No</text>
+  <rect
+     x="2.5681763"
+     y="473.15302"
+     width="519.67853"
+     height="357.66354"
+     rx="25.983925"
+     class="optbox"
+     id="rect7-5"
+     style="fill:#f8fbff;stroke:#6b8fd6;stroke-width:3.82041;stroke-dasharray:10.9155, 8.73238" />
+  <text
+     x="262.40747"
+     y="522.99341"
+     text-anchor="middle"
+     class="label"
+     id="text8-5"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:36px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#1d3357">Optional Jetson Preparation</text>
+  <text
+     x="262.40747"
+     y="557.99341"
+     text-anchor="middle"
+     class="note"
+     id="text9"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:24px;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#6b7280">Only if required</text>
+  <rect
+     x="52.40741"
+     y="597.99341"
+     width="420"
+     height="75"
+     rx="18"
+     class="box"
+     id="rect9"
+     style="fill:#ffffff;stroke:#2563eb;stroke-width:4" />
+  <text
+     x="262.40747"
+     y="645.99341"
+     text-anchor="middle"
+     class="small"
+     id="text10"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:24px;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#42526e">Flash OS / JetPack if needed</text>
+  <line
+     x1="262.40747"
+     y1="672.99341"
+     x2="262.40747"
+     y2="712.99341"
+     class="branch"
+     marker-end="url(#arrowhead2)"
+     id="line10"
+     style="fill:none;stroke:#6b8fd6;stroke-width:5;marker-end:url(#Triangle)" />
+  <rect
+     x="52.40741"
+     y="732.79297"
+     width="420"
+     height="75"
+     rx="18"
+     class="box"
+     id="rect10"
+     style="fill:#ffffff;stroke:#2563eb;stroke-width:4" />
+  <text
+     x="262.40747"
+     y="780.79297"
+     text-anchor="middle"
+     class="small"
+     id="text11"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:24px;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#42526e">Expand storage if needed</text>
+  <path
+     d="m 522.40754,623.41875 h 85"
+     class="branch"
+     marker-end="url(#arrowhead2)"
+     id="path11"
+     style="fill:none;stroke:#6b8fd6;stroke-width:5;marker-end:url(#Triangle)" />
+  <path
+     style="fill:none;stroke:#2563eb;stroke-width:5;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Triangle)"
+     d="M 1227.5156,317.71603 H 1438.587 V 624.77715 H 1294"
+     id="path5" />
+  <rect
+     x="626"
+     y="2.1000137"
+     width="646.45325"
+     height="115.04918"
+     rx="16.161331"
+     class="box"
+     id="rect4-3"
+     style="fill:#ffffff;stroke:#2563eb;stroke-width:4" />
+  <text
+     x="948.83112"
+     y="75.205833"
+     text-anchor="middle"
+     class="label"
+     id="text4-2"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:36px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#1d3357">Verify Jetson Devices</text>
+  <line
+     x1="950.39551"
+     y1="119.01199"
+     x2="950.39551"
+     y2="190.72031"
+     class="arrow"
+     marker-end="url(#arrowhead)"
+     id="line2-5-2"
+     style="fill:none;stroke:#2563eb;stroke-width:5.68056;stroke-miterlimit:4;stroke-dasharray:none;marker-end:url(#Triangle-2-1)" />
+</svg>

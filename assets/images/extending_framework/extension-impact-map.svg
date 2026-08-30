@@ -1,0 +1,509 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="1600"
+   height="1000"
+   viewBox="0 0 1600 1000"
+   version="1.1"
+   id="svg39"
+   sodipodi:docname="extension-impact-map.svg"
+   inkscape:version="1.4 (86a8ad7, 2024-10-11)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview39"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="0.57063517"
+     inkscape:cx="847.30143"
+     inkscape:cy="647.52405"
+     inkscape:window-width="1920"
+     inkscape:window-height="1009"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg39" />
+  <defs
+     id="defs1">
+    <marker
+       style="overflow:visible"
+       id="Triangle"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Triangle arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135" />
+    </marker>
+    <style
+       id="style1">
+      .title { font: 700 54px Arial, Helvetica, sans-serif; fill: #0f2f73; }
+      .subtitle { font: 400 24px Arial, Helvetica, sans-serif; fill: #52627d; }
+      .head { font: 700 25px Arial, Helvetica, sans-serif; fill: #17325c; }
+      .body { font: 400 20px Arial, Helvetica, sans-serif; fill: #475569; }
+      .small { font: 600 18px Arial, Helvetica, sans-serif; fill: #17325c; }
+      .change { fill: #eef4ff; stroke: #2563eb; stroke-width: 3.5; }
+      .edge { fill: #eefaf4; stroke: #1f8a5b; stroke-width: 3.5; }
+      .central { fill: #fff7ed; stroke: #ea7b2c; stroke-width: 3.5; }
+      .comm { fill: #f5f3ff; stroke: #7c3aed; stroke-width: 3.5; }
+      .out { fill: #f8fafc; stroke: #64748b; stroke-width: 3.5; }
+      .line { stroke: #64748b; stroke-width: 4; fill: none; }
+      .hint { fill: #f8fafc; stroke: #dbe3ef; stroke-width: 2; }
+    </style>
+    <marker
+       id="arrow"
+       markerWidth="12"
+       markerHeight="12"
+       refX="10"
+       refY="6"
+       orient="auto">
+      <path
+         d="M 0,0 12,6 0,12 Z"
+         fill="#64748b"
+         id="path1" />
+    </marker>
+    <filter
+       id="shadow"
+       x="-0.0072916667"
+       y="-0.016666667"
+       width="1.0145833"
+       height="1.0333333">
+      <feDropShadow
+         dx="0"
+         dy="4"
+         stdDeviation="5"
+         flood-color="#000000"
+         flood-opacity="0.09" />
+    </filter>
+  </defs>
+  <text
+     x="800"
+     y="78"
+     text-anchor="middle"
+     class="title"
+     id="text1"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:54px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Framework Extension Impact Map</text>
+  <text
+     x="800"
+     y="118"
+     text-anchor="middle"
+     class="subtitle"
+     id="text2"
+     style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:24px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Where a modification propagates through the distributed HAR implementation</text>
+  <!-- left changes -->
+  <rect
+     x="80"
+     y="185"
+     width="360"
+     height="105"
+     rx="22"
+     class="change"
+     filter="url(#shadow)"
+     id="rect2" />
+  <text
+     x="260"
+     y="228"
+     text-anchor="middle"
+     class="head"
+     id="text3"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:25px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Add / Replace Sensor</text>
+  <text
+     x="260"
+     y="260"
+     text-anchor="middle"
+     class="body"
+     id="text4"
+     style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:20px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">New body location or sensing source</text>
+  <rect
+     x="80"
+     y="335"
+     width="360"
+     height="105"
+     rx="22"
+     class="change"
+     filter="url(#shadow)"
+     id="rect4" />
+  <text
+     x="260"
+     y="378"
+     text-anchor="middle"
+     class="head"
+     id="text5"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:25px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Change Local Model</text>
+  <text
+     x="260"
+     y="410"
+     text-anchor="middle"
+     class="body"
+     id="text6"
+     style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:20px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Architecture, modality, scaler, window</text>
+  <rect
+     x="80"
+     y="485"
+     width="360"
+     height="105"
+     rx="22"
+     class="change"
+     filter="url(#shadow)"
+     id="rect6" />
+  <text
+     x="260"
+     y="517.98315"
+     text-anchor="middle"
+     class="head"
+     id="text7"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:25px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Add Activity Class</text>
+  <text
+     x="260"
+     y="549.98315"
+     text-anchor="middle"
+     class="body"
+     id="text8"
+     style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:20px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"><tspan
+       sodipodi:role="line"
+       id="tspan39"
+       x="260"
+       y="549.98315">Change K and retrain</tspan><tspan
+       sodipodi:role="line"
+       id="tspan40"
+       x="260"
+       y="574.98315">local + fusion models</tspan></text>
+  <rect
+     x="80"
+     y="635"
+     width="360"
+     height="105"
+     rx="22"
+     class="change"
+     filter="url(#shadow)"
+     id="rect8" />
+  <text
+     x="260"
+     y="678"
+     text-anchor="middle"
+     class="head"
+     id="text9"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:25px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Change Fusion Strategy</text>
+  <text
+     x="260"
+     y="710"
+     text-anchor="middle"
+     class="body"
+     id="text10"
+     style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:20px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">New central model or input organization</text>
+  <rect
+     x="80"
+     y="785"
+     width="360"
+     height="105"
+     rx="22"
+     class="change"
+     filter="url(#shadow)"
+     id="rect10" />
+  <text
+     x="260"
+     y="828"
+     text-anchor="middle"
+     class="head"
+     id="text11"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:25px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Add Runtime Metric / App</text>
+  <text
+     x="260"
+     y="860"
+     text-anchor="middle"
+     class="body"
+     id="text12"
+     style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:20px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Logging, visualization, monitoring</text>
+  <!-- pipeline columns -->
+  <rect
+     x="590"
+     y="205"
+     width="240"
+     height="145"
+     rx="24"
+     class="edge"
+     filter="url(#shadow)"
+     id="rect12"
+     transform="matrix(0.95469401,0,0,1.0005467,37.643606,-0.15170598)" />
+  <text
+     x="715.1712"
+     y="255"
+     text-anchor="middle"
+     class="head"
+     id="text13"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:25px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Edge Nodes</text>
+  <text
+     x="716.1795"
+     y="292"
+     text-anchor="middle"
+     class="body"
+     id="text14"
+     style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:20px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Acquisition</text>
+  <text
+     x="714.9588"
+     y="320"
+     text-anchor="middle"
+     class="body"
+     id="text15"
+     style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:20px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Input + Local Inference</text>
+  <rect
+     x="960"
+     y="205"
+     width="240"
+     height="145"
+     rx="24"
+     class="comm"
+     filter="url(#shadow)"
+     id="rect15"
+     transform="matrix(0.93592263,0,0,1.000777,67.654617,-0.2155987)" />
+  <text
+     x="1078.7013"
+     y="255"
+     text-anchor="middle"
+     class="head"
+     id="text16"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:25px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Communication</text>
+  <text
+     x="1078.6024"
+     y="292"
+     text-anchor="middle"
+     class="body"
+     id="text17"
+     style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:20px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Topics + Probs</text>
+  <text
+     x="1079.1346"
+     y="320"
+     text-anchor="middle"
+     class="body"
+     id="text18"
+     style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:20px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">ATS / ZOH / Timing</text>
+  <rect
+     x="590"
+     y="485"
+     width="240"
+     height="145"
+     rx="24"
+     class="central"
+     filter="url(#shadow)"
+     id="rect18"
+     transform="matrix(0.9618866,0,0,0.95444744,31.707356,28.803207)" />
+  <text
+     x="714.55377"
+     y="535"
+     text-anchor="middle"
+     class="head"
+     id="text19"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:25px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Central Node</text>
+  <text
+     x="714.06091"
+     y="572"
+     text-anchor="middle"
+     class="body"
+     id="text20"
+     style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:20px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Sensor order</text>
+  <text
+     x="714.52966"
+     y="600"
+     text-anchor="middle"
+     class="body"
+     id="text21"
+     style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:20px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Fusion model</text>
+  <rect
+     x="960"
+     y="485"
+     width="240"
+     height="145"
+     rx="24"
+     class="out"
+     filter="url(#shadow)"
+     id="rect21"
+     transform="matrix(0.97180725,0,0,1.0003387,33.855851,-0.18880351)" />
+  <text
+     x="1083.4688"
+     y="535"
+     text-anchor="middle"
+     class="head"
+     id="text22"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:25px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Outputs</text>
+  <text
+     x="1083.0024"
+     y="572"
+     text-anchor="middle"
+     class="body"
+     id="text23"
+     style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:20px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Experiment logs</text>
+  <text
+     x="1083.0073"
+     y="600"
+     text-anchor="middle"
+     class="body"
+     id="text24"
+     style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:20px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">UI / Applications</text>
+  <!-- core pipeline arrows -->
+  <line
+     x1="830"
+     y1="278"
+     x2="950"
+     y2="278"
+     class="line"
+     marker-end="url(#arrow)"
+     id="line24"
+     style="marker-end:url(#Triangle)" />
+  <path
+     d="m 1080,350 v 65 H 710 v 60"
+     class="line"
+     marker-end="url(#arrow)"
+     id="path24"
+     style="marker-end:url(#Triangle)" />
+  <line
+     x1="830"
+     y1="557"
+     x2="950"
+     y2="557"
+     class="line"
+     marker-end="url(#arrow)"
+     id="line25"
+     style="marker-end:url(#Triangle)" />
+  <!-- modification arrows to affected stages -->
+  <path
+     d="m 439.88017,238.10729 c 66.95017,0 82.40021,21.8848 144.20037,31.83243"
+     class="line"
+     marker-end="url(#arrow)"
+     id="path25"
+     style="marker-end:url(#Triangle)" />
+  <path
+     d="m 440,388 c 65,0 85,-68 145,-88"
+     class="line"
+     marker-end="url(#arrow)"
+     id="path26"
+     style="marker-end:url(#Triangle)" />
+  <path
+     d="m 439.92189,537.96117 c 76.59399,0 81.70026,-27.8102 142.97545,-2.97966"
+     class="line"
+     marker-end="url(#arrow)"
+     id="path27"
+     style="marker-end:url(#Triangle)" />
+  <path
+     d="m 440,688 c 75,0 90,-78 145,-108"
+     class="line"
+     marker-end="url(#arrow)"
+     id="path28"
+     style="marker-end:url(#Triangle)" />
+  <path
+     d="m 440.00018,837.99058 c 251.18472,0 381.80078,-188.9025 512.41684,-249.19053"
+     class="line"
+     marker-end="url(#arrow)"
+     id="path29"
+     style="marker-end:url(#Triangle)" />
+  <!-- dependency note -->
+  <rect
+     x="1270"
+     y="245"
+     width="260"
+     height="425"
+     rx="24"
+     class="hint"
+     id="rect29" />
+  <text
+     x="1400"
+     y="292"
+     text-anchor="middle"
+     class="head"
+     id="text29"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:25px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Key Rule</text>
+  <text
+     x="1400"
+     y="340"
+     text-anchor="middle"
+     class="body"
+     id="text30"
+     style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:20px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">A change is complete only</text>
+  <text
+     x="1400"
+     y="370"
+     text-anchor="middle"
+     class="body"
+     id="text31"
+     style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:20px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">when every dependent layer</text>
+  <text
+     x="1400"
+     y="400"
+     text-anchor="middle"
+     class="body"
+     id="text32"
+     style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:20px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">remains dimensionally and</text>
+  <text
+     x="1400"
+     y="430"
+     text-anchor="middle"
+     class="body"
+     id="text33"
+     style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:20px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">semantically consistent.</text>
+  <text
+     x="1400"
+     y="492"
+     text-anchor="middle"
+     class="small"
+     id="text34"
+     style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:18px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Examples</text>
+  <text
+     x="1400"
+     y="532"
+     text-anchor="middle"
+     class="body"
+     id="text35"
+     style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:20px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Sensor count</text>
+  <text
+     x="1400"
+     y="562"
+     text-anchor="middle"
+     class="body"
+     id="text36"
+     style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:20px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Class order</text>
+  <text
+     x="1400"
+     y="592"
+     text-anchor="middle"
+     class="body"
+     id="text37"
+     style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:20px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Topic mapping</text>
+  <text
+     x="1400"
+     y="622"
+     text-anchor="middle"
+     class="body"
+     id="text38"
+     style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:20px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Model dimensions</text>
+  <rect
+     x="473.10907"
+     y="900.06696"
+     width="901.3902"
+     height="57.866116"
+     rx="20.538008"
+     fill="#eef4ff"
+     stroke="#c7d6f4"
+     stroke-width="2.13389"
+     id="rect38" />
+  <text
+     x="930"
+     y="937"
+     text-anchor="middle"
+     class="body"
+     id="text39"
+     style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:20px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Validate each modified component independently before running the complete distributed system.</text>
+</svg>

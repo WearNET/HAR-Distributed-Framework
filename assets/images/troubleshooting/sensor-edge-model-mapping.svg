@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="800"
+   height="980"
+   viewBox="0 0 800 980"
+   version="1.1"
+   id="svg11"
+   sodipodi:docname="sensor-edge-model-mapping.svg"
+   inkscape:version="1.4 (86a8ad7, 2024-10-11)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview11"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="0.82346939"
+     inkscape:cx="338.20322"
+     inkscape:cy="493.64312"
+     inkscape:window-width="1920"
+     inkscape:window-height="1009"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg11" />
+  <defs
+     id="defs2">
+    <marker
+       style="overflow:visible"
+       id="Triangle"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Triangle arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135" />
+    </marker>
+    <marker
+       id="arrowDown"
+       markerWidth="12"
+       markerHeight="12"
+       refX="10"
+       refY="6"
+       orient="auto">
+      <path
+         d="M 0,0 12,6 0,12 Z"
+         fill="#48657d"
+         id="path1" />
+    </marker>
+    <marker
+       id="arrowUp"
+       markerWidth="12"
+       markerHeight="12"
+       refX="2"
+       refY="6"
+       orient="auto">
+      <path
+         d="M 12,0 0,6 12,12 Z"
+         fill="#48657d"
+         id="path2" />
+    </marker>
+    <filter
+       id="shadow"
+       x="-0.0023076923"
+       y="-0.01875"
+       width="1.0046154"
+       height="1.0375">
+      <feDropShadow
+         dx="0"
+         dy="4"
+         stdDeviation="5"
+         flood-color="#000000"
+         flood-opacity="0.10" />
+    </filter>
+  </defs>
+  <text
+     x="392"
+     y="50"
+     text-anchor="middle"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="34"
+     font-weight="700"
+     fill="#17324d"
+     id="text2"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:34px;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-anchor:middle;fill:#17324d">Sensor-to-Model Assignment Chain</text>
+  <text
+     x="392"
+     y="88"
+     text-anchor="middle"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="18"
+     fill="#617487"
+     id="text3"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18px;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-anchor:middle;fill:#617487">Each edge role should preserve a consistent physical and software mapping</text>
+  <!-- Box 1 -->
+  <g
+     filter="url(#shadow)"
+     id="g3"
+     transform="translate(-208,-14)">
+    <rect
+       x="275"
+       y="145"
+       rx="24"
+       width="650"
+       height="105"
+       fill="#f8fafc"
+       stroke="#315c7d"
+       stroke-width="2.5"
+       id="rect3" />
+  </g>
+  <text
+     x="392"
+     y="193"
+     text-anchor="middle"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="28"
+     font-weight="700"
+     fill="#17324d"
+     id="text4"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:28px;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Body Location</text>
+  <!-- bi arrow 1 -->
+  <line
+     x1="367"
+     y1="236"
+     x2="367"
+     y2="309"
+     stroke="#48657d"
+     stroke-width="3.5"
+     marker-end="url(#arrowDown)"
+     id="line4"
+     style="marker-end:url(#Triangle)" />
+  <line
+     x1="417"
+     y1="321"
+     x2="417"
+     y2="248"
+     stroke="#48657d"
+     stroke-width="3.5"
+     marker-end="url(#arrowUp)"
+     id="line5"
+     style="marker-end:url(#Triangle)" />
+  <!-- Box 2 -->
+  <g
+     filter="url(#shadow)"
+     id="g5"
+     transform="translate(-208,-14)">
+    <rect
+       x="275"
+       y="335"
+       rx="24"
+       width="650"
+       height="105"
+       fill="#eef5fb"
+       stroke="#17324d"
+       stroke-width="3"
+       id="rect5" />
+  </g>
+  <text
+     x="392"
+     y="383"
+     text-anchor="middle"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="28"
+     font-weight="700"
+     fill="#17324d"
+     id="text5"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:28px;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">MetaMotionRL Sensor</text>
+  <!-- bi arrow 2 -->
+  <line
+     x1="367"
+     y1="426"
+     x2="367"
+     y2="499"
+     stroke="#48657d"
+     stroke-width="3.5"
+     marker-end="url(#arrowDown)"
+     id="line6"
+     style="marker-end:url(#Triangle)" />
+  <line
+     x1="417"
+     y1="511"
+     x2="417"
+     y2="438"
+     stroke="#48657d"
+     stroke-width="3.5"
+     marker-end="url(#arrowUp)"
+     id="line7"
+     style="marker-end:url(#Triangle)" />
+  <!-- Box 3 -->
+  <g
+     filter="url(#shadow)"
+     id="g7"
+     transform="translate(-208,-14)">
+    <rect
+       x="275"
+       y="525"
+       rx="24"
+       width="650"
+       height="105"
+       fill="#f8fafc"
+       stroke="#315c7d"
+       stroke-width="2.5"
+       id="rect7" />
+  </g>
+  <text
+     x="392"
+     y="573"
+     text-anchor="middle"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="28"
+     font-weight="700"
+     fill="#17324d"
+     id="text7"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:28px;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">MAC Address</text>
+  <!-- bi arrow 3 -->
+  <line
+     x1="367"
+     y1="616"
+     x2="367"
+     y2="689"
+     stroke="#48657d"
+     stroke-width="3.5"
+     marker-end="url(#arrowDown)"
+     id="line8"
+     style="marker-end:url(#Triangle)" />
+  <line
+     x1="417"
+     y1="701"
+     x2="417"
+     y2="628"
+     stroke="#48657d"
+     stroke-width="3.5"
+     marker-end="url(#arrowUp)"
+     id="line9"
+     style="marker-end:url(#Triangle)" />
+  <!-- Box 4 -->
+  <g
+     filter="url(#shadow)"
+     id="g9"
+     transform="translate(-208,-14)">
+    <rect
+       x="275"
+       y="715"
+       rx="24"
+       width="650"
+       height="105"
+       fill="#eef5fb"
+       stroke="#17324d"
+       stroke-width="3"
+       id="rect9" />
+  </g>
+  <text
+     x="392"
+     y="763"
+     text-anchor="middle"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="28"
+     font-weight="700"
+     fill="#17324d"
+     id="text9"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:28px;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Edge Node</text>
+  <!-- bi arrow 4 -->
+  <line
+     x1="367"
+     y1="806"
+     x2="367"
+     y2="859"
+     stroke="#48657d"
+     stroke-width="3.5"
+     marker-end="url(#arrowDown)"
+     id="line10"
+     style="marker-end:url(#Triangle)" />
+  <line
+     x1="417"
+     y1="871"
+     x2="417"
+     y2="818"
+     stroke="#48657d"
+     stroke-width="3.5"
+     marker-end="url(#arrowUp)"
+     id="line11"
+     style="marker-end:url(#Triangle)" />
+  <!-- Box 5 -->
+  <g
+     filter="url(#shadow)"
+     id="g11"
+     transform="translate(-208,-14)">
+    <rect
+       x="275"
+       y="885"
+       rx="24"
+       width="650"
+       height="80"
+       fill="#dfeaf4"
+       stroke="#17324d"
+       stroke-width="3"
+       id="rect11" />
+  </g>
+  <text
+     x="392"
+     y="921"
+     text-anchor="middle"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="28"
+     font-weight="700"
+     fill="#17324d"
+     id="text11"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:28px;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Local Model</text>
+</svg>

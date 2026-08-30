@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>flash-jetson-board – HAR Distributed Framework</title>
+<title>Flashing Jetson Boards – HAR Distributed Framework</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -301,6 +301,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
+    <a class="nav-link" href="./getting-started.html"> 
+<span class="menu-text">Getting Started</span></a>
+  </li>  
+  <li class="nav-item">
     <a class="nav-link" href="./system-overview.html"> 
 <span class="menu-text">System Overview</span></a>
   </li>  
@@ -323,7 +327,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./flash-jetson-board.html">Flashing Jetson Boards</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./flash-jetson-board.html">Setup</a></li><li class="breadcrumb-item"><a href="./flash-jetson-board.html">Flash Jetson Boards</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -351,14 +355,114 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./expansion-jetson-board.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Expansion on Jetson Boards</span></a>
+  <a href="./getting-started.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Getting Started</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./system-overview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">System Overview</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Setup</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./flash-jetson-board.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Flashing Jetson Boards</span></a>
+ <span class="menu-text">Flash Jetson Boards</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./expansion-jetson-board.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Storage Expansion</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./software-environment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Software Environment</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./network-time-sync.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Network &amp; Time Synchronization</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./wearable-sensors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Wearable Sensor Setup</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Framework</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./edge-nodes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Edge Nodes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./central-node.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Central Node</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./communication-sync.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Communication &amp; Synchronization</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./models-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Models &amp; Data</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./running-framework.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Running the Framework</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./experiments-logs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Experiments &amp; Logs</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./extending-framework.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Extending the Framework</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./troubleshooting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Troubleshooting</span></a>
   </div>
 </li>
     </ul>
@@ -371,146 +475,273 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#flashing-jetpack-os-via-command-line" id="toc-flashing-jetpack-os-via-command-line" class="nav-link active" data-scroll-target="#flashing-jetpack-os-via-command-line">Flashing JetPack OS via Command Line</a>
+  <li><a href="#when-is-flashing-required" id="toc-when-is-flashing-required" class="nav-link active" data-scroll-target="#when-is-flashing-required">When Is Flashing Required?</a></li>
+  <li><a href="#requirements" id="toc-requirements" class="nav-link" data-scroll-target="#requirements">Requirements</a></li>
+  <li><a href="#download-the-nvidia-jetson-linux-files" id="toc-download-the-nvidia-jetson-linux-files" class="nav-link" data-scroll-target="#download-the-nvidia-jetson-linux-files">1. Download the NVIDIA Jetson Linux Files</a></li>
+  <li><a href="#prepare-the-flashing-directory" id="toc-prepare-the-flashing-directory" class="nav-link" data-scroll-target="#prepare-the-flashing-directory">2. Prepare the Flashing Directory</a></li>
+  <li><a href="#extract-the-bsp-and-assemble-the-root-filesystem" id="toc-extract-the-bsp-and-assemble-the-root-filesystem" class="nav-link" data-scroll-target="#extract-the-bsp-and-assemble-the-root-filesystem">3. Extract the BSP and Assemble the Root Filesystem</a></li>
+  <li><a href="#put-the-jetson-in-recovery-mode" id="toc-put-the-jetson-in-recovery-mode" class="nav-link" data-scroll-target="#put-the-jetson-in-recovery-mode">4. Put the Jetson in Recovery Mode</a></li>
+  <li><a href="#flash-the-jetson" id="toc-flash-the-jetson" class="nav-link" data-scroll-target="#flash-the-jetson">5. Flash the Jetson</a></li>
+  <li><a href="#first-boot" id="toc-first-boot" class="nav-link" data-scroll-target="#first-boot">6. First Boot</a></li>
+  <li><a href="#verification" id="toc-verification" class="nav-link" data-scroll-target="#verification">Verification</a></li>
+  <li><a href="#troubleshooting" id="toc-troubleshooting" class="nav-link" data-scroll-target="#troubleshooting">Troubleshooting</a>
   <ul class="collapse">
-  <li><a href="#step-1.-download-the-proper-nvidia-linux-driver-package" id="toc-step-1.-download-the-proper-nvidia-linux-driver-package" class="nav-link" data-scroll-target="#step-1.-download-the-proper-nvidia-linux-driver-package"><strong>Step 1.</strong> Download the proper NVIDIA Linux Driver Package</a></li>
-  <li><a href="#step-2.-unzip-package-files-and-assemble-the-rootfs-via-command-line" id="toc-step-2.-unzip-package-files-and-assemble-the-rootfs-via-command-line" class="nav-link" data-scroll-target="#step-2.-unzip-package-files-and-assemble-the-rootfs-via-command-line"><strong>Step 2.</strong> Unzip Package Files and Assemble the Rootfs via Command Line</a></li>
-  <li><a href="#step-3.-flash-the-system-to-recomputer" id="toc-step-3.-flash-the-system-to-recomputer" class="nav-link" data-scroll-target="#step-3.-flash-the-system-to-recomputer"><strong>Step 3.</strong> Flash the System to reComputer</a></li>
-  <li><a href="#troubleshooting" id="toc-troubleshooting" class="nav-link" data-scroll-target="#troubleshooting"><strong>Troubleshooting</strong></a></li>
-  <li><a href="#recommendations" id="toc-recommendations" class="nav-link" data-scroll-target="#recommendations"><strong>Recommendations</strong></a></li>
+  <li><a href="#qemu-binary-not-available" id="toc-qemu-binary-not-available" class="nav-link" data-scroll-target="#qemu-binary-not-available">QEMU Binary Not Available</a></li>
+  <li><a href="#flashing-does-not-start" id="toc-flashing-does-not-start" class="nav-link" data-scroll-target="#flashing-does-not-start">Flashing Does Not Start</a></li>
   </ul></li>
+  <li><a href="#recommendations" id="toc-recommendations" class="nav-link" data-scroll-target="#recommendations">Recommendations</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  <li><a href="#next-step" id="toc-next-step" class="nav-link" data-scroll-target="#next-step">Next Step</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/blob/main/flash-jetson-board.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./flash-jetson-board.html">Setup</a></li><li class="breadcrumb-item"><a href="./flash-jetson-board.html">Flash Jetson Boards</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Flashing Jetson Boards</h1>
+<p class="subtitle lead">Optional Jetson Preparation</p>
+</div>
 
 
 
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
 
 
-<section id="flashing-jetpack-os-via-command-line" class="level1">
-<h1>Flashing JetPack OS via Command Line</h1>
-<p>Flashing JetPack OS via command line can be very easy for the Linux knowledge base users.</p>
-<section id="step-1.-download-the-proper-nvidia-linux-driver-package" class="level3">
-<h3 class="anchored" data-anchor-id="step-1.-download-the-proper-nvidia-linux-driver-package"><strong>Step 1.</strong> Download the proper NVIDIA Linux Driver Package</h3>
-<p>On the <strong>Linux host PC</strong>, we need to open a browser and go the <a href="https://developer.nvidia.com/embedded/jetson-linux-archive">Jetson Linux Archive</a>. First we should check if the version of Jetson Linux is supported our reComputer Jetson module.</p>
+</header>
+
+
+<p>This section describes a general procedure for installing an NVIDIA Jetson Linux environment from the command line.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Flashing is <strong>optional</strong>.</p>
+<p>If the Jetson device already has a compatible operating system and NVIDIA software environment, this procedure can be skipped.</p>
+<p>In this project, flashing was primarily used when a clean system installation was required before additional preparation, such as storage expansion.</p>
+</div>
+</div>
+<section id="when-is-flashing-required" class="level2">
+<h2 class="anchored" data-anchor-id="when-is-flashing-required">When Is Flashing Required?</h2>
+<p>Use this procedure when:</p>
+<ul>
+<li>The Jetson does not have an operating system</li>
+<li>A clean NVIDIA Jetson environment is required</li>
+<li>The current installation needs to be replaced or recovered</li>
+<li>The device must be prepared before performing additional system configuration</li>
+</ul>
+<p>If the Jetson already boots correctly and provides the required software environment, continue with the next setup stage.</p>
+</section>
+<section id="requirements" class="level2">
+<h2 class="anchored" data-anchor-id="requirements">Requirements</h2>
+<p>The documented command-line flashing workflow requires:</p>
+<ul>
+<li>An NVIDIA Jetson or compatible reComputer device</li>
+<li>A separate Linux host computer</li>
+<li>A compatible NVIDIA Jetson Linux / L4T release</li>
+<li>The corresponding <strong>L4T Driver Package (BSP)</strong></li>
+<li>The corresponding <strong>Sample Root Filesystem</strong></li>
+<li>A USB connection between the host computer and the Jetson device</li>
+</ul>
+<p>The original workflow used an <strong>Ubuntu 18.04 Linux host</strong> for the flashing process.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The Jetson Linux / L4T release must be compatible with the specific Jetson module and carrier board being flashed.</p>
+<p>Always verify platform support before downloading and flashing an image.</p>
+</div>
+</div>
+</section>
+<section id="download-the-nvidia-jetson-linux-files" class="level2">
+<h2 class="anchored" data-anchor-id="download-the-nvidia-jetson-linux-files">1. Download the NVIDIA Jetson Linux Files</h2>
+<p>On the Linux host computer, open the NVIDIA Jetson Linux archive:</p>
+<p><a href="https://developer.nvidia.com/embedded/jetson-linux-archive"><strong>NVIDIA Jetson Linux Archive</strong></a></p>
+<p>Select a release compatible with the target Jetson platform.</p>
+<p>Download both:</p>
+<ul>
+<li><strong>L4T Driver Package (BSP)</strong></li>
+<li><strong>Sample Root Filesystem</strong></li>
+</ul>
+<p>The downloaded files typically follow names similar to:</p>
+<pre class="text"><code>Jetson_Linux_Rxx.x.x_aarch64.tbz2
+Tegra_Linux_Sample-Root-Filesystem_Rxx.x.x_aarch64.tbz2</code></pre>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="assets/images/flash_jetson/jetson_archive.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
 </figure>
 </div>
-<p>For ReCompute the latest version used was 32.7.4. Once you find the proper version, click to go to the downloaded page. Find and click the “L4T Driver Package (BSP)” and “Sample Root Filesystem” to download the driver files. The names of the files are like <code>Tegra_Linux_Sample-Root-Filesystem_Rxx.x.x_aarch64.tbz2</code> and <code>Jetson-210_Linux_Rxx.x.x_aarch64.tbz2.</code></p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="assets/images/flash_jetson/nvidia_4lt.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
 </figure>
 </div>
-<p>As the example, we choose the NVIDIA L4T 35.1 version since it is included as part of JetPack 5.0.2 and supports the Jetson Xavier NX module. The names of the files:</p>
-<ul>
-<li>Tegra_Linux_Sample-Root-Filesystem_R35.1.0_aarch64.tbz2</li>
-<li>Jetson_Linux_R35.1.0_aarch64.tbz2</li>
-</ul>
-<div class="callout callout-style-default callout-note callout-titled" title="INFO">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>INFO
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>You can also choose other version like NVIDIA L4T 32.7.2 which supports Jetpack 4.6.2.</p>
-</div>
-</div>
 </section>
-<section id="step-2.-unzip-package-files-and-assemble-the-rootfs-via-command-line" class="level3">
-<h3 class="anchored" data-anchor-id="step-2.-unzip-package-files-and-assemble-the-rootfs-via-command-line"><strong>Step 2.</strong> Unzip Package Files and Assemble the Rootfs via Command Line</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-label="1"></a><span class="fu">mkdir</span> <span class="at">-p</span> ~/jetson_nano_flash</span>
-<span id="cb1-2"><a href="#cb1-2" aria-label="2"></a><span class="bu">cd</span> ~/jetson_nano_flash</span>
-<span id="cb1-3"><a href="#cb1-3" aria-label="3"></a><span class="co"># Place both downloaded files here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>On the Linux host PC, we should find a folder and store the package files we download before. Then open a command line window(Terminal) at the folder and use the command line below to unzip the files and assemble the rootfs:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-label="1"></a><span class="fu">tar</span> xf <span class="va">${L4T_RELEASE_PACKAGE}</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-label="2"></a><span class="bu">cd</span> Linux_for_Tegra/rootfs/</span>
-<span id="cb2-3"><a href="#cb2-3" aria-label="3"></a><span class="fu">sudo</span> tar xpf ../../<span class="va">${SAMPLE_FS_PACKAGE}</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-label="4"></a><span class="bu">cd</span> ..</span>
-<span id="cb2-5"><a href="#cb2-5" aria-label="5"></a><span class="fu">sudo</span> ./apply_binaries.sh</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="callout callout-style-default callout-note callout-titled" title="NOTE">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>NOTE
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><code>${}</code> is where you put the names of the files.</p>
-</div>
-</div>
-<p>As the example of <strong>NVIDIA L4T 35.1</strong>, the downloaded files are stored in /Desktop/L4T_Drivers, so under the ‘/Desktop/L4T_Drivers’ path we open the command line window(Terminal) and execute the following command.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-label="1"></a><span class="fu">tar</span> xf Jetson_Linux_R35.1.0_aarch64.tbz2</span>
-<span id="cb3-2"><a href="#cb3-2" aria-label="2"></a><span class="bu">cd</span> Linux_for_Tegra/rootfs/</span>
-<span id="cb3-3"><a href="#cb3-3" aria-label="3"></a><span class="fu">sudo</span> tar xpf ../../Tegra_Linux_Sample-Root-Filesystem_R35.1.0_aarch64.tbz2</span>
-<span id="cb3-4"><a href="#cb3-4" aria-label="4"></a><span class="bu">cd</span> ..</span>
-<span id="cb3-5"><a href="#cb3-5" aria-label="5"></a><span class="fu">sudo</span> ./apply_binaries.sh</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The output should be like:</p>
+<section id="prepare-the-flashing-directory" class="level2">
+<h2 class="anchored" data-anchor-id="prepare-the-flashing-directory">2. Prepare the Flashing Directory</h2>
+<p>Create a working directory on the Linux host:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> ~/jetson_flash</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/jetson_flash</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Copy the downloaded BSP and Sample Root Filesystem files into this directory.</p>
+<p>The expected structure is approximately:</p>
+<pre class="text"><code>jetson_flash/
+├── Jetson_Linux_Rxx.x.x_aarch64.tbz2
+└── Tegra_Linux_Sample-Root-Filesystem_Rxx.x.x_aarch64.tbz2</code></pre>
+</section>
+<section id="extract-the-bsp-and-assemble-the-root-filesystem" class="level2">
+<h2 class="anchored" data-anchor-id="extract-the-bsp-and-assemble-the-root-filesystem">3. Extract the BSP and Assemble the Root Filesystem</h2>
+<p>Extract the NVIDIA Jetson Linux package:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> xf Jetson_Linux_Rxx.x.x_aarch64.tbz2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Then extract the Sample Root Filesystem into the Jetson root filesystem:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> Linux_for_Tegra/rootfs/</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> tar xpf ../../Tegra_Linux_Sample-Root-Filesystem_Rxx.x.x_aarch64.tbz2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Return to the <code>Linux_for_Tegra</code> directory:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ..</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Apply the NVIDIA binaries:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> ./apply_binaries.sh</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>A successful execution should complete the preparation of the root filesystem before flashing.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="assets/images/flash_jetson/output.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
 </figure>
 </div>
 </section>
-<section id="step-3.-flash-the-system-to-recomputer" class="level3">
-<h3 class="anchored" data-anchor-id="step-3.-flash-the-system-to-recomputer"><strong>Step 3.</strong> Flash the System to reComputer</h3>
-<p>Since we alreadly force the reComputer J2021 into the recovery mode and the module is Jetson Xavier NX. We can directly flash the system into the reComputer execute following command:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-label="1"></a><span class="fu">sudo</span> ./flash.sh jetson-nano-emmc mmcblk0p1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/flash_jetson/output2.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div>
-<div class="callout callout-style-default callout-note callout-titled" title="NOTE">
+<section id="put-the-jetson-in-recovery-mode" class="level2">
+<h2 class="anchored" data-anchor-id="put-the-jetson-in-recovery-mode">4. Put the Jetson in Recovery Mode</h2>
+<p>Before flashing, place the target Jetson device in <strong>Force Recovery Mode</strong> and connect it to the Linux host computer through USB.</p>
+<p>The exact recovery procedure depends on the Jetson module and carrier board.</p>
+<p>Refer to the corresponding hardware documentation for the target device before continuing.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>NOTE
+Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Flashing L4T takes about 10 minutes, or more under a slow host computer.</p>
+<p>Verify that the host computer detects the Jetson in recovery mode before executing the flashing command.</p>
 </div>
 </div>
-<p>At this moment, we can unplug the jumper and then power up the reComputer again to use it.</p>
+</section>
+<section id="flash-the-jetson" class="level2">
+<h2 class="anchored" data-anchor-id="flash-the-jetson">5. Flash the Jetson</h2>
+<p>From the <code>Linux_for_Tegra</code> directory, the general flashing command follows:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> ./flash.sh <span class="op">&lt;</span>BOARD_CONFIG<span class="op">&gt;</span> mmcblk0p1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>where:</p>
+<pre class="text"><code>&lt;BOARD_CONFIG&gt;</code></pre>
+<p>must correspond to the target Jetson module and carrier board.</p>
+<p>For example, a board-specific configuration may result in a command of the form:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> ./flash.sh jetson-nano-emmc mmcblk0p1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Do not copy the example board configuration without verifying that it matches the Jetson platform being flashed.</p>
+<p>The board configuration passed to <code>flash.sh</code> is hardware-specific.</p>
+</div>
+</div>
+<p>The flashing process may take several minutes.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/images/flash_jetson/output2.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</section>
+<section id="first-boot" class="level2">
+<h2 class="anchored" data-anchor-id="first-boot">6. First Boot</h2>
+<p>After the flashing process completes:</p>
+<ol type="1">
+<li>Disconnect the recovery-mode jumper or restore the board to its normal boot configuration</li>
+<li>Disconnect the flashing USB connection if appropriate</li>
+<li>Power-cycle or restart the Jetson</li>
+<li>Complete the initial operating system setup</li>
+</ol>
+<p>Once the device boots successfully, verify that the installed NVIDIA environment is available before continuing with the HAR framework configuration.</p>
+</section>
+<section id="verification" class="level2">
+<h2 class="anchored" data-anchor-id="verification">Verification</h2>
+<p>After the first boot, basic system information can be checked with:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> /etc/os-release</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>and:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> /etc/nv_tegra_release</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The Jetson should boot normally and report the expected operating system and NVIDIA L4T release.</p>
+<p>If these checks succeed, continue with the remaining system preparation steps.</p>
 </section>
 <section id="troubleshooting" class="level2">
-<h2 class="anchored" data-anchor-id="troubleshooting"><strong>Troubleshooting</strong></h2>
-<ol type="1">
-<li>It is mandatory that the Host be a Linux Machine version 18.04, since if the machine does not have this operating system the flashing will not work.</li>
-<li><strong>QEMU binary is not available, looking for QEMU from host system:</strong> To solve this, follow the next commands</li>
-</ol>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-label="1"></a><span class="fu">sudo</span> apt update</span>
-<span id="cb5-2"><a href="#cb5-2" aria-label="2"></a><span class="fu">sudo</span> apt install qemu-user-static</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<h2 class="anchored" data-anchor-id="troubleshooting">Troubleshooting</h2>
+<section id="qemu-binary-not-available" class="level3">
+<h3 class="anchored" data-anchor-id="qemu-binary-not-available">QEMU Binary Not Available</h3>
+<p>If the flashing process reports an error similar to:</p>
+<pre class="text"><code>QEMU binary is not available, looking for QEMU from host system</code></pre>
+<p>install the required package on the Linux host:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt update</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install qemu-user-static</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="flashing-does-not-start" class="level3">
+<h3 class="anchored" data-anchor-id="flashing-does-not-start">Flashing Does Not Start</h3>
+<p>Verify that:</p>
+<ul>
+<li>The Jetson is in Force Recovery Mode</li>
+<li>The USB connection is working</li>
+<li>The selected L4T release supports the target Jetson</li>
+<li>Both NVIDIA packages were extracted correctly</li>
+<li>The correct board configuration is being passed to <code>flash.sh</code></li>
+</ul>
+</section>
 </section>
 <section id="recommendations" class="level2">
-<h2 class="anchored" data-anchor-id="recommendations"><strong>Recommendations</strong></h2>
-<ol type="1">
-<li>Do not use virtual machines to do this process, either by command line or via SDK Manager</li>
-<li>If you do not have a machine with Linux Ubuntu 18.04 you will need to get one, or failing that install the operating system on your machine, you can do this by dual boot following the next resource:
+<h2 class="anchored" data-anchor-id="recommendations">Recommendations</h2>
 <ul>
-<li><a href="https://www.youtube.com/watch?v=GPd5BNmu6L8&amp;ab_channel=GuaridaTech">Windows and Linux in one PC</a></li>
-</ul></li>
-<li>For more information refer to documentation
-<ul>
-<li><a href="https://wiki.seeedstudio.com/">Seeed Studio Wiki</a></li>
-</ul></li>
-</ol>
-
-
+<li>Use a native Linux host for the flashing process</li>
+<li>Avoid virtual machines when possible</li>
+<li>Verify Jetson module and carrier-board compatibility before selecting an L4T release</li>
+<li>Do not reflash devices that already contain a compatible and working system unless there is a specific reason to do so</li>
+</ul>
 </section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<p>Additional platform-specific information is available from:</p>
+<ul>
+<li><a href="https://developer.nvidia.com/embedded/jetson-linux-archive">NVIDIA Jetson Linux Archive</a></li>
+<li><a href="https://wiki.seeedstudio.com/">Seeed Studio Wiki</a></li>
+</ul>
+</section>
+<section id="next-step" class="level2">
+<h2 class="anchored" data-anchor-id="next-step">Next Step</h2>
+<p>If additional storage is required, continue with:</p>
+<p><a href="./expansion-jetson-board.html"><strong>Storage Expansion →</strong></a></p>
+<p>If the Jetson already provides sufficient storage, continue directly with <strong>Software Environment</strong>.</p>
+
+
 </section>
 
 </main> <!-- /main -->
@@ -937,8 +1168,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       &nbsp;
     <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/blob/main/flash-jetson-board.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
-<p>Technical Documentation &amp; Reproducibility Resources<br>
-Author: Jhonathan Rivas-Caicedo</p>
+<div style="text-align: right;">
+<p>Technical Documentation &amp; Reproducibility Resources<br> <small>Author: Jhonathan Rivas-Caicedo</small></p>
+</div>
 </div>
   </div>
 </footer>

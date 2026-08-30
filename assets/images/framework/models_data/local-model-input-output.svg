@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="1500"
+   height="560"
+   viewBox="0 0 1500 560"
+   version="1.1"
+   id="svg13"
+   sodipodi:docname="local-model-input-output.svg"
+   inkscape:version="1.4 (86a8ad7, 2024-10-11)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview13"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="0.53092105"
+     inkscape:cx="408.72367"
+     inkscape:cy="336.20818"
+     inkscape:window-width="1920"
+     inkscape:window-height="1009"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg13" />
+  <defs
+     id="defs1">
+    <marker
+       style="overflow:visible"
+       id="Triangle"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Triangle arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135" />
+    </marker>
+    <style
+       id="style1">
+      .title{font:700 54px Arial,Helvetica,sans-serif;fill:#0f2f73}
+      .subtitle{font:400 24px Arial,Helvetica,sans-serif;fill:#53637d}
+      .boxTitle{font:700 31px Arial,Helvetica,sans-serif;fill:#183153}
+      .boxSub{font:400 22px Arial,Helvetica,sans-serif;fill:#54657f}
+      .small{font:600 18px Arial,Helvetica,sans-serif;fill:#183153}
+      .input{fill:#eef9ff;stroke:#2b7de9;stroke-width:4}
+      .model{fill:#f5f1ff;stroke:#7c5ce7;stroke-width:4}
+      .output{fill:#eefaf4;stroke:#1f8a5b;stroke-width:4}
+      .line{stroke:#2563eb;stroke-width:6;fill:none}
+      .note{font:400 20px Arial,Helvetica,sans-serif;fill:#5a6782}
+    </style>
+    <marker
+       id="arrow"
+       markerWidth="12"
+       markerHeight="12"
+       refX="10"
+       refY="6"
+       orient="auto">
+      <path
+         d="M 0,0 12,6 0,12 Z"
+         fill="#2563eb"
+         id="path1" />
+    </marker>
+    <filter
+       id="shadow"
+       x="-0.0060606061"
+       y="-0.0086956522"
+       width="1.0121212"
+       height="1.0173913">
+      <feDropShadow
+         dx="0"
+         dy="4"
+         stdDeviation="6"
+         flood-color="#000"
+         flood-opacity=".10" />
+    </filter>
+  </defs>
+  <text
+     x="750"
+     y="82"
+     text-anchor="middle"
+     class="title"
+     id="text1"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:54px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Local HAR Model Input and Output</text>
+  <text
+     x="750"
+     y="122"
+     text-anchor="middle"
+     class="subtitle"
+     id="text2"
+     style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:24px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Each edge classifier converts one 50-sample sensor window into a six-class probability vector</text>
+  <rect
+     x="85"
+     y="179"
+     width="405"
+     height="230"
+     rx="28"
+     class="input"
+     filter="url(#shadow)"
+     id="rect2" />
+  <text
+     x="288"
+     y="239"
+     text-anchor="middle"
+     class="boxTitle"
+     id="text3"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:31px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Sensor Window</text>
+  <text
+     x="288"
+     y="282"
+     text-anchor="middle"
+     class="boxSub"
+     id="text4"
+     style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:22px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">50 time samples</text>
+  <text
+     x="288"
+     y="324"
+     text-anchor="middle"
+     class="boxSub"
+     id="text5"
+     style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:22px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Quaternion: 50 × 4</text>
+  <text
+     x="288"
+     y="362"
+     text-anchor="middle"
+     class="boxSub"
+     id="text6"
+     style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:22px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">or ACC + GYRO: 50 × 6</text>
+  <line
+     x1="490"
+     y1="294"
+     x2="597.21179"
+     y2="294"
+     class="line"
+     marker-end="url(#arrow)"
+     id="line6"
+     style="marker-end:url(#Triangle)" />
+  <rect
+     x="620"
+     y="179"
+     width="330"
+     height="230"
+     rx="28"
+     class="model"
+     filter="url(#shadow)"
+     id="rect6" />
+  <text
+     x="785"
+     y="262"
+     text-anchor="middle"
+     class="boxTitle"
+     id="text7"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:31px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Local CNN-LSTM</text>
+  <text
+     x="785"
+     y="306"
+     text-anchor="middle"
+     class="boxSub"
+     id="text8"
+     style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:22px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Sensor-specific classifier</text>
+  <text
+     x="785"
+     y="344"
+     text-anchor="middle"
+     class="boxSub"
+     id="text9"
+     style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:22px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">9,990 trainable parameters</text>
+  <line
+     x1="950"
+     y1="294"
+     x2="1058.0037"
+     y2="294"
+     class="line"
+     marker-end="url(#arrow)"
+     id="line9"
+     style="marker-end:url(#Triangle)" />
+  <rect
+     x="1080"
+     y="179"
+     width="335"
+     height="230"
+     rx="28"
+     class="output"
+     filter="url(#shadow)"
+     id="rect9" />
+  <text
+     x="1248"
+     y="249"
+     text-anchor="middle"
+     class="boxTitle"
+     id="text10"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:31px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Local Prediction</text>
+  <text
+     x="1248"
+     y="294"
+     text-anchor="middle"
+     class="boxSub"
+     id="text11"
+     style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:22px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">6-class probability vector</text>
+  <text
+     x="1248"
+     y="339"
+     text-anchor="middle"
+     class="boxSub"
+     id="text12"
+     style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:22px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">[p0, p1, p2, p3, p4, p5]</text>
+  <rect
+     x="175"
+     y="453"
+     width="1150"
+     height="72"
+     rx="20"
+     fill="#f5f8fc"
+     stroke="#d6dfef"
+     stroke-width="2"
+     id="rect12" />
+  <text
+     x="750"
+     y="497"
+     text-anchor="middle"
+     class="note"
+     id="text13"
+     style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:20px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">The sensor modality is determined by the trained local model. The output dimensionality is identical for all five edge classifiers.</text>
+</svg>

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Storage Expansion – HAR Distributed Framework</title>
+<title>Models &amp; Data – HAR Distributed Framework</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -25,41 +25,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -327,7 +292,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./flash-jetson-board.html">Setup</a></li><li class="breadcrumb-item"><a href="./expansion-jetson-board.html">Storage Expansion</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./edge-nodes.html">Framework</a></li><li class="breadcrumb-item"><a href="./models-data.html">Models &amp; Data</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -382,7 +347,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./expansion-jetson-board.html" class="sidebar-item-text sidebar-link active">
+  <a href="./expansion-jetson-board.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Storage Expansion</span></a>
   </div>
 </li>
@@ -435,7 +400,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./models-data.html" class="sidebar-item-text sidebar-link">
+  <a href="./models-data.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Models &amp; Data</span></a>
   </div>
 </li>
@@ -475,34 +440,40 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#when-is-storage-expansion-useful" id="toc-when-is-storage-expansion-useful" class="nav-link active" data-scroll-target="#when-is-storage-expansion-useful">When Is Storage Expansion Useful?</a></li>
-  <li><a href="#requirements" id="toc-requirements" class="nav-link" data-scroll-target="#requirements">Requirements</a></li>
-  <li><a href="#install-the-nvme-ssd" id="toc-install-the-nvme-ssd" class="nav-link" data-scroll-target="#install-the-nvme-ssd">1. Install the NVMe SSD</a></li>
-  <li><a href="#prepare-the-ssd" id="toc-prepare-the-ssd" class="nav-link" data-scroll-target="#prepare-the-ssd">2. Prepare the SSD</a></li>
-  <li><a href="#download-the-root-on-nvme-utility" id="toc-download-the-root-on-nvme-utility" class="nav-link" data-scroll-target="#download-the-root-on-nvme-utility">3. Download the Root-on-NVMe Utility</a></li>
-  <li><a href="#copy-the-root-filesystem" id="toc-copy-the-root-filesystem" class="nav-link" data-scroll-target="#copy-the-root-filesystem">4. Copy the Root Filesystem</a></li>
-  <li><a href="#configure-boot-from-nvme" id="toc-configure-boot-from-nvme" class="nav-link" data-scroll-target="#configure-boot-from-nvme">5. Configure Boot from NVMe</a></li>
-  <li><a href="#verification" id="toc-verification" class="nav-link" data-scroll-target="#verification">Verification</a></li>
-  <li><a href="#nvme-device-path" id="toc-nvme-device-path" class="nav-link" data-scroll-target="#nvme-device-path">NVMe Device Path</a></li>
-  <li><a href="#recovery-behavior" id="toc-recovery-behavior" class="nav-link" data-scroll-target="#recovery-behavior">Recovery Behavior</a></li>
-  <li><a href="#troubleshooting" id="toc-troubleshooting" class="nav-link" data-scroll-target="#troubleshooting">Troubleshooting</a>
+  <li><a href="#activity-classes" id="toc-activity-classes" class="nav-link active" data-scroll-target="#activity-classes">Activity Classes</a></li>
+  <li><a href="#sensor-representations" id="toc-sensor-representations" class="nav-link" data-scroll-target="#sensor-representations">Sensor Representations</a>
   <ul class="collapse">
-  <li><a href="#ssd-is-not-detected" id="toc-ssd-is-not-detected" class="nav-link" data-scroll-target="#ssd-is-not-detected">SSD Is Not Detected</a></li>
-  <li><a href="#system-does-not-boot-from-the-ssd" id="toc-system-does-not-boot-from-the-ssd" class="nav-link" data-scroll-target="#system-does-not-boot-from-the-ssd">System Does Not Boot from the SSD</a></li>
-  <li><a href="#incorrect-nvme-device-path" id="toc-incorrect-nvme-device-path" class="nav-link" data-scroll-target="#incorrect-nvme-device-path">Incorrect NVMe Device Path</a></li>
+  <li><a href="#accelerometer-and-gyroscope" id="toc-accelerometer-and-gyroscope" class="nav-link" data-scroll-target="#accelerometer-and-gyroscope">Accelerometer and Gyroscope</a></li>
+  <li><a href="#quaternion-orientation" id="toc-quaternion-orientation" class="nav-link" data-scroll-target="#quaternion-orientation">Quaternion Orientation</a></li>
   </ul></li>
+  <li><a href="#sampling-and-windowing" id="toc-sampling-and-windowing" class="nav-link" data-scroll-target="#sampling-and-windowing">Sampling and Windowing</a></li>
+  <li><a href="#offline-and-real-time-windowing" id="toc-offline-and-real-time-windowing" class="nav-link" data-scroll-target="#offline-and-real-time-windowing">Offline and Real-Time Windowing</a>
+  <ul class="collapse">
+  <li><a href="#offline-processing" id="toc-offline-processing" class="nav-link" data-scroll-target="#offline-processing">Offline Processing</a></li>
+  <li><a href="#real-time-processing" id="toc-real-time-processing" class="nav-link" data-scroll-target="#real-time-processing">Real-Time Processing</a></li>
+  </ul></li>
+  <li><a href="#local-har-models" id="toc-local-har-models" class="nav-link" data-scroll-target="#local-har-models">Local HAR Models</a></li>
+  <li><a href="#distributed-model-organization" id="toc-distributed-model-organization" class="nav-link" data-scroll-target="#distributed-model-organization">Distributed Model Organization</a></li>
+  <li><a href="#prediction-level-fusion" id="toc-prediction-level-fusion" class="nav-link" data-scroll-target="#prediction-level-fusion">Prediction-Level Fusion</a></li>
+  <li><a href="#central-fusion-model" id="toc-central-fusion-model" class="nav-link" data-scroll-target="#central-fusion-model">Central Fusion Model</a></li>
+  <li><a href="#why-prediction-level-fusion-is-used" id="toc-why-prediction-level-fusion-is-used" class="nav-link" data-scroll-target="#why-prediction-level-fusion-is-used">Why Prediction-Level Fusion Is Used</a></li>
+  <li><a href="#model-loading" id="toc-model-loading" class="nav-link" data-scroll-target="#model-loading">Model Loading</a></li>
+  <li><a href="#input-and-output-summary" id="toc-input-and-output-summary" class="nav-link" data-scroll-target="#input-and-output-summary">Input and Output Summary</a></li>
+  <li><a href="#data-flow-across-the-framework" id="toc-data-flow-across-the-framework" class="nav-link" data-scroll-target="#data-flow-across-the-framework">Data Flow Across the Framework</a></li>
+  <li><a href="#verification" id="toc-verification" class="nav-link" data-scroll-target="#verification">Verification</a></li>
+  <li><a href="#related-documentation" id="toc-related-documentation" class="nav-link" data-scroll-target="#related-documentation">Related Documentation</a></li>
   <li><a href="#next-step" id="toc-next-step" class="nav-link" data-scroll-target="#next-step">Next Step</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/blob/main/expansion-jetson-board.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/blob/main/models-data.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./flash-jetson-board.html">Setup</a></li><li class="breadcrumb-item"><a href="./expansion-jetson-board.html">Storage Expansion</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./edge-nodes.html">Framework</a></li><li class="breadcrumb-item"><a href="./models-data.html">Models &amp; Data</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Storage Expansion</h1>
-<p class="subtitle lead">Optional Jetson Preparation</p>
+<h1 class="title">Models &amp; Data</h1>
+<p class="subtitle lead">Sensor Inputs, Windowing, and HAR Models</p>
 </div>
 
 
@@ -519,44 +490,71 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>This section describes how to expand the available storage of a compatible Jetson-based system using an <strong>NVMe SSD connected through an M.2 M-Key slot</strong>.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Storage expansion is <strong>optional</strong>.</p>
-<p>If the Jetson device already provides sufficient storage for the operating system, framework dependencies, trained models, and experiment logs, this procedure can be skipped.</p>
-</div>
-</div>
-<section id="when-is-storage-expansion-useful" class="level2">
-<h2 class="anchored" data-anchor-id="when-is-storage-expansion-useful">When Is Storage Expansion Useful?</h2>
-<p>Storage expansion is useful when the onboard storage is not sufficient for:</p>
-<ul>
-<li>The operating system</li>
-<li>Docker images and containers</li>
-<li>Python and machine learning dependencies</li>
-<li>Trained models</li>
-<li>Experiment logs</li>
-<li>Additional development resources</li>
-</ul>
-<p>The procedure documented here moves the system root filesystem to an NVMe SSD while preserving the original root filesystem stored in the Jetson’s internal storage.</p>
+<p>The <strong>HAR Distributed Framework</strong> uses sensor-specific neural networks at the edge and a prediction-level fusion model at the central node.</p>
+<p>This section defines the data representations, activity classes, input windows, local HAR models, and central fusion model used by the framework.</p>
+<section id="activity-classes" class="level2">
+<h2 class="anchored" data-anchor-id="activity-classes">Activity Classes</h2>
+<p>The framework recognizes six activities.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: right;">Class ID</th>
+<th>Activity</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td>Sitting</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td>Folding Clothes</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td>Sweeping</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td>Walking</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td>Moving Boxes</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5</td>
+<td>Riding a Bike</td>
+</tr>
+</tbody>
+</table>
+<p>All local classifiers and the central fusion model therefore produce six output probabilities.</p>
+<p>A prediction vector has the form:</p>
+<pre class="text"><code>[p0, p1, p2, p3, p4, p5]</code></pre>
+<p>where each element represents the confidence associated with one activity class.</p>
 </section>
-<section id="requirements" class="level2">
-<h2 class="anchored" data-anchor-id="requirements">Requirements</h2>
-<p>The procedure requires:</p>
+<section id="sensor-representations" class="level2">
+<h2 class="anchored" data-anchor-id="sensor-representations">Sensor Representations</h2>
+<p>The local HAR models operate on two types of sensor representations.</p>
+<section id="accelerometer-and-gyroscope" class="level3">
+<h3 class="anchored" data-anchor-id="accelerometer-and-gyroscope">Accelerometer and Gyroscope</h3>
+<p>Nodes configured for inertial motion data use:</p>
+<p><code>ax, ay, az, gx, gy, gz</code></p>
+<p>where:</p>
 <ul>
-<li>A Jetson-based system with an <strong>M.2 M-Key slot</strong></li>
-<li>An NVMe SSD</li>
-<li>An existing working Jetson operating system</li>
-<li>Sufficient access privileges to modify the storage configuration</li>
+<li><code>ax</code>, <code>ay</code>, and <code>az</code> represent tri-axial acceleration; and</li>
+<li><code>gx</code>, <code>gy</code>, and <code>gz</code> represent tri-axial angular velocity.</li>
 </ul>
-<p>The procedure was originally performed on a <strong>reComputer platform</strong> using an NVMe SSD.</p>
+<p>The resulting input contains:</p>
+<p><code>6 channels</code></p>
+</section>
+<section id="quaternion-orientation" class="level3">
+<h3 class="anchored" data-anchor-id="quaternion-orientation">Quaternion Orientation</h3>
+<p>Nodes configured for orientation information use:</p>
+<p><code>w, x, y, z</code></p>
+<p>The resulting input contains:</p>
+<p><code>4 channels</code></p>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -567,116 +565,227 @@ Important
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The Jetson must already boot correctly before performing this procedure.</p>
-<p>Storage expansion does not replace the operating system flashing procedure.</p>
+<p>The input modality must match the model deployed on the corresponding edge node.</p>
+<p>A model trained with quaternion inputs cannot be used directly with an accelerometer–gyroscope input, and vice versa.</p>
 </div>
 </div>
 </section>
-<section id="install-the-nvme-ssd" class="level2">
-<h2 class="anchored" data-anchor-id="install-the-nvme-ssd">1. Install the NVMe SSD</h2>
-<p>Power off the Jetson device and install the NVMe SSD in the available M.2 M-Key slot.</p>
-<p>Refer to the corresponding carrier-board hardware instructions for the exact installation procedure.</p>
-<p>The device used for the original procedure is shown below.</p>
-<div class="text-center">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/reComputeJ1020.webp" class="img-fluid figure-img" style="width:40.0%"></p>
-<figcaption>Example reComputer platform used for NVMe storage expansion.</figcaption>
-</figure>
-</div>
-</div>
-<p>After installing the SSD, power on the Jetson and verify that the device is detected by the operating system.</p>
 </section>
-<section id="prepare-the-ssd" class="level2">
-<h2 class="anchored" data-anchor-id="prepare-the-ssd">2. Prepare the SSD</h2>
-<p>Open the Ubuntu <strong>Disks</strong> utility.</p>
-<p>The SSD should appear in the list of available storage devices.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/disk.webp" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div>
-<p>Select the SSD and choose <strong>Format Disk</strong>.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/format_disk.webp" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div>
-<p>Use a <strong>GPT partition table</strong>.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/format_disk2.webp" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div>
-<p>Create a new partition using the available storage space.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/format_disk3.webp" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div>
-<p>Continue with the partition creation process.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/format_disk4.webp" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div>
-<p>Format the partition using the <strong>Ext4</strong> filesystem.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/format_disk5.webp" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div>
-<p>Once completed, the SSD is ready to receive a copy of the Jetson root filesystem.</p>
+<section id="sampling-and-windowing" class="level2">
+<h2 class="anchored" data-anchor-id="sampling-and-windowing">Sampling and Windowing</h2>
+<p>The real-time framework operates at a nominal sampling rate of:</p>
+<p><code>50 Hz</code></p>
+<p>Sensor measurements are grouped into windows containing:</p>
+<p><code>50 samples</code></p>
+<p>which corresponds to approximately:</p>
+<p><code>1 second</code></p>
+<p>of sensor data.</p>
+<p>Therefore, depending on the sensor representation, a local model receives one of the following input structures:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Representation</th>
+<th style="text-align: right;">Window</th>
+<th style="text-align: right;">Channels</th>
+<th style="text-align: right;">Input Size</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Quaternion</td>
+<td style="text-align: right;">50 samples</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;"><code>50 × 4</code></td>
+</tr>
+<tr class="even">
+<td>Accelerometer + Gyroscope</td>
+<td style="text-align: right;">50 samples</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;"><code>50 × 6</code></td>
+</tr>
+</tbody>
+</table>
+<p>The real-time inference pipeline processes complete 50-sample windows before generating a new local prediction.</p>
 </section>
-<section id="download-the-root-on-nvme-utility" class="level2">
-<h2 class="anchored" data-anchor-id="download-the-root-on-nvme-utility">3. Download the Root-on-NVMe Utility</h2>
-<p>Open a terminal and clone the <code>rootOnNVMe</code> repository:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/limengdu/rootOnNVMe.git</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> rootOnNVMe/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>This utility provides the scripts used to copy the existing root filesystem and configure the system to use the NVMe SSD.</p>
+<section id="offline-and-real-time-windowing" class="level2">
+<h2 class="anchored" data-anchor-id="offline-and-real-time-windowing">Offline and Real-Time Windowing</h2>
+<p>The dataset preparation and real-time deployment use the same fundamental window length but differ in how windows are generated.</p>
+<section id="offline-processing" class="level3">
+<h3 class="anchored" data-anchor-id="offline-processing">Offline Processing</h3>
+<p>During offline dataset preparation, windows use:</p>
+<pre class="text"><code>Window size: 50 samples
+Stride:      25 samples</code></pre>
+<p>This introduces overlap between consecutive samples used for model development and evaluation.</p>
 </section>
-<section id="copy-the-root-filesystem" class="level2">
-<h2 class="anchored" data-anchor-id="copy-the-root-filesystem">4. Copy the Root Filesystem</h2>
-<p>Execute:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./copy-rootfs-ssd.sh</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The script copies the existing root filesystem from the Jetson internal storage to the SSD.</p>
-<p>The execution time depends on the amount of data currently stored in the root filesystem.</p>
+<section id="real-time-processing" class="level3">
+<h3 class="anchored" data-anchor-id="real-time-processing">Real-Time Processing</h3>
+<p>During real-time execution, each edge node accumulates incoming measurements until a complete 50-sample window is available for inference.</p>
+<p>The resulting window is then converted into the tensor representation expected by the corresponding local model.</p>
 </section>
-<section id="configure-boot-from-nvme" class="level2">
-<h2 class="anchored" data-anchor-id="configure-boot-from-nvme">5. Configure Boot from NVMe</h2>
-<p>After the copy operation completes, execute:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./setup-service.sh</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>This configures the service required to use the SSD as the system root filesystem.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/terminal.webp" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</section>
+<section id="local-har-models" class="level2">
+<h2 class="anchored" data-anchor-id="local-har-models">Local HAR Models</h2>
+<p>Each edge node executes a sensor-specific <strong>CNN-LSTM</strong> classifier.</p>
+<p>The relationship between one sensor window and the local prediction is illustrated in <a href="#fig-local-model-io" class="quarto-xref">Figure&nbsp;1</a>.</p>
+<div id="fig-local-model-io" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-local-model-io-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="assets/images/framework/models_data/local-model-input-output.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:95.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-local-model-io-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Input and output organization of a local CNN-LSTM classifier.
+</figcaption>
 </figure>
 </div>
-<p>Restart the Jetson after the configuration is complete.</p>
+<p>The local CNN-LSTM architecture combines:</p>
+<ul>
+<li>Convolutional processing for feature extraction from the sensor sequence</li>
+<li>Recurrent processing for temporal modeling</li>
+</ul>
+<p>Each local classifier contains:</p>
+<pre class="text"><code>9,990 trainable parameters</code></pre>
+<p>and produces:</p>
+<pre class="text"><code>6 output probabilities</code></pre>
+<p>regardless of whether the input representation contains four or six channels.</p>
 </section>
-<section id="verification" class="level2">
-<h2 class="anchored" data-anchor-id="verification">Verification</h2>
-<p>After rebooting, verify that the system is using the NVMe SSD as the root filesystem.</p>
-<p>A useful command is:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">df</span> <span class="at">-h</span> /</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>You can also inspect available block devices using:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">lsblk</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The root filesystem should correspond to the NVMe storage device.</p>
-<p>The original implementation showed the expanded storage after reboot as illustrated below.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/terminal2.webp" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<section id="distributed-model-organization" class="level2">
+<h2 class="anchored" data-anchor-id="distributed-model-organization">Distributed Model Organization</h2>
+<p>The distributed implementation contains five local inference branches:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Local Model</th>
+<th>Sensing Location</th>
+<th>Output</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Chest Model</td>
+<td>Chest</td>
+<td>6 probabilities</td>
+</tr>
+<tr class="even">
+<td>Left Hand Model</td>
+<td>Left hand</td>
+<td>6 probabilities</td>
+</tr>
+<tr class="odd">
+<td>Right Hand Model</td>
+<td>Right hand</td>
+<td>6 probabilities</td>
+</tr>
+<tr class="even">
+<td>Left Knee Model</td>
+<td>Left knee</td>
+<td>6 probabilities</td>
+</tr>
+<tr class="odd">
+<td>Right Knee Model</td>
+<td>Right knee</td>
+<td>6 probabilities</td>
+</tr>
+</tbody>
+</table>
+<p>Each local output represents an independent estimate of the current activity based on information available at that sensing location.</p>
+<p>The local classifier output is transmitted to the central node rather than transmitting the complete raw sensor window.</p>
+</section>
+<section id="prediction-level-fusion" class="level2">
+<h2 class="anchored" data-anchor-id="prediction-level-fusion">Prediction-Level Fusion</h2>
+<p>The central node combines the outputs generated by the five local classifiers.</p>
+<p>Each edge model provides:</p>
+<pre class="text"><code>6 probabilities</code></pre>
+<p>With five edge nodes, the fusion input therefore contains:</p>
+<pre class="text"><code>5 × 6 = 30 values</code></pre>
+<p>The complete fusion process is illustrated in <a href="#fig-fusion-model-io" class="quarto-xref">Figure&nbsp;2</a>.</p>
+<div id="fig-fusion-model-io" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-fusion-model-io-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="assets/images/framework/models_data/fusion-model-input-output.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-fusion-model-io-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Input and output organization of the central prediction-level fusion model.
+</figcaption>
+</figure>
+</div>
+<p>The fusion input can be represented conceptually as:</p>
+<pre class="text"><code>[
+  Chest probabilities,
+  Left Hand probabilities,
+  Right Hand probabilities,
+  Left Knee probabilities,
+  Right Knee probabilities
+]</code></pre>
+<p>forming a 30-element input vector.</p>
+</section>
+<section id="central-fusion-model" class="level2">
+<h2 class="anchored" data-anchor-id="central-fusion-model">Central Fusion Model</h2>
+<p>The central classifier is implemented as a <strong>Multilayer Perceptron (MLP)</strong>.</p>
+<p>Its role is not to process raw inertial measurements.</p>
+<p>Instead, it learns how to combine the class-confidence information generated independently by the five local CNN-LSTM classifiers.</p>
+<p>The fusion model contains:</p>
+<pre class="text"><code>2,374 trainable parameters</code></pre>
+<p>and generates the final six-class probability distribution used by the framework. The complete distributed model hierarchy is illustrated in <a href="#fig-distributed-fusion-hierarchy" class="quarto-xref">Figure&nbsp;3</a>.</p>
+<div id="fig-distributed-fusion-hierarchy" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-distributed-fusion-hierarchy-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="assets/images/framework/models_data/distributed-fusion-hierarchy.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:85.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-distributed-fusion-hierarchy-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Distributed HAR model hierarchy from local CNN-LSTM classifiers to the global prediction.
+</figcaption>
 </figure>
 </div>
 </section>
-<section id="nvme-device-path" class="level2">
-<h2 class="anchored" data-anchor-id="nvme-device-path">NVMe Device Path</h2>
-<p>The <code>rootOnNVMe</code> scripts assume the SSD partition is located at:</p>
-<pre class="text"><code>/dev/nvme0n1p1</code></pre>
-<p>Before running the scripts, verify the actual device path using:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> fdisk <span class="at">-l</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>or:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">lsblk</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="why-prediction-level-fusion-is-used" class="level2">
+<h2 class="anchored" data-anchor-id="why-prediction-level-fusion-is-used">Why Prediction-Level Fusion Is Used</h2>
+<p>The distributed architecture performs feature extraction and local classification close to the wearable sensors.</p>
+<p>Consequently, the central node receives compact prediction vectors instead of continuously receiving full raw sensor windows.</p>
+<p>This separates the system into two inference levels:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Level</th>
+<th>Input</th>
+<th>Model</th>
+<th>Output</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Edge</td>
+<td>Sensor window</td>
+<td>Local CNN-LSTM</td>
+<td>6 probabilities</td>
+</tr>
+<tr class="even">
+<td>Central</td>
+<td>Five local probability vectors</td>
+<td>Fusion MLP</td>
+<td>6 probabilities</td>
+</tr>
+</tbody>
+</table>
+<p>Communication and synchronization of these prediction vectors are documented under <a href="./communication-sync.html">Communication &amp; Synchronization</a>.</p>
+</section>
+<section id="model-loading" class="level2">
+<h2 class="anchored" data-anchor-id="model-loading">Model Loading</h2>
+<p>During execution, each edge node must load the trained model corresponding to its sensor configuration.</p>
+<p>The central node must similarly load the trained fusion model.</p>
+<p>The runtime configuration must therefore preserve consistency among:</p>
+<ul>
+<li>Sensing Location</li>
+<li>Sensor Representation</li>
+<li>Expected Number Of Input Channels</li>
+<li>Model Architecture</li>
+<li>Trained Model Parameters</li>
+</ul>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -687,56 +796,89 @@ Warning
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>If the SSD partition does not correspond to <code>/dev/nvme0n1p1</code>, the device path used by the <code>rootOnNVMe</code> scripts must be updated before continuing.</p>
-<p>The original procedure identifies the following files as containing the default path:</p>
-<pre class="text"><code>copy-rootfs-ssd.sh
-data/setssdroot.service
-data/setssdroot.sh</code></pre>
+<p>A valid PyTorch model file is not sufficient by itself.</p>
+<p>The model definition instantiated at runtime must match the architecture used when the trained parameters were saved.</p>
 </div>
 </div>
+<p>The actual startup and model-loading commands are documented under <a href="./running-framework.html"><strong>Running the Framework</strong></a>.</p>
 </section>
-<section id="recovery-behavior" class="level2">
-<h2 class="anchored" data-anchor-id="recovery-behavior">Recovery Behavior</h2>
-<p>The expansion procedure does <strong>not</strong> remove the original root filesystem stored in the internal eMMC.</p>
-<p>This provides a useful recovery mechanism.</p>
-<p>If the SSD is removed, the system can still boot from the original internal storage, assuming the original installation remains intact.</p>
+<section id="input-and-output-summary" class="level2">
+<h2 class="anchored" data-anchor-id="input-and-output-summary">Input and Output Summary</h2>
+<p>The complete inference structure can be summarized as follows:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Component</th>
+<th>Input</th>
+<th>Output</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Quaternion local model</td>
+<td><code>50 × 4</code></td>
+<td>6 probabilities</td>
+</tr>
+<tr class="even">
+<td>ACC + GYRO local model</td>
+<td><code>50 × 6</code></td>
+<td>6 probabilities</td>
+</tr>
+<tr class="odd">
+<td>Central fusion MLP</td>
+<td><code>30 probabilities</code></td>
+<td>6 probabilities</td>
+</tr>
+</tbody>
+</table>
 </section>
-<section id="troubleshooting" class="level2">
-<h2 class="anchored" data-anchor-id="troubleshooting">Troubleshooting</h2>
-<section id="ssd-is-not-detected" class="level3">
-<h3 class="anchored" data-anchor-id="ssd-is-not-detected">SSD Is Not Detected</h3>
-<p>Verify that:</p>
+<section id="data-flow-across-the-framework" class="level2">
+<h2 class="anchored" data-anchor-id="data-flow-across-the-framework">Data Flow Across the Framework</h2>
+<p>The responsibilities documented across the framework are separated intentionally:</p>
 <ul>
-<li>The SSD is correctly installed</li>
-<li>The carrier board supports the installed NVMe device</li>
-<li>The SSD is visible using <code>lsblk</code> or <code>sudo fdisk -l</code></li>
-<li>The M.2 slot supports NVMe storage</li>
+<li><a href="./wearable-sensors.html"><strong>Wearable Sensor Setup</strong></a> — physical sensing and BLE connectivity;</li>
+<li><a href="./edge-nodes.html"><strong>Edge Nodes</strong></a> — acquisition, buffering, input preparation, and local inference;</li>
+<li><a href="./models-data.html"><strong>Models &amp; Data</strong></a> — window dimensions, channels, classes, and neural models;</li>
+<li><a href="./communication-sync.html"><strong>Communication &amp; Synchronization</strong></a> — transport and temporal coordination of predictions;</li>
+<li><a href="./central-node.html"><strong>Central Node</strong></a> — system-level processing and global inference.</li>
 </ul>
 </section>
-<section id="system-does-not-boot-from-the-ssd" class="level3">
-<h3 class="anchored" data-anchor-id="system-does-not-boot-from-the-ssd">System Does Not Boot from the SSD</h3>
-<p>Check:</p>
+<section id="verification" class="level2">
+<h2 class="anchored" data-anchor-id="verification">Verification</h2>
+<p>When modifying or replacing a model, verify:</p>
 <ul>
-<li>That the root filesystem copy completed successfully</li>
-<li>That <code>setup-service.sh</code> executed without errors</li>
-<li>That the correct NVMe partition path is configured</li>
-<li>That the SSD contains a valid Ext4 filesystem</li>
+<li>The expected number of input channels</li>
+<li>The 50-sample window dimension</li>
+<li>The class ordering</li>
+<li>The output dimension</li>
+<li>The model architecture</li>
+<li>The trained parameter file</li>
+<li>Compatibility with the deployed PyTorch environment.</li>
 </ul>
+<p>For a local model, the final output should contain:</p>
+<pre class="text"><code>6 probabilities</code></pre>
+<p>For the central fusion model, the input should contain:</p>
+<pre class="text"><code>30 probability values</code></pre>
+<p>and its output should again contain:</p>
+<pre class="text"><code>6 probabilities</code></pre>
 </section>
-<section id="incorrect-nvme-device-path" class="level3">
-<h3 class="anchored" data-anchor-id="incorrect-nvme-device-path">Incorrect NVMe Device Path</h3>
-<p>Use:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">lsblk</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>to determine the actual SSD partition.</p>
-<p>Update the <code>rootOnNVMe</code> configuration if the partition differs from:</p>
-<pre class="text"><code>/dev/nvme0n1p1</code></pre>
-</section>
+<section id="related-documentation" class="level2">
+<h2 class="anchored" data-anchor-id="related-documentation">Related Documentation</h2>
+<ul>
+<li><a href="./wearable-sensors.html"><strong>Wearable Sensor Setup</strong></a> — sensor preparation and body placement.</li>
+<li><a href="./edge-nodes.html"><strong>Edge Nodes</strong></a> — local processing implementation.</li>
+<li><a href="./central-node.html"><strong>Central Node</strong></a> — central processing implementation.</li>
+<li><a href="./communication-sync.html"><strong>Communication &amp; Synchronization</strong></a> — prediction exchange and synchronization.</li>
+<li><a href="./running-framework.html"><strong>Running the Framework</strong></a> — runtime deployment and execution.</li>
+<li><a href="./experiments-logs.html"><strong>Experiments &amp; Logs</strong></a> — evaluation and recorded measurements.</li>
+</ul>
 </section>
 <section id="next-step" class="level2">
 <h2 class="anchored" data-anchor-id="next-step">Next Step</h2>
-<p>Once the Jetson hardware and storage are ready, continue with:</p>
-<p><a href="./software-environment.html"><strong>Software Environment</strong></a></p>
-<p>If no storage expansion was required, this page can be skipped entirely.</p>
+<p>The core implementation of the distributed framework is now defined.</p>
+<p>Continue with:</p>
+<p><a href="./running-framework.html"><strong>Running the Framework</strong></a></p>
+<p>The next section describes how to start the complete system, including the central services, edge nodes, wearable acquisition, distributed inference, and visualization components.</p>
 
 
 </section>
@@ -1163,7 +1305,7 @@ data/setssdroot.sh</code></pre>
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/blob/main/expansion-jetson-board.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/blob/main/models-data.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <div style="text-align: right;">
 <p>Technical Documentation &amp; Reproducibility Resources<br> <small>Author: Jhonathan Rivas-Caicedo</small></p>

@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="1300"
+   height="980"
+   viewBox="0 0 1300 980"
+   version="1.1"
+   id="svg20"
+   sodipodi:docname="troubleshooting-diagnostic-flow.svg"
+   inkscape:version="1.4 (86a8ad7, 2024-10-11)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview20"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="9.3164926"
+     inkscape:cx="653.41114"
+     inkscape:cy="790.90923"
+     inkscape:window-width="1920"
+     inkscape:window-height="1009"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg20" />
+  <defs
+     id="defs1">
+    <marker
+       style="overflow:visible"
+       id="Triangle"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Triangle arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135" />
+    </marker>
+    <marker
+       id="arrow"
+       markerWidth="12"
+       markerHeight="12"
+       refX="10"
+       refY="6"
+       orient="auto">
+      <path
+         d="M 0,0 12,6 0,12 Z"
+         fill="#48657d"
+         id="path1" />
+    </marker>
+    <filter
+       id="shadow"
+       x="-0.003"
+       y="-0.016666667"
+       width="1.006"
+       height="1.0333333">
+      <feDropShadow
+         dx="0"
+         dy="4"
+         stdDeviation="5"
+         flood-color="#000000"
+         flood-opacity="0.10" />
+    </filter>
+  </defs>
+  <text
+     x="652.85004"
+     y="67.714996"
+     text-anchor="middle"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="34"
+     font-weight="700"
+     fill="#17324d"
+     id="text1"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:34px;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-anchor:middle;fill:#17324d">Runtime Troubleshooting Flow</text>
+  <text
+     x="652.85004"
+     y="103.715"
+     text-anchor="middle"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="18"
+     fill="#617487"
+     id="text2"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18px;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-anchor:middle;fill:#617487">Isolate failures from infrastructure to application output</text>
+  <!-- Start -->
+  <g
+     filter="url(#shadow)"
+     id="g2"
+     transform="translate(-97.14994,9.7149937)">
+    <rect
+       x="500"
+       y="135"
+       rx="24"
+       width="500"
+       height="90"
+       fill="#eef5fb"
+       stroke="#17324d"
+       stroke-width="3"
+       id="rect2" />
+  </g>
+  <text
+     x="652.85004"
+     y="181.71498"
+     text-anchor="middle"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="24"
+     font-weight="700"
+     fill="#17324d"
+     id="text3"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:22.8333px;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Framework Not Working as Expected</text>
+  <text
+     x="652.85004"
+     y="211.71498"
+     text-anchor="middle"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="17"
+     fill="#51677a"
+     id="text4"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:17px;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Start at the lowest common dependency</text>
+  <line
+     x1="652.85004"
+     y1="234.71498"
+     x2="652.85004"
+     y2="284.715"
+     stroke="#48657d"
+     stroke-width="4"
+     marker-end="url(#arrow)"
+     id="line4"
+     style="marker-end:url(#Triangle)" />
+  <!-- Step 1 -->
+  <g
+     filter="url(#shadow)"
+     id="g4"
+     transform="translate(-97.14994,9.7149937)">
+    <rect
+       x="470"
+       y="288"
+       rx="20"
+       width="560"
+       height="105"
+       fill="#f8fafc"
+       stroke="#315c7d"
+       stroke-width="2.5"
+       id="rect4" />
+  </g>
+  <text
+     x="652.85004"
+     y="334.715"
+     text-anchor="middle"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="23"
+     font-weight="700"
+     fill="#17324d"
+     id="text5"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:22.8333px;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">1. Network and ROS Master</text>
+  <text
+     x="652.85004"
+     y="365.715"
+     text-anchor="middle"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="17"
+     fill="#53697c"
+     id="text6"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:17px;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Ping central node • ROS_MASTER_URI • ROS_IP • rostopic list</text>
+  <text
+     x="652.85004"
+     y="390.715"
+     text-anchor="middle"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="15"
+     fill="#6b7d8d"
+     id="text7"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">If this fails, fix infrastructure before checking inference</text>
+  <line
+     x1="652.85004"
+     y1="402.715"
+     x2="652.85004"
+     y2="452.715"
+     stroke="#48657d"
+     stroke-width="4"
+     marker-end="url(#arrow)"
+     id="line7"
+     style="marker-end:url(#Triangle)" />
+  <!-- Step 2 -->
+  <g
+     filter="url(#shadow)"
+     id="g7"
+     transform="translate(-97.14994,9.7149937)">
+    <rect
+       x="470"
+       y="456"
+       rx="20"
+       width="560"
+       height="105"
+       fill="#f8fafc"
+       stroke="#315c7d"
+       stroke-width="2.5"
+       id="rect7" />
+  </g>
+  <text
+     x="652.85004"
+     y="502.715"
+     text-anchor="middle"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="23"
+     font-weight="700"
+     fill="#17324d"
+     id="text8"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:22.8333px;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">2. Five Local Prediction Streams</text>
+  <text
+     x="652.85004"
+     y="533.71503"
+     text-anchor="middle"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="17"
+     fill="#53697c"
+     id="text9"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:17px;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Check /har/probs/&lt;sensor&gt; with rostopic echo / hz</text>
+  <text
+     x="652.85004"
+     y="558.71503"
+     text-anchor="middle"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="15"
+     fill="#6b7d8d"
+     id="text10"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Missing stream → inspect that sensor, edge process, model, or BLE link</text>
+  <line
+     x1="652.85004"
+     y1="570.71503"
+     x2="652.85004"
+     y2="620.71503"
+     stroke="#48657d"
+     stroke-width="4"
+     marker-end="url(#arrow)"
+     id="line10"
+     style="marker-end:url(#Triangle)" />
+  <!-- Step 3 -->
+  <g
+     filter="url(#shadow)"
+     id="g10"
+     transform="translate(-97.14994,9.7149937)">
+    <rect
+       x="470"
+       y="624"
+       rx="20"
+       width="560"
+       height="105"
+       fill="#f8fafc"
+       stroke="#315c7d"
+       stroke-width="2.5"
+       id="rect10" />
+  </g>
+  <text
+     x="652.85004"
+     y="670.71503"
+     text-anchor="middle"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="23"
+     font-weight="700"
+     fill="#17324d"
+     id="text11"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:22.8333px;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">3. Central Fusion Output</text>
+  <text
+     x="652.85004"
+     y="701.71503"
+     text-anchor="middle"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="17"
+     fill="#53697c"
+     id="text12"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:17px;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Check /har/start and /har/probs/global</text>
+  <text
+     x="652.85004"
+     y="726.71503"
+     text-anchor="middle"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="15"
+     fill="#6b7d8d"
+     id="text13"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">No global output → central node, model loading, ATS / ZOH, timestamps</text>
+  <!-- Bottom branches -->
+  <g
+     filter="url(#shadow)"
+     id="g14"
+     transform="translate(-97.14994,9.7149937)">
+    <rect
+       x="175"
+       y="792"
+       rx="20"
+       width="500"
+       height="125"
+       fill="#f8fafc"
+       stroke="#315c7d"
+       stroke-width="2.5"
+       id="rect13" />
+    <rect
+       x="825"
+       y="792"
+       rx="20"
+       width="500"
+       height="125"
+       fill="#f8fafc"
+       stroke="#315c7d"
+       stroke-width="2.5"
+       id="rect14" />
+  </g>
+  <line
+     x1="651.12994"
+     y1="762.427"
+     x2="477.42288"
+     y2="792.58789"
+     stroke="#48657d"
+     stroke-width="3.34072"
+     marker-end="url(#arrow)"
+     id="line14"
+     style="marker-end:url(#Triangle)" />
+  <line
+     x1="654.37482"
+     y1="762.42175"
+     x2="824.31073"
+     y2="791.64679"
+     stroke="#48657d"
+     stroke-width="3.25259"
+     marker-end="url(#arrow)"
+     id="line15"
+     style="marker-end:url(#Triangle)" />
+  <text
+     x="327.85007"
+     y="839.71503"
+     text-anchor="middle"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="22"
+     font-weight="700"
+     fill="#17324d"
+     id="text15"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:22.8333px;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">4A. Logging Problem</text>
+  <text
+     x="327.85007"
+     y="871.71503"
+     text-anchor="middle"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="17"
+     fill="#53697c"
+     id="text16"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:17px;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Experiment manager • ~/har_runs • permissions • jtop</text>
+  <text
+     x="327.85007"
+     y="900.71503"
+     text-anchor="middle"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="15"
+     fill="#6b7d8d"
+     id="text17"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Global output exists, but files are missing or incomplete</text>
+  <text
+     x="977.85004"
+     y="839.71503"
+     text-anchor="middle"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="22"
+     font-weight="700"
+     fill="#17324d"
+     id="text18"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:22.8333px;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">4B. Visualization Problem</text>
+  <text
+     x="977.85004"
+     y="871.71503"
+     text-anchor="middle"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="17"
+     fill="#53697c"
+     id="text19"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:17px;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">/har/probs/global_ui • /har/start_ui • Unity connection</text>
+  <text
+     x="977.85004"
+     y="900.71503"
+     text-anchor="middle"
+     font-family="Arial, Helvetica, sans-serif"
+     font-size="15"
+     fill="#6b7d8d"
+     id="text20"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Inference works, but the external interface does not update</text>
+  <path
+     style="fill:#ff0000;stroke:#48657d;stroke-width:4;stroke-dasharray:none;stroke-opacity:1"
+     d="m 652.85006,740.04802 v 24.12444"
+     id="path20" />
+</svg>

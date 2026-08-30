@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="1250"
+   height="900"
+   viewBox="0 0 1250 900"
+   version="1.1"
+   id="svg19"
+   sodipodi:docname="chrony-role-diagram.svg"
+   inkscape:version="1.4 (86a8ad7, 2024-10-11)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview19"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="0.70833333"
+     inkscape:cx="756.00001"
+     inkscape:cy="380.47059"
+     inkscape:window-width="2880"
+     inkscape:window-height="1514"
+     inkscape:window-x="2870"
+     inkscape:window-y="9"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg19" />
+  <defs
+     id="defs1">
+    <marker
+       style="overflow:visible"
+       id="Triangle"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Triangle arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135" />
+    </marker>
+    <style
+       id="style1">
+      .title { font: 700 58px Arial, Helvetica, sans-serif; fill: #0f2f73; }
+      .subtitle { font: 400 26px Arial, Helvetica, sans-serif; fill: #4b5c7a; }
+      .boxTitle { font: 700 30px Arial, Helvetica, sans-serif; fill: #17325c; }
+      .boxSub { font: 400 22px Arial, Helvetica, sans-serif; fill: #54657f; }
+      .small { font: 600 20px Arial, Helvetica, sans-serif; fill: #17325c; }
+      .edgeLabel { font: 700 24px Arial, Helvetica, sans-serif; fill: #17325c; }
+      .central { fill: #eef4ff; stroke: #2563eb; stroke-width: 4; }
+      .edge { fill: #f8fbff; stroke: #7aa2ff; stroke-width: 3; }
+      .accent { fill: #eefaf4; stroke: #1f8a5b; stroke-width: 3; }
+      .line { stroke: #2563eb; stroke-width: 5; fill: none; }
+      .note { font: 400 20px Arial, Helvetica, sans-serif; fill: #5a6782; }
+    </style>
+    <marker
+       id="arrowhead"
+       markerWidth="12"
+       markerHeight="12"
+       refX="10"
+       refY="6"
+       orient="auto">
+      <path
+         d="M 0,0 12,6 0,12 Z"
+         fill="#2563eb"
+         id="path1" />
+    </marker>
+    <filter
+       id="shadow"
+       x="-0.0055555556"
+       y="-0.017045455"
+       width="1.0111111"
+       height="1.0340909">
+      <feDropShadow
+         dx="0"
+         dy="4"
+         stdDeviation="6"
+         flood-color="#000000"
+         flood-opacity="0.10" />
+    </filter>
+  </defs>
+  <text
+     x="638"
+     y="61"
+     text-anchor="middle"
+     class="title"
+     id="text1"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:58px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Chrony Time Synchronization Role</text>
+  <text
+     x="638"
+     y="101"
+     text-anchor="middle"
+     class="subtitle"
+     id="text2"
+     style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:26px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Central Jetson as the common time reference for distributed edge nodes</text>
+  <!-- Central node -->
+  <rect
+     x="92"
+     y="300"
+     width="360"
+     height="220"
+     rx="28"
+     class="central"
+     filter="url(#shadow)"
+     id="rect2"
+     transform="matrix(1.0592924,0,0,0.99947359,-78.876222,0.21582571)" />
+  <text
+     x="210"
+     y="390"
+     text-anchor="middle"
+     class="boxTitle"
+     id="text3"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:30px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Central Jetson</text>
+  <text
+     x="210"
+     y="430"
+     text-anchor="middle"
+     class="boxSub"
+     id="text4"
+     style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:22px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Chrony Server / Time Reference</text>
+  <text
+     x="210"
+     y="468"
+     text-anchor="middle"
+     class="boxSub"
+     id="text5"
+     style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:22px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">ROS Master and system clock source</text>
+  <!-- Edge nodes -->
+  <rect
+     x="838"
+     y="130"
+     width="320"
+     height="88"
+     rx="20"
+     class="edge"
+     filter="url(#shadow)"
+     id="rect5" />
+  <text
+     x="998"
+     y="184"
+     text-anchor="middle"
+     class="edgeLabel"
+     id="text6"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:24px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Chest Node</text>
+  <rect
+     x="838"
+     y="260"
+     width="320"
+     height="88"
+     rx="20"
+     class="edge"
+     filter="url(#shadow)"
+     id="rect6" />
+  <text
+     x="998"
+     y="314"
+     text-anchor="middle"
+     class="edgeLabel"
+     id="text7"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:24px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Left Hand Node</text>
+  <rect
+     x="838"
+     y="390"
+     width="320"
+     height="88"
+     rx="20"
+     class="edge"
+     filter="url(#shadow)"
+     id="rect7" />
+  <text
+     x="998"
+     y="444"
+     text-anchor="middle"
+     class="edgeLabel"
+     id="text8"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:24px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Right Hand Node</text>
+  <rect
+     x="838"
+     y="520"
+     width="320"
+     height="88"
+     rx="20"
+     class="edge"
+     filter="url(#shadow)"
+     id="rect8" />
+  <text
+     x="998"
+     y="574"
+     text-anchor="middle"
+     class="edgeLabel"
+     id="text9"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:24px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Left Knee Node</text>
+  <rect
+     x="838"
+     y="650"
+     width="320"
+     height="88"
+     rx="20"
+     class="edge"
+     filter="url(#shadow)"
+     id="rect9" />
+  <text
+     x="998"
+     y="704"
+     text-anchor="middle"
+     class="edgeLabel"
+     id="text10"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:24px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Right Knee Node</text>
+  <!-- arrows -->
+  <line
+     x1="407.00342"
+     y1="408.9213"
+     x2="815.91089"
+     y2="188.00542"
+     class="line"
+     marker-end="url(#arrowhead)"
+     id="line10"
+     style="marker-end:url(#Triangle)" />
+  <line
+     x1="406.63672"
+     y1="408.73038"
+     x2="813.73987"
+     y2="309.60187"
+     class="line"
+     marker-end="url(#arrowhead)"
+     id="line11"
+     style="marker-end:url(#Triangle)" />
+  <line
+     x1="406.23303"
+     y1="411.35892"
+     x2="812.63837"
+     y2="433.55835"
+     class="line"
+     marker-end="url(#arrowhead)"
+     id="line12"
+     style="marker-end:url(#Triangle)" />
+  <line
+     x1="406.69092"
+     y1="411.17419"
+     x2="814.22961"
+     y2="548.57977"
+     class="line"
+     marker-end="url(#arrowhead)"
+     id="line13"
+     style="marker-end:url(#Triangle)" />
+  <line
+     x1="407.03174"
+     y1="411.17755"
+     x2="817.62134"
+     y2="676.67139"
+     class="line"
+     marker-end="url(#arrowhead)"
+     id="line14"
+     style="marker-end:url(#Triangle)" />
+  <!-- labels near arrows -->
+  <g
+     id="g19"
+     transform="rotate(-29.352596,642.45719,414.30569)">
+    <rect
+       x="595"
+       y="280"
+       width="165"
+       height="34"
+       rx="17"
+       fill="#ffffff"
+       id="rect15"
+       style="opacity:0.695486" />
+    <text
+       x="677"
+       y="303"
+       text-anchor="middle"
+       class="small"
+       id="text15"
+       style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:20px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Chrony sync</text>
+  </g>
+  <!-- bottom note -->
+  <rect
+     x="89.584518"
+     y="790.05511"
+     width="1098.2911"
+     height="61.889763"
+     rx="19.381607"
+     class="accent"
+     id="rect19" />
+  <text
+     x="638"
+     y="828"
+     text-anchor="middle"
+     class="note"
+     id="text19"
+     style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:20px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">All edge nodes synchronize their clocks with the central Jetson so distributed timestamps can be compared consistently.</text>
+  <g
+     id="g19-9"
+     transform="rotate(-13.159348,885.05219,454.89908)">
+    <rect
+       x="595"
+       y="280"
+       width="165"
+       height="34"
+       rx="17"
+       fill="#ffffff"
+       id="rect15-4"
+       style="opacity:0.695486" />
+    <text
+       x="677"
+       y="303"
+       text-anchor="middle"
+       class="small"
+       id="text15-8"
+       style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:20px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#17325c">Chrony sync</text>
+  </g>
+  <g
+     id="g19-9-2"
+     transform="rotate(3.1913187,-1597.2918,-177.83998)">
+    <rect
+       x="595"
+       y="280"
+       width="165"
+       height="34"
+       rx="17"
+       fill="#ffffff"
+       id="rect15-4-4"
+       style="opacity:0.695486" />
+    <text
+       x="677"
+       y="303"
+       text-anchor="middle"
+       class="small"
+       id="text15-8-5"
+       style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:20px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#17325c">Chrony sync</text>
+  </g>
+  <g
+     id="g19-9-1"
+     transform="rotate(19.046369,88.372481,289.36938)">
+    <rect
+       x="595"
+       y="280"
+       width="165"
+       height="34"
+       rx="17"
+       fill="#ffffff"
+       id="rect15-4-7"
+       style="opacity:0.695486" />
+    <text
+       x="677"
+       y="303"
+       text-anchor="middle"
+       class="small"
+       id="text15-8-1"
+       style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:20px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#17325c">Chrony sync</text>
+  </g>
+  <g
+     id="g19-9-5"
+     transform="rotate(32.741038,219.09078,339.52648)">
+    <rect
+       x="595"
+       y="280"
+       width="165"
+       height="34"
+       rx="17"
+       fill="#ffffff"
+       id="rect15-4-2"
+       style="opacity:0.695486" />
+    <text
+       x="677"
+       y="303"
+       text-anchor="middle"
+       class="small"
+       id="text15-8-7"
+       style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:20px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#17325c">Chrony sync</text>
+  </g>
+</svg>

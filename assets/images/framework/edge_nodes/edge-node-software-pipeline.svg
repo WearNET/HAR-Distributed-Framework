@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="1600"
+   height="420"
+   viewBox="0 0 1600 420"
+   version="1.1"
+   id="svg15"
+   sodipodi:docname="edge-node-software-pipeline.svg"
+   inkscape:version="1.4 (86a8ad7, 2024-10-11)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview15"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="0.39244426"
+     inkscape:cx="759.3435"
+     inkscape:cy="324.8869"
+     inkscape:window-width="1920"
+     inkscape:window-height="1009"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg15" />
+  <defs
+     id="defs1">
+    <marker
+       style="overflow:visible"
+       id="Triangle"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Triangle arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135" />
+    </marker>
+    <style
+       id="style1">
+      .title { font: 700 50px Arial, Helvetica, sans-serif; fill: #0f2f73; }
+      .subtitle { font: 400 23px Arial, Helvetica, sans-serif; fill: #52627d; }
+      .boxTitle { font: 700 26px Arial, Helvetica, sans-serif; fill: #183153; }
+      .boxSub { font: 400 18px Arial, Helvetica, sans-serif; fill: #54657f; }
+      .stage1 { fill: #eef9ff; stroke: #2b7de9; stroke-width: 3; }
+      .stage2 { fill: #f5f7fb; stroke: #7d8ba5; stroke-width: 3; }
+      .stage3 { fill: #fff5e8; stroke: #c97822; stroke-width: 3; }
+      .stage4 { fill: #eef4ff; stroke: #2563eb; stroke-width: 3; }
+      .stage5 { fill: #eaf7f2; stroke: #1f8a5b; stroke-width: 3; }
+      .stage6 { fill: #f1edff; stroke: #7455c7; stroke-width: 3; }
+      .line { stroke: #2563eb; stroke-width: 5; fill: none; }
+    </style>
+    <marker
+       id="arrowhead"
+       markerWidth="12"
+       markerHeight="12"
+       refX="10"
+       refY="6"
+       orient="auto">
+      <path
+         d="M 0,0 12,6 0,12 Z"
+         fill="#2563eb"
+         id="path1" />
+    </marker>
+    <filter
+       id="shadow"
+       x="-0.01"
+       y="-0.011538462"
+       width="1.02"
+       height="1.0230769">
+      <feDropShadow
+         dx="0"
+         dy="4"
+         stdDeviation="6"
+         flood-color="#000000"
+         flood-opacity="0.10" />
+    </filter>
+    <marker
+       style="overflow:visible"
+       id="Triangle-9"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Triangle arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135-4" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Triangle-2"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Triangle arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135-45" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Triangle-7"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Triangle arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135-1" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Triangle-27"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Triangle arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135-6" />
+    </marker>
+  </defs>
+  <text
+     x="800"
+     y="70"
+     text-anchor="middle"
+     class="title"
+     id="text1"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:50px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Edge Node Software Pipeline</text>
+  <text
+     x="800"
+     y="108"
+     text-anchor="middle"
+     class="subtitle"
+     id="text2"
+     style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:23px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Processing stages executed locally before a prediction is transmitted to the central node</text>
+  <rect
+     x="40"
+     y="151"
+     width="220"
+     height="130"
+     rx="24"
+     class="stage1"
+     filter="url(#shadow)"
+     id="rect2"
+     transform="matrix(1.0727685,0,0,0.99918485,-29.023387,0.1760724)" />
+  <text
+     x="131.40312"
+     y="204"
+     text-anchor="middle"
+     class="boxTitle"
+     id="text3"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:26px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Sensor Acquisition</text>
+  <text
+     x="131.92265"
+     y="240"
+     text-anchor="middle"
+     class="boxSub"
+     id="text4"
+     style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:18px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Receive wearable data</text>
+  <line
+     x1="252.20001"
+     y1="216"
+     x2="287.19824"
+     y2="216"
+     class="line"
+     marker-end="url(#arrowhead)"
+     id="line4"
+     style="marker-end:url(#Triangle)" />
+  <line
+     x1="527.19928"
+     y1="216"
+     x2="562.19751"
+     y2="216"
+     class="line"
+     marker-end="url(#arrowhead)"
+     id="line4-8"
+     style="fill:none;stroke:#2563eb;stroke-width:4.40947;marker-end:url(#Triangle-9)" />
+  <rect
+     x="305"
+     y="151"
+     width="220"
+     height="130"
+     rx="24"
+     class="stage2"
+     filter="url(#shadow)"
+     id="rect4" />
+  <text
+     x="415"
+     y="204"
+     text-anchor="middle"
+     class="boxTitle"
+     id="text5"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:26px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Sample Buffer</text>
+  <text
+     x="415"
+     y="240"
+     text-anchor="middle"
+     class="boxSub"
+     id="text6"
+     style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:18px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Accumulate input data</text>
+  <rect
+     x="580"
+     y="151"
+     width="220"
+     height="130"
+     rx="24"
+     class="stage3"
+     filter="url(#shadow)"
+     id="rect6" />
+  <text
+     x="690"
+     y="204"
+     text-anchor="middle"
+     class="boxTitle"
+     id="text7"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:26px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Input Preparation</text>
+  <text
+     x="690"
+     y="240"
+     text-anchor="middle"
+     class="boxSub"
+     id="text8"
+     style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:18px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Build model-ready input</text>
+  <rect
+     x="865"
+     y="151"
+     width="220"
+     height="130"
+     rx="24"
+     class="stage4"
+     filter="url(#shadow)"
+     id="rect8"
+     transform="matrix(1.0443065,0,0,0.99950021,-48.261866,0.10795565)" />
+  <text
+     x="969.98773"
+     y="204"
+     text-anchor="middle"
+     class="boxTitle"
+     id="text9"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:26px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Local Inference</text>
+  <text
+     x="969.83148"
+     y="240"
+     text-anchor="middle"
+     class="boxSub"
+     id="text10"
+     style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:18px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Execute trained HAR model</text>
+  <rect
+     x="1150"
+     y="151"
+     width="220"
+     height="130"
+     rx="24"
+     class="stage5"
+     filter="url(#shadow)"
+     id="rect10"
+     transform="matrix(1.0343013,0,0,0.99961211,-49.3974,0.08378524)" />
+  <text
+     x="1253.5176"
+     y="204"
+     text-anchor="middle"
+     class="boxTitle"
+     id="text11"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:26px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Prediction Output</text>
+  <text
+     x="1253.8311"
+     y="240"
+     text-anchor="middle"
+     class="boxSub"
+     id="text12"
+     style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:18px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Generate class probabilities</text>
+  <rect
+     x="1433"
+     y="151"
+     width="150"
+     height="130"
+     rx="24"
+     class="stage6"
+     filter="url(#shadow)"
+     id="rect12"
+     transform="matrix(1.0715027,0,0,0.99919878,-112.41129,0.17306276)" />
+  <text
+     x="1503.2815"
+     y="204"
+     text-anchor="middle"
+     class="boxTitle"
+     id="text13"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:26px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">ROS Publish</text>
+  <text
+     x="1503.2214"
+     y="240"
+     text-anchor="middle"
+     class="boxSub"
+     id="text14"
+     style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:18px;line-height:normal;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Send prediction</text>
+  <rect
+     x="105.57334"
+     y="309.07785"
+     width="1374.4388"
+     height="59.844303"
+     rx="23.295574"
+     fill="#f5f8fc"
+     stroke="#d6dfef"
+     stroke-width="2.15569"
+     id="rect14" />
+  <text
+     x="800"
+     y="347"
+     text-anchor="middle"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:23.8px;font-family:'Palatino Linotype';-inkscape-font-specification:'Palatino Linotype, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#5a6782"
+     id="text15">The same processing pattern is used by the five edge nodes; node-specific sensing and model details are configured separately.</text>
+  <line
+     x1="802.19849"
+     y1="216"
+     x2="837.19672"
+     y2="216"
+     class="line"
+     marker-end="url(#arrowhead)"
+     id="line4-5"
+     style="fill:none;stroke:#2563eb;stroke-width:4.40947;marker-end:url(#Triangle-2)" />
+  <line
+     x1="1087.1978"
+     y1="216"
+     x2="1122.196"
+     y2="216"
+     class="line"
+     marker-end="url(#arrowhead)"
+     id="line4-1"
+     style="fill:none;stroke:#2563eb;stroke-width:4.40947;marker-end:url(#Triangle-7)" />
+  <line
+     x1="1370.197"
+     y1="216"
+     x2="1405.1953"
+     y2="216"
+     class="line"
+     marker-end="url(#arrowhead)"
+     id="line4-14"
+     style="fill:none;stroke:#2563eb;stroke-width:4.40947;marker-end:url(#Triangle-27)" />
+</svg>

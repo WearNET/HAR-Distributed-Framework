@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Storage Expansion – HAR Distributed Framework</title>
+<title>Extending the Framework – HAR Distributed Framework</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -25,41 +25,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -327,7 +292,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./flash-jetson-board.html">Setup</a></li><li class="breadcrumb-item"><a href="./expansion-jetson-board.html">Storage Expansion</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./extending-framework.html">Extending the Framework</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -382,7 +347,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./expansion-jetson-board.html" class="sidebar-item-text sidebar-link active">
+  <a href="./expansion-jetson-board.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Storage Expansion</span></a>
   </div>
 </li>
@@ -455,7 +420,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./extending-framework.html" class="sidebar-item-text sidebar-link">
+  <a href="./extending-framework.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Extending the Framework</span></a>
   </div>
 </li>
@@ -475,34 +440,45 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#when-is-storage-expansion-useful" id="toc-when-is-storage-expansion-useful" class="nav-link active" data-scroll-target="#when-is-storage-expansion-useful">When Is Storage Expansion Useful?</a></li>
-  <li><a href="#requirements" id="toc-requirements" class="nav-link" data-scroll-target="#requirements">Requirements</a></li>
-  <li><a href="#install-the-nvme-ssd" id="toc-install-the-nvme-ssd" class="nav-link" data-scroll-target="#install-the-nvme-ssd">1. Install the NVMe SSD</a></li>
-  <li><a href="#prepare-the-ssd" id="toc-prepare-the-ssd" class="nav-link" data-scroll-target="#prepare-the-ssd">2. Prepare the SSD</a></li>
-  <li><a href="#download-the-root-on-nvme-utility" id="toc-download-the-root-on-nvme-utility" class="nav-link" data-scroll-target="#download-the-root-on-nvme-utility">3. Download the Root-on-NVMe Utility</a></li>
-  <li><a href="#copy-the-root-filesystem" id="toc-copy-the-root-filesystem" class="nav-link" data-scroll-target="#copy-the-root-filesystem">4. Copy the Root Filesystem</a></li>
-  <li><a href="#configure-boot-from-nvme" id="toc-configure-boot-from-nvme" class="nav-link" data-scroll-target="#configure-boot-from-nvme">5. Configure Boot from NVMe</a></li>
-  <li><a href="#verification" id="toc-verification" class="nav-link" data-scroll-target="#verification">Verification</a></li>
-  <li><a href="#nvme-device-path" id="toc-nvme-device-path" class="nav-link" data-scroll-target="#nvme-device-path">NVMe Device Path</a></li>
-  <li><a href="#recovery-behavior" id="toc-recovery-behavior" class="nav-link" data-scroll-target="#recovery-behavior">Recovery Behavior</a></li>
-  <li><a href="#troubleshooting" id="toc-troubleshooting" class="nav-link" data-scroll-target="#troubleshooting">Troubleshooting</a>
+  <li><a href="#extension-impact" id="toc-extension-impact" class="nav-link active" data-scroll-target="#extension-impact">Extension Impact</a></li>
+  <li><a href="#before-modifying-the-framework" id="toc-before-modifying-the-framework" class="nav-link" data-scroll-target="#before-modifying-the-framework">Before Modifying the Framework</a></li>
+  <li><a href="#adding-a-new-wearable-sensor" id="toc-adding-a-new-wearable-sensor" class="nav-link" data-scroll-target="#adding-a-new-wearable-sensor">Adding a New Wearable Sensor</a>
   <ul class="collapse">
-  <li><a href="#ssd-is-not-detected" id="toc-ssd-is-not-detected" class="nav-link" data-scroll-target="#ssd-is-not-detected">SSD Is Not Detected</a></li>
-  <li><a href="#system-does-not-boot-from-the-ssd" id="toc-system-does-not-boot-from-the-ssd" class="nav-link" data-scroll-target="#system-does-not-boot-from-the-ssd">System Does Not Boot from the SSD</a></li>
-  <li><a href="#incorrect-nvme-device-path" id="toc-incorrect-nvme-device-path" class="nav-link" data-scroll-target="#incorrect-nvme-device-path">Incorrect NVMe Device Path</a></li>
+  <li><a href="#central-changes" id="toc-central-changes" class="nav-link" data-scroll-target="#central-changes">Central Changes</a></li>
   </ul></li>
+  <li><a href="#replacing-a-wearable-sensor" id="toc-replacing-a-wearable-sensor" class="nav-link" data-scroll-target="#replacing-a-wearable-sensor">Replacing a Wearable Sensor</a></li>
+  <li><a href="#changing-the-sensor-modality" id="toc-changing-the-sensor-modality" class="nav-link" data-scroll-target="#changing-the-sensor-modality">Changing the Sensor Modality</a></li>
+  <li><a href="#replacing-a-local-har-model" id="toc-replacing-a-local-har-model" class="nav-link" data-scroll-target="#replacing-a-local-har-model">Replacing a Local HAR Model</a></li>
+  <li><a href="#changing-the-window-configuration" id="toc-changing-the-window-configuration" class="nav-link" data-scroll-target="#changing-the-window-configuration">Changing the Window Configuration</a></li>
+  <li><a href="#adding-activity-classes" id="toc-adding-activity-classes" class="nav-link" data-scroll-target="#adding-activity-classes">Adding Activity Classes</a>
+  <ul class="collapse">
+  <li><a href="#local-models" id="toc-local-models" class="nav-link" data-scroll-target="#local-models">Local Models</a></li>
+  <li><a href="#central-fusion" id="toc-central-fusion" class="nav-link" data-scroll-target="#central-fusion">Central Fusion</a></li>
+  <li><a href="#other-components" id="toc-other-components" class="nav-link" data-scroll-target="#other-components">Other Components</a></li>
+  </ul></li>
+  <li><a href="#changing-the-central-fusion-strategy" id="toc-changing-the-central-fusion-strategy" class="nav-link" data-scroll-target="#changing-the-central-fusion-strategy">Changing the Central Fusion Strategy</a></li>
+  <li><a href="#changing-the-number-of-edge-nodes" id="toc-changing-the-number-of-edge-nodes" class="nav-link" data-scroll-target="#changing-the-number-of-edge-nodes">Changing the Number of Edge Nodes</a></li>
+  <li><a href="#modifying-synchronization" id="toc-modifying-synchronization" class="nav-link" data-scroll-target="#modifying-synchronization">Modifying Synchronization</a></li>
+  <li><a href="#replacing-ros" id="toc-replacing-ros" class="nav-link" data-scroll-target="#replacing-ros">Replacing ROS</a></li>
+  <li><a href="#adding-new-runtime-metrics" id="toc-adding-new-runtime-metrics" class="nav-link" data-scroll-target="#adding-new-runtime-metrics">Adding New Runtime Metrics</a></li>
+  <li><a href="#extending-experiment-logs" id="toc-extending-experiment-logs" class="nav-link" data-scroll-target="#extending-experiment-logs">Extending Experiment Logs</a></li>
+  <li><a href="#adding-ground-truth" id="toc-adding-ground-truth" class="nav-link" data-scroll-target="#adding-ground-truth">Adding Ground Truth</a></li>
+  <li><a href="#extending-the-visualization" id="toc-extending-the-visualization" class="nav-link" data-scroll-target="#extending-the-visualization">Extending the Visualization</a></li>
+  <li><a href="#recommended-development-procedure" id="toc-recommended-development-procedure" class="nav-link" data-scroll-target="#recommended-development-procedure">Recommended Development Procedure</a></li>
+  <li><a href="#compatibility-checklist" id="toc-compatibility-checklist" class="nav-link" data-scroll-target="#compatibility-checklist">Compatibility Checklist</a></li>
+  <li><a href="#related-documentation" id="toc-related-documentation" class="nav-link" data-scroll-target="#related-documentation">Related Documentation</a></li>
   <li><a href="#next-step" id="toc-next-step" class="nav-link" data-scroll-target="#next-step">Next Step</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/blob/main/expansion-jetson-board.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/blob/main/extending-framework.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./flash-jetson-board.html">Setup</a></li><li class="breadcrumb-item"><a href="./expansion-jetson-board.html">Storage Expansion</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Storage Expansion</h1>
-<p class="subtitle lead">Optional Jetson Preparation</p>
+<h1 class="title">Extending the Framework</h1>
+<p class="subtitle lead">Modifying Sensors, Models, Fusion, and Runtime Components</p>
 </div>
 
 
@@ -519,44 +495,114 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>This section describes how to expand the available storage of a compatible Jetson-based system using an <strong>NVMe SSD connected through an M.2 M-Key slot</strong>.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<p>The <strong>HAR Distributed Framework</strong> was designed as a modular distributed system in which sensing, local inference, communication, central fusion, logging, and visualization are separated into independent components.</p>
+<p>This organization makes it possible to modify individual parts of the system, but changes must remain consistent across all dependent layers.</p>
+<section id="extension-impact" class="level2">
+<h2 class="anchored" data-anchor-id="extension-impact">Extension Impact</h2>
+<p>A modification introduced in one part of the framework may require corresponding changes elsewhere. The main dependencies are summarized in <a href="#fig-extension-impact" class="quarto-xref">Figure&nbsp;1</a>.</p>
+<div id="fig-extension-impact" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-extension-impact-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="assets/images/extending_framework/extension-impact-map.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%">
 </div>
-<div class="callout-title-container flex-fill">
-Note
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-extension-impact-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Main software components affected when extending the HAR Distributed Framework.
+</figcaption>
+</figure>
 </div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Storage expansion is <strong>optional</strong>.</p>
-<p>If the Jetson device already provides sufficient storage for the operating system, framework dependencies, trained models, and experiment logs, this procedure can be skipped.</p>
-</div>
-</div>
-<section id="when-is-storage-expansion-useful" class="level2">
-<h2 class="anchored" data-anchor-id="when-is-storage-expansion-useful">When Is Storage Expansion Useful?</h2>
-<p>Storage expansion is useful when the onboard storage is not sufficient for:</p>
-<ul>
-<li>The operating system</li>
-<li>Docker images and containers</li>
-<li>Python and machine learning dependencies</li>
-<li>Trained models</li>
-<li>Experiment logs</li>
-<li>Additional development resources</li>
-</ul>
-<p>The procedure documented here moves the system root filesystem to an NVMe SSD while preserving the original root filesystem stored in the Jetson’s internal storage.</p>
+<p>The most important rule when extending the system is:</p>
+<blockquote class="blockquote">
+<p>A modification is complete only when the sensing configuration, model dimensions, communication structure, fusion input, and outputs remain mutually consistent.</p>
+</blockquote>
 </section>
-<section id="requirements" class="level2">
-<h2 class="anchored" data-anchor-id="requirements">Requirements</h2>
-<p>The procedure requires:</p>
+<section id="before-modifying-the-framework" class="level2">
+<h2 class="anchored" data-anchor-id="before-modifying-the-framework">Before Modifying the Framework</h2>
+<p>Before implementing a change, identify which layers are affected.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Modification</th>
+<th>Components to Review</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Add a wearable sensor</td>
+<td>Edge node, ROS topic, central synchronization, fusion model, logging</td>
+</tr>
+<tr class="even">
+<td>Replace a sensor modality</td>
+<td>Acquisition, preprocessing, scaler, local model</td>
+</tr>
+<tr class="odd">
+<td>Replace a local model</td>
+<td>Input preparation, model definition, model file, output dimension</td>
+</tr>
+<tr class="even">
+<td>Add an activity class</td>
+<td>All local models, <code>K</code>, central fusion model, UI class mapping</td>
+</tr>
+<tr class="odd">
+<td>Change the fusion model</td>
+<td>Central model definition, sensor order, fusion input dimension</td>
+</tr>
+<tr class="even">
+<td>Change synchronization</td>
+<td>Central node, ATS/ZOH parameters, timing evaluation</td>
+</tr>
+<tr class="odd">
+<td>Add a runtime metric</td>
+<td>ROS message if needed, experiment manager, log files, analysis</td>
+</tr>
+<tr class="even">
+<td>Add a new application</td>
+<td>Subscribe to existing outputs or define a new interface</td>
+</tr>
+</tbody>
+</table>
+<p>Changes should be validated incrementally before executing the complete distributed system.</p>
+</section>
+<section id="adding-a-new-wearable-sensor" class="level2">
+<h2 class="anchored" data-anchor-id="adding-a-new-wearable-sensor">Adding a New Wearable Sensor</h2>
+<p>Adding another sensing location requires more than creating a new sensor connection.</p>
+<p>A new branch must provide the same functional stages used by the existing edge nodes:</p>
+<ol type="1">
+<li>Sensor Acquisition</li>
+<li>Input Buffering</li>
+<li>Preprocessing</li>
+<li>Local Inference</li>
+<li>Prediction Generation</li>
+<li>ROS Publication</li>
+</ol>
+<p>The new node requires a unique:</p>
+<p><code>sensor_id</code></p>
+<p>and prediction topic, for example:</p>
+<p><code>/har/probs/&lt;new_sensor&gt;</code></p>
+<p>The physical sensor should also have a fixed relationship among:</p>
 <ul>
-<li>A Jetson-based system with an <strong>M.2 M-Key slot</strong></li>
-<li>An NVMe SSD</li>
-<li>An existing working Jetson operating system</li>
-<li>Sufficient access privileges to modify the storage configuration</li>
+<li>Bluetooth Address</li>
+<li>Body Location</li>
+<li>Edge Computing Device</li>
+<li>Sensing Modality</li>
+<li>Trained Local Model</li>
 </ul>
-<p>The procedure was originally performed on a <strong>reComputer platform</strong> using an NVMe SSD.</p>
+<p>Sensor preparation is described in <a href="./wearable-sensors.html">Wearable Sensor Setup</a>.</p>
+<section id="central-changes" class="level3">
+<h3 class="anchored" data-anchor-id="central-changes">Central Changes</h3>
+<p>The central implementation maintains an explicit sensor organization for the distributed prediction streams.</p>
+<p>Therefore, adding a sixth sensor requires updating the central node so that the new stream participates in:</p>
+<ul>
+<li>ROS Subscription</li>
+<li>Prediction Caching</li>
+<li>Synchronization</li>
+<li>Fallback Operation</li>
+<li>Sensor Ordering</li>
+<li>Fusion-Input Construction</li>
+</ul>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -567,116 +613,130 @@ Important
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The Jetson must already boot correctly before performing this procedure.</p>
-<p>Storage expansion does not replace the operating system flashing procedure.</p>
+<p>Adding a new ROS topic without retraining or adapting the fusion model is not sufficient.</p>
+<p>The central model must be compatible with the new fusion-input dimension.</p>
 </div>
 </div>
+<p>If each local classifier produces <code>K</code> probabilities, the fusion-input dimension is:</p>
+<p><code>Number of sensors × K</code></p>
+<p>For the current configuration:</p>
+<p><code>5 × 6 = 30</code></p>
+<p>If a sixth sensor were added while retaining six classes:</p>
+<p><code>6 × 6 = 36</code></p>
+<p>The fusion model would therefore require a compatible 36-value input and new trained parameters.</p>
 </section>
-<section id="install-the-nvme-ssd" class="level2">
-<h2 class="anchored" data-anchor-id="install-the-nvme-ssd">1. Install the NVMe SSD</h2>
-<p>Power off the Jetson device and install the NVMe SSD in the available M.2 M-Key slot.</p>
-<p>Refer to the corresponding carrier-board hardware instructions for the exact installation procedure.</p>
-<p>The device used for the original procedure is shown below.</p>
-<div class="text-center">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/reComputeJ1020.webp" class="img-fluid figure-img" style="width:40.0%"></p>
-<figcaption>Example reComputer platform used for NVMe storage expansion.</figcaption>
-</figure>
-</div>
-</div>
-<p>After installing the SSD, power on the Jetson and verify that the device is detected by the operating system.</p>
 </section>
-<section id="prepare-the-ssd" class="level2">
-<h2 class="anchored" data-anchor-id="prepare-the-ssd">2. Prepare the SSD</h2>
-<p>Open the Ubuntu <strong>Disks</strong> utility.</p>
-<p>The SSD should appear in the list of available storage devices.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/disk.webp" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div>
-<p>Select the SSD and choose <strong>Format Disk</strong>.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/format_disk.webp" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div>
-<p>Use a <strong>GPT partition table</strong>.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/format_disk2.webp" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div>
-<p>Create a new partition using the available storage space.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/format_disk3.webp" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div>
-<p>Continue with the partition creation process.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/format_disk4.webp" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div>
-<p>Format the partition using the <strong>Ext4</strong> filesystem.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/format_disk5.webp" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div>
-<p>Once completed, the SSD is ready to receive a copy of the Jetson root filesystem.</p>
+<section id="replacing-a-wearable-sensor" class="level2">
+<h2 class="anchored" data-anchor-id="replacing-a-wearable-sensor">Replacing a Wearable Sensor</h2>
+<p>A physical sensor can be replaced without changing the distributed architecture if the replacement provides equivalent information and the acquisition component produces the same model input representation.</p>
+<p>Verify:</p>
+<ul>
+<li>Sensing Modality</li>
+<li>Axis Ordering</li>
+<li>Units</li>
+<li>Sampling Frequency</li>
+<li>Timestamp Behavior</li>
+<li>Communication Interface</li>
+<li>Preprocessing</li>
+</ul>
+<p>A replacement sensor should not be considered interchangeable merely because it provides accelerometer, gyroscope, or orientation data.</p>
+<p>The numerical representation must remain compatible with the trained model.</p>
 </section>
-<section id="download-the-root-on-nvme-utility" class="level2">
-<h2 class="anchored" data-anchor-id="download-the-root-on-nvme-utility">3. Download the Root-on-NVMe Utility</h2>
-<p>Open a terminal and clone the <code>rootOnNVMe</code> repository:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/limengdu/rootOnNVMe.git</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> rootOnNVMe/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>This utility provides the scripts used to copy the existing root filesystem and configure the system to use the NVMe SSD.</p>
-</section>
-<section id="copy-the-root-filesystem" class="level2">
-<h2 class="anchored" data-anchor-id="copy-the-root-filesystem">4. Copy the Root Filesystem</h2>
-<p>Execute:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./copy-rootfs-ssd.sh</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The script copies the existing root filesystem from the Jetson internal storage to the SSD.</p>
-<p>The execution time depends on the amount of data currently stored in the root filesystem.</p>
-</section>
-<section id="configure-boot-from-nvme" class="level2">
-<h2 class="anchored" data-anchor-id="configure-boot-from-nvme">5. Configure Boot from NVMe</h2>
-<p>After the copy operation completes, execute:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./setup-service.sh</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>This configures the service required to use the SSD as the system root filesystem.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/terminal.webp" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<section id="changing-the-sensor-modality" class="level2">
+<h2 class="anchored" data-anchor-id="changing-the-sensor-modality">Changing the Sensor Modality</h2>
+<p>The existing local implementations use sensor-specific input representations.</p>
+<p>Changing a branch from one representation to another affects. The components affected by a change in sensing modality are illustrated in <a href="#fig-sensor-modality-change" class="quarto-xref">Figure&nbsp;2</a>.</p>
+<div id="fig-sensor-modality-change" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-sensor-modality-change-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="assets/images/extending_framework/sensor-modality-change-flow.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:75.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sensor-modality-change-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Processing components that must remain consistent when changing the sensing modality of an edge node.
+</figcaption>
 </figure>
 </div>
-<p>Restart the Jetson after the configuration is complete.</p>
+<p>For example, changing from a four-channel quaternion representation to a six-channel accelerometer–gyroscope representation requires a model whose first layer accepts the new input dimension.</p>
+<p>It normally also requires a scaler trained using the new feature organization.</p>
+<p>Do not reuse a scaler created for a different sensing modality.</p>
 </section>
-<section id="verification" class="level2">
-<h2 class="anchored" data-anchor-id="verification">Verification</h2>
-<p>After rebooting, verify that the system is using the NVMe SSD as the root filesystem.</p>
-<p>A useful command is:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">df</span> <span class="at">-h</span> /</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>You can also inspect available block devices using:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">lsblk</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The root filesystem should correspond to the NVMe storage device.</p>
-<p>The original implementation showed the expanded storage after reboot as illustrated below.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/images/expansion_jetson/terminal2.webp" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
-</figure>
-</div>
+<section id="replacing-a-local-har-model" class="level2">
+<h2 class="anchored" data-anchor-id="replacing-a-local-har-model">Replacing a Local HAR Model</h2>
+<p>A local model can be replaced with another neural architecture as long as the edge-node interface remains compatible with the rest of the distributed system.</p>
+<p>The replacement model must define:</p>
+<ul>
+<li>Expected window shape</li>
+<li>Number and ordering of input channels</li>
+<li>Preprocessing</li>
+<li>Output class order</li>
+<li>Number of output classes</li>
+</ul>
+<p>The distributed communication layer expects the local classifier to produce a probability vector.</p>
+<p>For the current system:</p>
+<p><code>K = 6</code></p>
+<p>Therefore, a compatible replacement model should produce:</p>
+<p><code>[p0, p1, p2, p3, p4, p5]</code></p>
+<p>unless the complete system is also updated for a different number of classes.</p>
+<p>The local architecture itself does not need to remain CNN-LSTM.</p>
+<p>Possible future alternatives could include:</p>
+<pre class="text"><code>CNN
+LSTM
+GRU
+Transformer
+Temporal Convolutional Network
+Lightweight Edge-AI architecture</code></pre>
+<p>provided that the runtime input and output interfaces are adapted accordingly.</p>
 </section>
-<section id="nvme-device-path" class="level2">
-<h2 class="anchored" data-anchor-id="nvme-device-path">NVMe Device Path</h2>
-<p>The <code>rootOnNVMe</code> scripts assume the SSD partition is located at:</p>
-<pre class="text"><code>/dev/nvme0n1p1</code></pre>
-<p>Before running the scripts, verify the actual device path using:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> fdisk <span class="at">-l</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>or:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">lsblk</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="changing-the-window-configuration" class="level2">
+<h2 class="anchored" data-anchor-id="changing-the-window-configuration">Changing the Window Configuration</h2>
+<p>The current models were developed around a fixed temporal input representation.</p>
+<p>Changing:</p>
+<p><code>WINDOW_SIZE</code></p>
+<p>or the effective sampling rate changes the temporal context presented to the model.</p>
+<p>For example:</p>
+<p><code>50 samples at 50 Hz ≈ 1 second</code></p>
+<p>A different window length should therefore be treated as a model-level change rather than only a runtime parameter adjustment.</p>
+<p>The following must remain consistent:</p>
+<ul>
+<li>Sensor Acquisition Rate</li>
+<li>Buffer Size</li>
+<li>Preprocessing</li>
+<li>Model Input Dimensions</li>
+<li>Scaler</li>
+<li>Training Configuration</li>
+<li>Deployed Model Parameters</li>
+</ul>
+</section>
+<section id="adding-activity-classes" class="level2">
+<h2 class="anchored" data-anchor-id="adding-activity-classes">Adding Activity Classes</h2>
+<p>Adding or removing an activity modifies the classification dimension:</p>
+<p><code>K</code></p>
+<p>This affects both levels of the distributed architecture.</p>
+<section id="local-models" class="level3">
+<h3 class="anchored" data-anchor-id="local-models">Local Models</h3>
+<p>Every local classifier must produce the same updated class vector.</p>
+<p>For example, moving from: <code>6 classes</code></p>
+<p>to: <code>7 classes</code></p>
+<p>changes each local output from: <code>6 probabilities</code></p>
+<p>to: <code>7 probabilities</code></p>
+</section>
+<section id="central-fusion" class="level3">
+<h3 class="anchored" data-anchor-id="central-fusion">Central Fusion</h3>
+<p>With five sensors: <code>5 × 7 = 35</code></p>
+<p>probabilities would then be provided to the fusion model.</p>
+<p>The central model must therefore be retrained with: <code>35 inputs</code></p>
+<p>and: <code>7 outputs</code></p>
+</section>
+<section id="other-components" class="level3">
+<h3 class="anchored" data-anchor-id="other-components">Other Components</h3>
+<p>The change must also propagate to:</p>
+<ul>
+<li>Class-ID Mapping</li>
+<li>Visualization Labels</li>
+<li>Logging Interpretation</li>
+<li>Evaluation Scripts</li>
+<li>Any External Application Consuming the Predictions</li>
+</ul>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -687,56 +747,223 @@ Warning
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>If the SSD partition does not correspond to <code>/dev/nvme0n1p1</code>, the device path used by the <code>rootOnNVMe</code> scripts must be updated before continuing.</p>
-<p>The original procedure identifies the following files as containing the default path:</p>
-<pre class="text"><code>copy-rootfs-ssd.sh
-data/setssdroot.service
-data/setssdroot.sh</code></pre>
+<p>Class order must remain identical across all local models, the fusion model, logs, and visualization.</p>
+<p>A numerically valid probability vector with a different class ordering will produce semantically incorrect results.</p>
 </div>
 </div>
 </section>
-<section id="recovery-behavior" class="level2">
-<h2 class="anchored" data-anchor-id="recovery-behavior">Recovery Behavior</h2>
-<p>The expansion procedure does <strong>not</strong> remove the original root filesystem stored in the internal eMMC.</p>
-<p>This provides a useful recovery mechanism.</p>
-<p>If the SSD is removed, the system can still boot from the original internal storage, assuming the original installation remains intact.</p>
 </section>
-<section id="troubleshooting" class="level2">
-<h2 class="anchored" data-anchor-id="troubleshooting">Troubleshooting</h2>
-<section id="ssd-is-not-detected" class="level3">
-<h3 class="anchored" data-anchor-id="ssd-is-not-detected">SSD Is Not Detected</h3>
-<p>Verify that:</p>
+<section id="changing-the-central-fusion-strategy" class="level2">
+<h2 class="anchored" data-anchor-id="changing-the-central-fusion-strategy">Changing the Central Fusion Strategy</h2>
+<p>The current framework performs prediction-level fusion after concatenating the five local class-confidence vectors.</p>
+<p>A different central strategy can be introduced without modifying the physical sensing layer.</p>
+<p>Possible extensions include:</p>
 <ul>
-<li>The SSD is correctly installed</li>
-<li>The carrier board supports the installed NVMe device</li>
-<li>The SSD is visible using <code>lsblk</code> or <code>sudo fdisk -l</code></li>
-<li>The M.2 slot supports NVMe storage</li>
+<li>A deeper MLP;</li>
+<li>Weighted probability fusion</li>
+<li>Confidence-aware fusion</li>
+<li>Attention-based fusion</li>
+<li>Uncertainty-aware fusion</li>
+<li>Temporal fusion of consecutive prediction vectors</li>
+<li>Rule-based decision fusion</li>
 </ul>
+<p>The current central implementation constructs the fusion input using a fixed sensor order.</p>
+<p>That order is semantically significant because the fusion model associates each section of the input vector with a particular sensing location.</p>
+<p>Therefore, changing the order without retraining the model must be avoided.</p>
 </section>
-<section id="system-does-not-boot-from-the-ssd" class="level3">
-<h3 class="anchored" data-anchor-id="system-does-not-boot-from-the-ssd">System Does Not Boot from the SSD</h3>
-<p>Check:</p>
+<section id="changing-the-number-of-edge-nodes" class="level2">
+<h2 class="anchored" data-anchor-id="changing-the-number-of-edge-nodes">Changing the Number of Edge Nodes</h2>
+<p>The central implementation currently maintains explicit references to the five distributed sensing streams.</p>
+<p>Changing the number of edge nodes requires reviewing:</p>
+<pre class="text"><code>SENSOR_ORDER
+TOPIC_BY_SENSOR
+ROS subscribers
+ApproximateTimeSynchronizer inputs
+ZOH cache
+Fusion input dimension
+Experiment-manager local topics</code></pre>
+<p>The synchronization layer must also be adapted because ATS operates over the complete set of subscribed prediction streams.</p>
+</section>
+<section id="modifying-synchronization" class="level2">
+<h2 class="anchored" data-anchor-id="modifying-synchronization">Modifying Synchronization</h2>
+<p>The central implementation exposes several parameters that control normal synchronization and fallback behavior:</p>
+<pre class="text"><code>SYNC_SLOP_SEC
+QUEUE_SIZE
+
+CENTRAL_RATE_HZ
+FRESH_MAX_AGE_SEC
+ZOH_MAX_HOLD_SEC
+
+FAILOVER_SEC
+RECOVER_STABLE_SEC
+STARTUP_GRACE_SEC</code></pre>
+<p>These parameters should not be changed independently without evaluating their system-level consequences.</p>
+<p>For example, reducing the ATS tolerance may improve temporal alignment but may also:</p>
 <ul>
-<li>That the root filesystem copy completed successfully</li>
-<li>That <code>setup-service.sh</code> executed without errors</li>
-<li>That the correct NVMe partition path is configured</li>
-<li>That the SSD contains a valid Ext4 filesystem</li>
+<li>Reduce the number of accepted fusion events;</li>
+<li>Increase fallback activation; and</li>
+<li>Affect prediction throughput.</li>
 </ul>
+<p>Similarly, increasing the ZOH hold duration allows longer interruptions to be tolerated but increases the time during which stale local information may influence the central prediction.</p>
+<p>Any synchronization modification should therefore be evaluated using the metrics described under <a href="./experiments-logs.html">Experiments &amp; Logs</a>.</p>
 </section>
-<section id="incorrect-nvme-device-path" class="level3">
-<h3 class="anchored" data-anchor-id="incorrect-nvme-device-path">Incorrect NVMe Device Path</h3>
-<p>Use:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">lsblk</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>to determine the actual SSD partition.</p>
-<p>Update the <code>rootOnNVMe</code> configuration if the partition differs from:</p>
-<pre class="text"><code>/dev/nvme0n1p1</code></pre>
+<section id="replacing-ros" class="level2">
+<h2 class="anchored" data-anchor-id="replacing-ros">Replacing ROS</h2>
+<p>The architecture is conceptually independent of ROS as long as the replacement communication layer can provide:</p>
+<ul>
+<li>Distributed Message Exchange</li>
+<li>Source Identification</li>
+<li>Ordered Prediction Vectors</li>
+<li>Timestamps</li>
+<li>Timing Metadata</li>
+<li>Temporal Coordination</li>
+</ul>
+<p>A different implementation could therefore use another middleware or transport protocol.</p>
+<p>However, replacing ROS requires reproducing the responsibilities currently provided by:</p>
+<ul>
+<li>Topic-based publication and subscription</li>
+<li>Custom probability messages</li>
+<li>Execution-control signals</li>
+<li>Temporal synchronization</li>
+</ul>
+<p>This should be treated as an architectural modification rather than a simple networking change.</p>
 </section>
+<section id="adding-new-runtime-metrics" class="level2">
+<h2 class="anchored" data-anchor-id="adding-new-runtime-metrics">Adding New Runtime Metrics</h2>
+<p>The experiment-management layer can be extended with additional measurements.</p>
+<p>Examples include:</p>
+<ul>
+<li>CPU Utilization</li>
+<li>GPU Utilization</li>
+<li>Memory Usage</li>
+<li>Temperature</li>
+<li>Prediction Throughput</li>
+<li>BLE Packet Statistics</li>
+<li>Network Traffic</li>
+<li>Per-Node Power Consumption</li>
+<li>Synchronization-Mode Occupancy</li>
+</ul>
+<p>A new metric should normally include:</p>
+<ol type="1">
+<li>Measurement Source</li>
+<li>Acquisition Method</li>
+<li>Timestamp</li>
+<li>Unit</li>
+<li>CSV Field or Dedicated Log</li>
+<li>Post-Processing Method</li>
+</ol>
+<p>Avoid adding expensive instrumentation directly inside inference-critical sections unless its overhead has been evaluated.</p>
+</section>
+<section id="extending-experiment-logs" class="level2">
+<h2 class="anchored" data-anchor-id="extending-experiment-logs">Extending Experiment Logs</h2>
+<p>The current experiment manager can be modified to record additional fields.</p>
+<p>If a new field is required from another processing stage, determine whether it should be:</p>
+<ul>
+<li>Calculated directly by the experiment manager</li>
+<li>Propagated through <code>har_msgs/Probs</code></li>
+<li>Published through an independent ROS topic</li>
+</ul>
+<p>Not every measurement should be added to <code>Probs</code>.</p>
+<p>Classification and timing information directly associated with a prediction belongs naturally with the prediction message, whereas independent system-monitoring information may be better represented through separate channels.</p>
+</section>
+<section id="adding-ground-truth" class="level2">
+<h2 class="anchored" data-anchor-id="adding-ground-truth">Adding Ground Truth</h2>
+<p>The current experiment-manager implementation records the predicted label but does not independently generate the ground-truth activity label.</p>
+<p>A future extension can integrate ground truth through a dedicated experiment-control mechanism.</p>
+<p>A ground-truth implementation should provide at least:</p>
+<pre class="text"><code>run_id
+timestamp
+activity_id</code></pre>
+<p>or an equivalent temporal representation that allows activity labels to be aligned with the recorded global predictions.</p>
+<p>This would make the experiment output directly suitable for classification evaluation without requiring manual label merging afterward.</p>
+</section>
+<section id="extending-the-visualization" class="level2">
+<h2 class="anchored" data-anchor-id="extending-the-visualization">Extending the Visualization</h2>
+<p>Applications should preferably consume the global prediction interface rather than communicate directly with individual local models.</p>
+<p>The current framework already separates global inference from visualization.</p>
+<p>A new application can therefore use the global output as an integration point for:</p>
+<ul>
+<li>Dashboards</li>
+<li>Mobile Interfaces</li>
+<li>Rehabilitation Systems</li>
+<li>Robotics</li>
+<li>Activity Monitoring</li>
+<li>Alerts</li>
+<li>External Data-Recording Systems</li>
+</ul>
+<p>If the number or ordering of activity classes changes, the application-side mapping must also be updated.</p>
+</section>
+<section id="recommended-development-procedure" class="level2">
+<h2 class="anchored" data-anchor-id="recommended-development-procedure">Recommended Development Procedure</h2>
+<p>When extending the framework:</p>
+<ol type="1">
+<li>Define the modification and affected interfaces.</li>
+<li>Modify only the required component initially.</li>
+<li>Test that component independently.</li>
+<li>Verify dimensions and message formats.</li>
+<li>Integrate it with the next downstream component.</li>
+<li>Verify ROS communication.</li>
+<li>Verify synchronization when applicable.</li>
+<li>Run the complete framework.</li>
+<li>Inspect the generated logs.</li>
+<li>Compare the modified behavior with the original implementation.</li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Keep the original working implementation available while developing an extension.</p>
+<p>This provides a reference configuration for identifying whether a problem originates from the new component or from the surrounding distributed infrastructure.</p>
+</div>
+</div>
+</section>
+<section id="compatibility-checklist" class="level2">
+<h2 class="anchored" data-anchor-id="compatibility-checklist">Compatibility Checklist</h2>
+<p>Before considering an extension complete, verify:</p>
+<pre class="text"><code>[ ] Sensor representation is correct
+[ ] Sampling configuration is correct
+[ ] Window dimensions are correct
+[ ] Scaler matches the input features
+[ ] Local model architecture matches its weights
+[ ] Local output dimension matches K
+[ ] Class ordering is identical everywhere
+
+[ ] ROS topic mapping is correct
+[ ] Probs message remains compatible
+[ ] Sensor order at the central node is correct
+[ ] Fusion input dimension is correct
+[ ] Fusion model matches its weights
+
+[ ] Synchronization still operates correctly
+[ ] Fallback behavior still operates correctly
+[ ] Global prediction is generated
+[ ] Logging captures the required information
+[ ] Visualization interprets the output correctly</code></pre>
+</section>
+<section id="related-documentation" class="level2">
+<h2 class="anchored" data-anchor-id="related-documentation">Related Documentation</h2>
+<p>Before modifying a component, consult its canonical documentation:</p>
+<ul>
+<li><a href="./wearable-sensors.html"><strong>Wearable Sensor Setup</strong></a> — sensing hardware and BLE.</li>
+<li><a href="./edge-nodes.html"><strong>Edge Nodes</strong></a> — local runtime processing.</li>
+<li><a href="./central-node.html"><strong>Central Node</strong></a> — central inference.</li>
+<li><a href="./communication-sync.html"><strong>Communication &amp; Synchronization</strong></a> — ROS, ATS, ZOH, and timing.</li>
+<li><a href="./models-data.html"><strong>Models &amp; Data</strong></a> — input representations and model organization.</li>
+<li><a href="./running-framework.html"><strong>Running the Framework</strong></a> — runtime procedure.</li>
+<li><a href="./experiments-logs.html"><strong>Experiments &amp; Logs</strong></a> — instrumentation and evaluation data.</li>
+</ul>
 </section>
 <section id="next-step" class="level2">
 <h2 class="anchored" data-anchor-id="next-step">Next Step</h2>
-<p>Once the Jetson hardware and storage are ready, continue with:</p>
-<p><a href="./software-environment.html"><strong>Software Environment</strong></a></p>
-<p>If no storage expansion was required, this page can be skipped entirely.</p>
+<p>Continue with:</p>
+<p><a href="./troubleshooting.html"><strong>Troubleshooting</strong></a></p>
+<p>The final section consolidates common deployment and runtime failures and identifies the component that should be inspected first for each problem.</p>
 
 
 </section>
@@ -1163,7 +1390,7 @@ data/setssdroot.sh</code></pre>
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/blob/main/expansion-jetson-board.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/blob/main/extending-framework.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/WearNET/HAR-Distributed-Framework/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <div style="text-align: right;">
 <p>Technical Documentation &amp; Reproducibility Resources<br> <small>Author: Jhonathan Rivas-Caicedo</small></p>
