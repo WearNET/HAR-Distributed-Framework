@@ -2360,7 +2360,7 @@
     "href": "running-framework.html#start-the-experiment-manager",
     "title": "Running the Framework",
     "section": "5. Start the Experiment Manager",
-    "text": "5. Start the Experiment Manager\nThe experiment manager is implemented by:\nexperiment_manager_node.py har_aggregator_and_relay.py har_start_latch_relay.py results_exporter_node.py\nStart it from the central Jetson:\npython3 experiment_manager_node.py\npython3 har_aggregator_and_relay.py\npython3 har_start_latch_relay.py\npython3 results_exporter_node.py\nThe node listens to:\n/har/start\nand:\n/har/probs/global\nIt also subscribes to the five local prediction streams.\nWhen an experiment begins, the manager creates a run directory under:\n~/har_runs/\nusing a run identifier based on the current date and time.\nThe generated experiment files are documented in Experiments & Logs.",
+    "text": "5. Start the Experiment Manager\nThe experiment manager is implemented by:\nexperiment_manager_node.py\nhar_aggregator_and_relay.py\nhar_start_latch_relay.py\nresults_exporter_node.py\nStart it from the central Jetson:\npython3 experiment_manager_node.py\npython3 har_aggregator_and_relay.py\npython3 har_start_latch_relay.py\npython3 results_exporter_node.py\nThe node listens to:\n/har/start\nand:\n/har/probs/global\nIt also subscribes to the five local prediction streams.\nWhen an experiment begins, the manager creates a run directory under:\n~/har_runs/\nusing a run identifier based on the current date and time.\nThe generated experiment files are documented in Experiments & Logs.",
     "crumbs": [
       "Home",
       "Running the Framework"
