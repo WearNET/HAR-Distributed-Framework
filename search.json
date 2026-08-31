@@ -2327,7 +2327,7 @@
     "href": "running-framework.html#start-the-ros-master-required",
     "title": "Running the Framework",
     "section": "2. Start the ROS Master (Required)",
-    "text": "2. Start the ROS Master (Required)\nThe central Jetson acts as the ROS master.\nOn the central device:\nroscore\nKeep this process running during the complete experiment.\nFrom another terminal or edge node, verify access using:\nrostopic list",
+    "text": "2. Start the ROS Master (Required)\nThe central Jetson acts as the ROS master. On the central device, we need to run these two commands: the first is to start ROS, and the second is to establish communication between the framework and the graphical interface:\nroscore\nroslaunch ros_tcp_endpoint endpoint.launch\nKeep this process running during the complete experiment.\nFrom another terminal or edge node, verify access using:\nrostopic list",
     "crumbs": [
       "Home",
       "Running the Framework"
@@ -2349,7 +2349,7 @@
     "href": "running-framework.html#start-the-central-har-node",
     "title": "Running the Framework",
     "section": "4. Start the Central HAR Node",
-    "text": "4. Start the Central HAR Node\nThe central fusion implementation is provided by:\ncentral_node_ros_main.py\nFrom the directory containing the script and the trained central model:\npython3 central_node_ros_main.py\nThe central implementation loads:\nnn_central_fold1.pth\nand initializes the ROS node:\n/central_har_node\nAt startup, the central node waits for the system-level execution signal:\n/har/start\nThe node initially prefers synchronized operation using Approximate Time Synchronization and automatically manages fallback behavior if the distributed streams become unavailable.\nVerify that the central node exists:\nrosnode list",
+    "text": "4. Start the Central HAR Node\nThe central fusion implementation is provided by:\ncentral_node_ros_main.py\nFrom the directory containing the script and the trained central model:\npython3 central_node_ros_main.py\nIt is also possible to run both the central node and all the Experiment Manager nodes using this command:\nroslaunch har_node_central central_node.launch\nThis is a ROS package created specifically to run all 5 nodes simultaneously. You can create this package by configuring the relevant settings. The central implementation loads:\nnn_central_fold1.pth\nand initializes the ROS node:\n/central_har_node\nAt startup, the central node waits for the system-level execution signal:\n/har/start\nThe node initially prefers synchronized operation using Approximate Time Synchronization and automatically manages fallback behavior if the distributed streams become unavailable.\nVerify that the central node exists:\nrosnode list",
     "crumbs": [
       "Home",
       "Running the Framework"
@@ -2360,7 +2360,7 @@
     "href": "running-framework.html#start-the-experiment-manager",
     "title": "Running the Framework",
     "section": "5. Start the Experiment Manager",
-    "text": "5. Start the Experiment Manager\nThe experiment manager is implemented by:\nexperiment_manager_node.py\nStart it from the central Jetson:\npython3 experiment_manager_node.py\nThe node listens to:\n/har/start\nand:\n/har/probs/global\nIt also subscribes to the five local prediction streams.\nWhen an experiment begins, the manager creates a run directory under:\n~/har_runs/\nusing a run identifier based on the current date and time.\nThe generated experiment files are documented in Experiments & Logs.",
+    "text": "5. Start the Experiment Manager\nThe experiment manager is implemented by:\nexperiment_manager_node.py har_aggregator_and_relay.py har_start_latch_relay.py results_exporter_node.py\nStart it from the central Jetson:\npython3 experiment_manager_node.py\npython3 har_aggregator_and_relay.py\npython3 har_start_latch_relay.py\npython3 results_exporter_node.py\nThe node listens to:\n/har/start\nand:\n/har/probs/global\nIt also subscribes to the five local prediction streams.\nWhen an experiment begins, the manager creates a run directory under:\n~/har_runs/\nusing a run identifier based on the current date and time.\nThe generated experiment files are documented in Experiments & Logs.",
     "crumbs": [
       "Home",
       "Running the Framework"
